@@ -8,6 +8,8 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button x:Name="Test" Content="Guzik" HorizontalAlignment="Left" Margin="304,331,0,0" VerticalAlignment="Top" Width="194" Height="63" Click="Test_Click" />
+        <Separator HorizontalAlignment="Left" Height="68" Margin="90,248,0,0" VerticalAlignment="Top" Width="642"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="175,149,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
