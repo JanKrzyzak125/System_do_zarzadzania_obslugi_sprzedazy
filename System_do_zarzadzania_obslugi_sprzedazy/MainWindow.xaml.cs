@@ -24,5 +24,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             InitializeComponent();
         }
+
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("dziala");
+        }
     }
 }
