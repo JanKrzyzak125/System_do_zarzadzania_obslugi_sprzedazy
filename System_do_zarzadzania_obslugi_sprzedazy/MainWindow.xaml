@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" ResizeMode="CanMinimize">
-    <Grid
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"  />
+
             <RowDefinition Height="76*"/>
             <RowDefinition Height="53*"/>
 
@@ -43,9 +46,9 @@
             <TreeView Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="227" Margin="19,10,0,0" VerticalAlignment="Top" Width="283">
                 <ListBoxItem Content="haha"/>
                 <TreeViewItem Header="ala" IsExpanded="True">
-                <TreeViewItem Header="Jesper"/>
-                <TreeViewItem Header="Aaberg"/>
-                <TreeViewItem Header="12345"/>
+                    <TreeViewItem Header="Jesper"/>
+                    <TreeViewItem Header="Aaberg"/>
+                    <TreeViewItem Header="12345"/>
                 </TreeViewItem>
 
 
