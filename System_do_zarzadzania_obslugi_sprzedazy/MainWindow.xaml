@@ -5,11 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="720" Width="1280" ResizeMode="CanMinimize">
     <Grid>
-        <Button x:Name="Test" Content="Guzik" HorizontalAlignment="Left" Margin="304,331,0,0" VerticalAlignment="Top" Width="194" Height="63" Click="Test_Click" />
-        <Separator HorizontalAlignment="Left" Height="68" Margin="90,248,0,0" VerticalAlignment="Top" Width="642"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="175,149,0,0" VerticalAlignment="Top"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24*"  />
 
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="62*"/>
+            <RowDefinition Height="223*"   />
+            <RowDefinition Height="240*"/>
+            <RowDefinition Height="42*"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="97*" />
+            <ColumnDefinition Width="259*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Column="1" HorizontalAlignment="Left" Height="453" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="907" Grid.RowSpan="2"/>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Height="26" Margin="10,0,0,0">
+                <MenuItem Header="_Dane">
+                    <MenuItem Header="_Open"/>
+                    <MenuItem Header="_Close"/>
+                    <MenuItem Header="_Save"/>
+                </MenuItem>
+                <MenuItem Header="_Edycja">
+                    <MenuItem Header="_Open"/>
+                    <MenuItem Header="_Close"/>
+                    <MenuItem Header="_Save"/>
+                </MenuItem>
+                <MenuItem Header="Widok">
+                    <MenuItem Header="_Open"/>
+                    <MenuItem Header="_Close"/>
+                    <MenuItem Header="_Save"/>
+                </MenuItem>
+                <MenuItem Header="_Pomoc">
+                    <MenuItem Header="_Open"/>
+                    <MenuItem Header="_Close"/>
+                    <MenuItem Header="_Save"/>
+                </MenuItem>
+                
+            </Menu>
+            <StackPanel></StackPanel>
+        </DockPanel>
     </Grid>
 </Window>
