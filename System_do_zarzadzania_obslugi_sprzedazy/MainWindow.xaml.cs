@@ -47,7 +47,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             FirmaListBox.ItemsSource = null;
             FirmaListBox.ItemsSource = firma;
             //FirmaListBox.DisplayMemberPath = "ID_Firmy";
-            
+
         }
 
 
