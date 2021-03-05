@@ -10,10 +10,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
     {
         public int ID_Firmy { get; set; }
         public string Nazwa_Firmy { get; set; }
-        public int Nip { get; set; }
+        public string Nip { get; set; }
         public string Miasto { get; set; }
         public string Ulica { get; set; }
-        public int Numer_Telefonu { get; set; }
+        public string Numer_Telefonu { get; set; }
         public string Email {get;set; }
     }
 }

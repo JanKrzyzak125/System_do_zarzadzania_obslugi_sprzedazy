@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
+
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
@@ -20,14 +23,38 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Firma> firma = new List<Firma>();
         public MainWindow()
         {
             InitializeComponent();
+            LoadFirmaList();
+        }
+
+
+        private void LoadFirmaList()
+        {
+            firma = SQLiteDataAccess.LoadPeople();
+            WiredUpPeople();
         }
 
         private void Test_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("dziala");
+        }
+
+        private void WiredUpPeople()
+        {
+            FirmaListBox.ItemsSource = null;
+            FirmaListBox.ItemsSource = firma;
+            //FirmaListBox.DisplayMemberPath = "ID_Firmy";
+            
+        }
+
+
+
+        private void refresh_Click(object sender, RoutedEventArgs e)
+        {
+            LoadFirmaList();
         }
     }
 }
