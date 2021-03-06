@@ -46,8 +46,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             FirmaListBox.ItemsSource = null;
             FirmaListBox.ItemsSource = firma;
-            //FirmaListBox.DisplayMemberPath = "ID_Firmy";
-            
+
         }
 
 
@@ -55,6 +54,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private void refresh_Click(object sender, RoutedEventArgs e)
         {
             LoadFirmaList();
+        }
+
+        private void Add_User(object sender, RoutedEventArgs e)
+        {
+            Window addUser = new addUser();
+            addUser.Show();
         }
     }
 }
