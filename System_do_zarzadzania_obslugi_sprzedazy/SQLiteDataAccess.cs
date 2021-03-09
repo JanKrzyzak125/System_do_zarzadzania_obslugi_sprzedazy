@@ -20,6 +20,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
+        public static void SaveUser(Firma firma)
+        {
+            using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("insert into Firma(Nazwa_Firmy,Nip,Miasto,Ulica,Numer_Telefonu,Email) values(@Nazwa_Firmy,@Nip,@Miasto,@Ulica,@Numer_Telefonu,@Email)",firma);
+            }
+        }
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;

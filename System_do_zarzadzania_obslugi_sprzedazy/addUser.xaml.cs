@@ -35,7 +35,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             f.Numer_Telefonu = PhNum.Text;
             f.Email = Mail.Text;
 
-           //SQLiteDataAccess.SavePerson(f);
+           SQLiteDataAccess.SaveUser(f);
 
 
         }
