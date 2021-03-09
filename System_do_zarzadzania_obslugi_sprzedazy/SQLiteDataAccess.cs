@@ -32,7 +32,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<Firma>("delete from Firma where Nazwa_Firmy=" + firma.Nazwa_Firmy);
+                String str = "delete from Firma where Nazwa_Firmy=" + firma.Nazwa_Firmy;
+                var output = cnn.Query<Firma>(str);
             }
         }
 

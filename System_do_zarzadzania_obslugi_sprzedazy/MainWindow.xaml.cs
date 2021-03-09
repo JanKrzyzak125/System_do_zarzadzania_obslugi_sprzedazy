@@ -62,12 +62,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Remove_User(object sender, RoutedEventArgs e)
         {
-            if (FirmaListBox.SelectedItem != null)
-            {
-                firma.Remove((Firma)FirmaListBox.SelectedItem);
-                WiredUpPeople();
-                //SQLiteDataAccess.DeletePeople((Firma)FirmaListBox.SelectedItem);
-            }
+        //    if (FirmaListBox.SelectedItem != null)
+        //    {
+        //        //firma.Remove((Firma)FirmaListBox.SelectedItem);
+        //       // WiredUpPeople();
+        //        //SQLiteDataAccess.DeletePeople((Firma)FirmaListBox.SelectedItem);
+        //    }
         }
     }
 }
