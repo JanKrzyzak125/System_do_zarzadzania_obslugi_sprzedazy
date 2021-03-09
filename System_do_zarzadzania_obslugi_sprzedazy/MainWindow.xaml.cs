@@ -49,8 +49,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
-
-
         private void refresh_Click(object sender, RoutedEventArgs e)
         {
             LoadFirmaList();
@@ -60,6 +58,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             Window addUser = new addUser();
             addUser.Show();
+        }
+
+        private void Remove_User(object sender, RoutedEventArgs e)
+        {
+            if (FirmaListBox.SelectedItem != null)
+            {
+                firma.Remove((Firma)FirmaListBox.SelectedItem);
+                WiredUpPeople();
+                //SQLiteDataAccess.DeletePeople((Firma)FirmaListBox.SelectedItem);
+            }
         }
     }
 }
