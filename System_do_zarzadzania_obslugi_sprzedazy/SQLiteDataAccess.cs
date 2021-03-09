@@ -27,6 +27,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 cnn.Execute("insert into Firma(Nazwa_Firmy,Nip,Miasto,Ulica,Numer_Telefonu,Email) values(@Nazwa_Firmy,@Nip,@Miasto,@Ulica,@Numer_Telefonu,@Email)",firma);
             }
         }
+
+        public static void DeletePeople(Firma firma)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                String str = "delete from Firma where Nazwa_Firmy=" + firma.Nazwa_Firmy;
+                var output = cnn.Query<Firma>(str);
+            }
+        }
+
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;

@@ -36,6 +36,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             f.Email = Mail.Text;
 
            SQLiteDataAccess.SaveUser(f);
+            this.Close();
 
 
         }
