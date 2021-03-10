@@ -16,7 +16,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<Company>("select * from Firma", new DynamicParameters());
+                var output = cnn.Query<Company>("select * from Company", new DynamicParameters());
                 return output.ToList();
             }
         }
@@ -24,7 +24,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into Firma(CompanyName,Nip,City,Street,PhoneNumber,Email) values(@companyName,@nip,@city,@street,@phoneNumber,@email)",company);
+                cnn.Execute("insert into Company(CompanyName,Nip,City,Street,PhoneNumber,Email) values(@companyName,@nip,@city,@street,@phoneNumber,@email)",company);
             }
         }
 
@@ -32,7 +32,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                String str = "delete from Firma where Nazwa_Firmy=" + company.CompanyName;
+                String str = "delete from Company where Nazwa_Firmy=" + company.CompanyName;
                 var output = cnn.Query<Company>(str);
             }
         }
