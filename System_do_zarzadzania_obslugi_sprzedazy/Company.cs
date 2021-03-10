@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
-    class Firma
+    class Company
     {
-        public int ID_Firmy { get; set; }
-        public string Nazwa_Firmy { get; set; }
+        public int CompanyID { get; set; }
+        public string CompanyName { get; set; }
         public string Nip { get; set; }
-        public string Miasto { get; set; }
-        public string Ulica { get; set; }
-        public string Numer_Telefonu { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string PhoneNumber { get; set; }
         public string Email {get;set; }
     }
 }

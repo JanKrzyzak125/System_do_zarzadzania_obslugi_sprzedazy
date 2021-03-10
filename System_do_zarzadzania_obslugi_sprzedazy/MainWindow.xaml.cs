@@ -23,18 +23,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Firma> firma = new List<Firma>();
+        List<Company> companies = new List<Company>();
         public MainWindow()
         {
             InitializeComponent();
-            LoadFirmaList();
+            LoadCompanyList();
         }
 
 
-        private void LoadFirmaList()
+        private void LoadCompaniesList()
         {
-            firma = SQLiteDataAccess.LoadPeople();
-            WiredUpPeople();
+            companies = SQLiteDataAccess.LoadUsers();
+            WiredUpCompaniesList();
         }
 
         private void Test_Click(object sender, RoutedEventArgs e)
@@ -42,21 +42,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             MessageBox.Show("dziala");
         }
 
-        private void WiredUpPeople()
+        private void WiredUpCompaniesList()
         {
             FirmaListBox.ItemsSource = null;
-            FirmaListBox.ItemsSource = firma;
+            FirmaListBox.ItemsSource = companies;
 
         }
 
         private void refresh_Click(object sender, RoutedEventArgs e)
         {
-            LoadFirmaList();
+            LoadCompaniesList();
         }
 
         private void Add_User(object sender, RoutedEventArgs e)
         {
-            Window addUser = new addUser();
+            addUser addUser = new addUser();
             addUser.Show();
         }
 
