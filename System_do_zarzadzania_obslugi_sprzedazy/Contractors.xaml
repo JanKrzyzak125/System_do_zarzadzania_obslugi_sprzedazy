@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
-        Title="Contractors" Height="450" Width="800">
+        Title="Kontrahenci" Height="450" Width="800" ResizeMode="CanMinimize">
     <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Height="26" Margin="0,0,0,0">
+                <MenuItem Header="_Dane">
+                </MenuItem>
+                <MenuItem Header="Widok" Height="26">
+                    <MenuItem Header="_Close"/>
+                </MenuItem>
+            </Menu>
+            <StackPanel>
+                <Border BorderBrush="Black" BorderThickness="1" Height="377" Width="763">
+                    <ListView Margin="129,0,0,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
+            </StackPanel>
+        </DockPanel>
+        
         
     </Grid>
 </Window>

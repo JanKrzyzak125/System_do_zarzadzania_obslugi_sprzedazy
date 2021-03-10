@@ -9,12 +9,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25*"  />
-
             <RowDefinition Height="89*"/>
             <RowDefinition Height="49*"/>
-
             <RowDefinition Height="528*"   />
-
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
 
@@ -43,11 +40,11 @@
                 <RowDefinition Height="221*"/>
             </Grid.RowDefinitions>
             <TreeView Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="227" Margin="19,10,0,0" VerticalAlignment="Top" Width="283">
-                <ListBoxItem Content="haha"/>
-                <TreeViewItem Header="ala" IsExpanded="True">
-                    <TreeViewItem Header="Jesper"/>
-                    <TreeViewItem Header="Aaberg"/>
-                    <TreeViewItem Header="12345"/>
+                <ListBoxItem Content="Daty wystawienia"/>
+                <TreeViewItem Header="2021" IsExpanded="True">
+                    <TreeViewItem Header="Styczeń"/>
+                    <TreeViewItem Header="Luty"/>
+                    <TreeViewItem Header="Marzec"/>
                 </TreeViewItem>
 
 
@@ -55,12 +52,12 @@
 
 
             <TreeView Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="226" Margin="19,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="283">
-                <TreeViewItem Header="Employee2" IsExpanded="True">
+                <TreeViewItem Header="Dokumenty" IsExpanded="True">
                     <TreeViewItem.Items>
                         <StackPanel>
-                            <Button>Dominik</Button>
-                            <Button>ominik</Button>
-                            <Button>Paiha</Button>
+                            <Button>Dokumenty sprzedaży</Button>
+                            <Button>Dokumenty zakupu</Button>
+                            <Button>Zamówienia dla sprzedaży</Button>
                         </StackPanel>
                     </TreeViewItem.Items>
 

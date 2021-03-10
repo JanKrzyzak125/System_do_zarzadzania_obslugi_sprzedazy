@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
-        Title="Statments" Height="450" Width="800">
+        Title="Zestawienia" Height="450" Width="800" ResizeMode="CanMinimize">
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="390" Margin="10,19,0,0" VerticalAlignment="Top" Width="772"/>
     </Grid>
