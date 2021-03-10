@@ -24,7 +24,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into Firma(CompanyID,Nip,City,Street,PhoneNumber,Email) values(@CompanyName,@Nip,@City,@Street,@PhoneNumber,@Email)",company);
+                cnn.Execute("insert into Firma(CompanyName,Nip,City,Street,PhoneNumber,Email) values(@CompanyName,@Nip,@City,@Street,@PhoneNumber,@Email)",company);
             }
         }
 

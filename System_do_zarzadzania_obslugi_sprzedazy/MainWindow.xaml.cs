@@ -27,7 +27,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         public MainWindow()
         {
             InitializeComponent();
-            LoadCompanyList();
+            LoadCompaniesList();
         }
 
 
