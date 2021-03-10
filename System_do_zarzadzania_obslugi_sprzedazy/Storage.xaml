@@ -6,7 +6,27 @@
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
         Title="Storage" Height="450" Width="800">
+
+
+
+
     <Grid>
-        
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Height="26" Margin="0,0,0,0">
+                <MenuItem Header="_Dane">
+                </MenuItem>
+                <MenuItem Header="Widok" Height="26">
+                    <MenuItem Header="_Close"/>
+                </MenuItem>
+            </Menu>
+            <StackPanel></StackPanel>
+        </DockPanel>
+        <ListView HorizontalAlignment="Left" Height="374" VerticalAlignment="Top" Width="624" Margin="158,35,0,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

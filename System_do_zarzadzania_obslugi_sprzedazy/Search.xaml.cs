@@ -23,5 +23,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             InitializeComponent();
         }
+
+
     }
 }
