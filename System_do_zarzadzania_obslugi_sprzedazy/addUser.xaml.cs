@@ -26,16 +26,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void AddUsr(object sender, RoutedEventArgs e)
         {
-            Company company = new Company();
+            string companyName = CompName.Text;
+            string nip = NIP.Text;
+            string city = City.Text;
+            string street = Street.Text;
+            string phoneNumber = PhNum.Text;
+            string email = Mail.Text;
+            Company company = new Company(companyName,nip,city,street,phoneNumber,email);
 
-            company.CompanyName = CompName.Text;
-            company.Nip = NIP.Text;
-            company.City = City.Text;
-            company.Street = Street.Text;
-            company.PhoneNumber = PhNum.Text;
-            company.Email = Mail.Text;
-
-           SQLiteDataAccess.SaveUser(company);
+            SQLiteDataAccess.SaveUser(company);
             this.Close();
 
 

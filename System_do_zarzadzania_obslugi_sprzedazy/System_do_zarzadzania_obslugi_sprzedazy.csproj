@@ -67,7 +67,7 @@
     <Compile Include="addUser.xaml.cs">
       <DependentUpon>addUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Firma.cs" />
+    <Compile Include="Company.cs" />
     <Compile Include="SQLiteDataAccess.cs" />
     <Page Include="addUser.xaml">
       <SubType>Designer</SubType>
