@@ -51,7 +51,7 @@
             </TreeView>
 
 
-            <TreeView Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="226" Margin="19,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="283">
+            <TreeView Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="214" Margin="19,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="283">
                 <TreeViewItem Header="Dokumenty" IsExpanded="True">
                     <TreeViewItem.Items>
                         <StackPanel>
@@ -94,7 +94,5 @@
                 </ListView.View>
             </ListView>
         </Grid>
-        <TextBox x:Name="SumShops" HorizontalAlignment="Left" Height="44" Margin="343,474,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Suma Zakupów:" VerticalAlignment="Top" Width="131"/>
-        <TextBox x:Name="SumSell" HorizontalAlignment="Left" Height="44" Margin="1121,474,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Suma Sprzedaży:" VerticalAlignment="Top" Width="129"/>
     </Grid>
 </Window>
