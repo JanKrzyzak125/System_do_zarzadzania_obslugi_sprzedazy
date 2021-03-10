@@ -68,10 +68,13 @@
     <Compile Include="addUser.xaml.cs">
       <DependentUpon>addUser.xaml</DependentUpon>
     </Compile>
+
+    <Compile Include="Company.cs" />
+
     <Compile Include="Contractors.xaml.cs">
       <DependentUpon>Contractors.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Firma.cs" />
+
     <Compile Include="Invoice.xaml.cs">
       <DependentUpon>Invoice.xaml</DependentUpon>
     </Compile>
@@ -84,6 +87,7 @@
     <Compile Include="Settlements.xaml.cs">
       <DependentUpon>Settlements.xaml</DependentUpon>
     </Compile>
+
     <Compile Include="SQLiteDataAccess.cs" />
     <Compile Include="Statments.xaml.cs">
       <DependentUpon>Statments.xaml</DependentUpon>

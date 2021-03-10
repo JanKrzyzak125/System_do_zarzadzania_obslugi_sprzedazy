@@ -12,28 +12,28 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 {
     class SQLiteDataAccess
     {
-        public static List<Firma>LoadPeople()
+        public static List<Company>LoadUsers()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<Firma>("select * from Firma", new DynamicParameters());
+                var output = cnn.Query<Company>("select * from Firma", new DynamicParameters());
                 return output.ToList();
             }
         }
-        public static void SaveUser(Firma firma)
+        public static void SaveUser(Company company)
         {
             using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into Firma(Nazwa_Firmy,Nip,Miasto,Ulica,Numer_Telefonu,Email) values(@Nazwa_Firmy,@Nip,@Miasto,@Ulica,@Numer_Telefonu,@Email)",firma);
+                cnn.Execute("insert into Firma(CompanyName,Nip,City,Street,PhoneNumber,Email) values(@companyName,@nip,@city,@street,@phoneNumber,@email)",company);
             }
         }
 
-        public static void DeletePeople(Firma firma)
+        public static void DeleteUsers(Company company)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                String str = "delete from Firma where Nazwa_Firmy=" + firma.Nazwa_Firmy;
-                var output = cnn.Query<Firma>(str);
+                String str = "delete from Firma where Nazwa_Firmy=" + company.CompanyName;
+                var output = cnn.Query<Company>(str);
             }
         }
 
