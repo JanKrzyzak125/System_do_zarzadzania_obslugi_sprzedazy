@@ -94,13 +94,13 @@
                 <ListView.View>
                     <GridView>
                         <GridView.Columns>
-                            <GridViewColumn Width="50" Header="ID" DisplayMemberBinding="{Binding companyID}" />
-                            <GridViewColumn Width="100" Header="Nazwa Firmy" DisplayMemberBinding="{Binding companyName}" />
-                            <GridViewColumn Width="100" Header="NIP" DisplayMemberBinding="{Binding nip}" />
-                            <GridViewColumn Width="100" Header="Miasto" DisplayMemberBinding="{Binding city}" />
-                            <GridViewColumn Width="100" Header="Ulica" DisplayMemberBinding="{Binding street}" />
-                            <GridViewColumn Width="100" Header="Numer Telefonu" DisplayMemberBinding="{Binding phoneNumber}" />
-                            <GridViewColumn Width="100" Header="E-mail" DisplayMemberBinding="{Binding email}" />
+                            <GridViewColumn Width="50" Header="ID" DisplayMemberBinding="{Binding CompanyID}" />
+                            <GridViewColumn Width="100" Header="Nazwa Firmy" DisplayMemberBinding="{Binding CompanyName}" />
+                            <GridViewColumn Width="100" Header="NIP" DisplayMemberBinding="{Binding Nip}" />
+                            <GridViewColumn Width="100" Header="Miasto" DisplayMemberBinding="{Binding City}" />
+                            <GridViewColumn Width="100" Header="Ulica" DisplayMemberBinding="{Binding Street}" />
+                            <GridViewColumn Width="100" Header="Numer Telefonu" DisplayMemberBinding="{Binding PhoneNumber}" />
+                            <GridViewColumn Width="100" Header="E-mail" DisplayMemberBinding="{Binding Email}" />
                         </GridView.Columns>
                     </GridView>
                 </ListView.View>

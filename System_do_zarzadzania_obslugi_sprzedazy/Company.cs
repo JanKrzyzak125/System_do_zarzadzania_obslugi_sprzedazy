@@ -6,110 +6,130 @@ using System.Threading.Tasks;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
-    class Company
+ public class Company
     {
-        public Company(string companyName, string nip, string city, string street, string phoneNumber, string email)
+        private int companyID;
+
+        private string companyName;
+
+        private string nip;
+
+        private string city;
+
+        private string street;
+
+        private string phoneNumber;
+
+        private string email;
+
+        public int CompanyID
         {
-            //SetCompanyID(this.companyID);
-            SetCompanyName(companyName);
-            SetNip(nip);
-            SetCity(city);
-            SetStreet(street);
-            SetPhoneNumber(phoneNumber);
-            SetEmail(email);
+            get
+            {
+                return companyID;
+            }
+            set
+            {
+                companyID = value;
+            }
         }
 
-        public Company(int companyId, string companyName, string nip, string city, string street, string phoneNumber, string email)
+        public string CompanyName
         {
-            SetCompanyID(companyId);
-            SetCompanyName(companyName);
-            SetNip(nip);
-            SetCity(city);
-            SetStreet(street);
-            SetPhoneNumber(phoneNumber);
-            SetEmail(email);
+            get
+            {
+                return companyName;
+            }
+            set
+            {
+                companyName = value;
+            }
         }
 
+        public string Nip
+        {
+            get
+            {
+                return nip;
+            }
+            set
+            {
+                nip = value;
+            }
+        }
+
+        public string City
+        {
+            get
+            {
+                return city;
+            }
+            set
+            {
+                city = value;
+            }
+        }
+
+        public string Street
+        {
+            get
+            {
+                return street;
+            }
+            set
+            {
+                street = value;
+            }
+        }
+
+        public string PhoneNumber
+        {
+            get
+            {
+                return phoneNumber;
+            }
+            set
+            {
+                phoneNumber = value;
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                email = value;
+            }
+        }
         public Company()
         {
 
         }
-        private int companyID;
-        
-        private string companyName;
-       
-        private string nip;
-        
-        private string city;
-        
-        private string street;
-        
-        private string phoneNumber;
-        
-        private string email;
-        
-        public int GetCompanyID()
+
+        public Company(int companyID, string companyName, string nip, string city, string street, string phoneNumber, string email)
         {
-            return companyID;
+            CompanyID = companyID;
+            CompanyName = companyName;
+            Nip = nip;
+            City = city;
+            Street = street;
+            PhoneNumber = phoneNumber;
+            Email = email;
         }
-        public void SetCompanyID(int id)
+
+        public Company(string companyName, string nip, string city, string street, string phoneNumber, string email)
         {
-            this.companyID = id;
+            CompanyName = companyName;
+            Nip = nip;
+            City = city;
+            Street = street;
+            PhoneNumber = phoneNumber;
+            Email = email;
         }
-         public string GetCompanyName()
-        {
-            return companyName;
-        }
-        public void SetCompanyName(string name)
-        {
-            this.companyName = name;
-        }
-        public string GetNip()
-        {
-            return nip;
-        }
-        public void SetNip(string nip)
-        {
-            this.nip = nip;
-        }
-        public string GetCity()
-        {
-            return city;
-        }
-        public void SetCity(string city)
-        {
-            this.city = city;
-        }
-        public string GetStreet()
-        {
-            return street;
-        }
-        public void SetStreet(string street)
-        {
-            this.street = street;
-        }
-        public string GetPhoneNumber()
-        {
-            return phoneNumber;
-        }
-        public void SetPhoneNumber(string phoneNumber)
-        {
-            this.phoneNumber = phoneNumber;
-        }
-        public string GetEmail()
-        {
-            return email;
-        }
-        public void SetEmail(string email)
-        {
-            this.email = email;
-        }
-        // public int CompanyID { get; set; }
-        // public string CompanyName { get; set; }
-        // public string Nip { get; set; }
-        // public string City { get; set; }
-        // public string Street { get; set; }
-        // public string PhoneNumber { get; set; }
-        // public string Email {get;set; }
+
     }
 }

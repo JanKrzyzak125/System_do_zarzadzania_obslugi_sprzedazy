@@ -26,7 +26,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void AddUsr(object sender, RoutedEventArgs e)
         {
-            
             string companyName = CompName.Text;
             string nip = NIP.Text;
             string city = City.Text;
