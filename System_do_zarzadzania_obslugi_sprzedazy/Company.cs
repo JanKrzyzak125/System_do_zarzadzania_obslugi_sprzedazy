@@ -11,12 +11,28 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         public Company(string companyName, string nip, string city, string street, string phoneNumber, string email)
         {
             //SetCompanyID(this.companyID);
-            SetCompanyName(this.companyName);
-            SetNip(this.nip);
-            SetCity(this.city);
-            SetStreet(this.street);
-            SetPhoneNumber(this.phoneNumber);
-            SetEmail(this.email);
+            SetCompanyName(companyName);
+            SetNip(nip);
+            SetCity(city);
+            SetStreet(street);
+            SetPhoneNumber(phoneNumber);
+            SetEmail(email);
+        }
+
+        public Company(int companyId, string companyName, string nip, string city, string street, string phoneNumber, string email)
+        {
+            SetCompanyID(companyId);
+            SetCompanyName(companyName);
+            SetNip(nip);
+            SetCity(city);
+            SetStreet(street);
+            SetPhoneNumber(phoneNumber);
+            SetEmail(email);
+        }
+
+        public Company()
+        {
+
         }
         private int companyID;
         

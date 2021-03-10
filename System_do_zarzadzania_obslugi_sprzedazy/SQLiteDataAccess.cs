@@ -32,7 +32,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                String str = "delete from Firma where Nazwa_Firmy=" + company.CompanyName;
+                String str = "delete from Firma where Nazwa_Firmy=" + company.GetCompanyName();
                 var output = cnn.Query<Company>(str);
             }
         }
