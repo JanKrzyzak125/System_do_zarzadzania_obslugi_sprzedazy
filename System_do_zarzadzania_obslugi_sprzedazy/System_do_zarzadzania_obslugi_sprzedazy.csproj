@@ -72,12 +72,14 @@
     <Compile Include="Contractors.xaml.cs">
       <DependentUpon>Contractors.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Invoice.cs" />
     <Compile Include="Invoice.xaml.cs">
       <DependentUpon>Invoice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Print.xaml.cs">
       <DependentUpon>Print.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Product.cs" />
     <Compile Include="Search.xaml.cs">
       <DependentUpon>Search.xaml</DependentUpon>
     </Compile>

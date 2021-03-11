@@ -32,11 +32,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                String str = "delete from Company where Nazwa_Firmy=" + company.CompanyName;
+                String str = "delete from Company where CompanyID=" + company.CompanyID;
                 var output = cnn.Query<Company>(str);
             }
         }
-
+        public static List<Seller> LoadSellers()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<Seller>("select * from Seller", new DynamicParameters());
+                return output.ToList();
+            }
+        }
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
