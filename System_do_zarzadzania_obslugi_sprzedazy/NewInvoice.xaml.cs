@@ -15,13 +15,18 @@ using System.Windows.Shapes;
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
     /// <summary>
-    /// Logika interakcji dla klasy Invoice.xaml
+    /// Interaction logic for NewInvoice.xaml
     /// </summary>
-    public partial class Invoice : Window
+    public partial class NewInvoice : Window
     {
-        public Invoice()
+        public NewInvoice()
         {
             InitializeComponent();
+        }
+
+        private void AddInvoice_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

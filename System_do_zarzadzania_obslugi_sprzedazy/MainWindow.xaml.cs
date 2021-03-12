@@ -27,6 +27,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<Company> companies = new List<Company>();
         List<Seller> sellers = new List<Seller>();
 
+        bool IsStorage;
+        bool IsSettlement;
+        bool IsContractors;
+        bool IsStatements;
+        bool IsRegister;
+        bool IsInvoice = false;
+        bool IsTest = true;
+
+
         //private bool invoiceOpen=false;
         private Invoice invoice;
         private Storage storage;
@@ -84,8 +93,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Add_User(object sender, RoutedEventArgs e)
         {
-            addUser addUser = new addUser();
-            addUser.Show();
+            if(IsTest)
+            {
+                addUser addUser = new addUser();
+                addUser.Show();
+            }
+            else
+            {
+                NewInvoice newInvoice = new NewInvoice();
+                newInvoice.Show();
+            }
+           
         }
 
         private void Remove_User(object sender, RoutedEventArgs e)
@@ -99,12 +117,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         private void Invoice_Open(object sender, RoutedEventArgs e)
-        {
-            
-            invoice=new Invoice();
-            //if (invoiceOpen== false) 
-            invoice.Show();
-            //invoiceOpen=true;
+        {          
+            //invoice=new Invoice();
+            ////if (invoiceOpen== false) 
+            //invoice.Show();
+            ////invoiceOpen=true;
+            ///
+
+            if(IsTest)
+            {
+                IsTest = false;
+                IsInvoice = true;
+                AddUser.Content = "Dodaj fakturę";
+            }
         }
 
         private void Storage_Open(object sender, RoutedEventArgs e)
@@ -121,9 +146,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
         {
+            if(IsInvoice)
+            {
+                IsInvoice = false;
+                IsTest = true;
+                AddUser.Content = "Dodaj Kontrahenta";
+            }
             //contractors = new Contractors();
             //contractors.Show();
-            LoadSellersList();
         }
 
         private void Statments_Open(object sender, RoutedEventArgs e)
@@ -154,6 +184,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             toSquare = new ToSquare();
             toSquare.Show();
+        }
+
+        private void FirmaListBox_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
         }
     }
 }
