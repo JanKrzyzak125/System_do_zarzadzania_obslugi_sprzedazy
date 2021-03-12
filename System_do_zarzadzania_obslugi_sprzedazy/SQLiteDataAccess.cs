@@ -44,6 +44,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
+
+        public static void SaveInvoice(Invoice invoice)
+        {
+            using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("insert into Database_for_invoices(Id, IdSeller, IdCompany, IdProduct, Number, CreationDate, SaleDate, PaymentType, PaymentDeadline, ToPay, ToPayInWord, Paid, Remarks) values(@id, @idSeller, @idCompany, @idProduct, @number, @creationDate, @saleDate, @paymentType, @paymentDeadline, @toPay, @toPayInWord, @paid, @remarks)",invoice);
+            }
+        }
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
