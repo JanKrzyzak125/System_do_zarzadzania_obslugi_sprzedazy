@@ -26,15 +26,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void AddInvoice_Click(object sender, RoutedEventArgs e)
         {
-            int id = ID.Text.toInt();
-            int idSeller = IdSeller.Text.toInt();
-            int idCompany = IdCompany.Text.toInt();
-            string idProduct = idProduct.Text;
-            int number = Number.Text.toInt();
+            int id = Int32.Parse(ID.Text);
+            int idSeller = Int32.Parse(IdSeller.Text);
+            int idCompany = Int32.Parse(IdCompany.Text);
+            string idProduct = IdProduct.Text;
+            int number = Int32.Parse(Number.Text);
             string creationDate = CreationDate.Text;
             string saleDate = SaleDate.Text;
-            int paymentType = PaymentType.Text.toInt();
-            int paymentDeadline = PaymentDeadline.Text.toInt();
+            int paymentType = Int32.Parse(PaymentType.Text);
+            int paymentDeadline = Int32.Parse(PaymentDeadline.Text);
             string toPay = ToPay.Text;
             string toPayInWord = ToPayInWord.Text;
             string paid = Paid.Text;
@@ -42,7 +42,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             Invoice invoice = new Invoice(id, idSeller, idCompany, idProduct, number, creationDate, saleDate, paymentType, paymentDeadline, toPay,
             toPayInWord, paid, remarks);
             SQLiteDataAccess.SaveInvoice(invoice);
-            this.close();
+            this.Close();
         }
     }
 }
