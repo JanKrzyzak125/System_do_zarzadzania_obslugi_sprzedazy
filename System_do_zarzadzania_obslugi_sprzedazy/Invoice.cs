@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
-    class Invoice
+    public class Invoice
     {
         private int id;
         public int Id
@@ -63,7 +63,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             set { toPay = value; }
         }
         private string toPayInWord;
-        public string ToPayInWord
+        public string ToPayInWords
         {
             get { return toPayInWord; }
             set { toPayInWord = value; }
@@ -105,7 +105,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             PaymentType = paymentType;
             PaymentDeadline = paymentDeadline;
             ToPay = toPay;
-            ToPayInWord = toPayInWord;
+            ToPayInWords = toPayInWord;
             Paid = paid;
             Remarks = remarks;
         }

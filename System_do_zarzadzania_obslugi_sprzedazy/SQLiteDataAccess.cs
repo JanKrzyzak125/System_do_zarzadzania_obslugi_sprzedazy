@@ -45,6 +45,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static List<Invoice> LoadInvoices()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<Invoice>("select * from Database_for_invoices", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
         public static void SaveInvoice(Invoice invoice)
         {
             using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

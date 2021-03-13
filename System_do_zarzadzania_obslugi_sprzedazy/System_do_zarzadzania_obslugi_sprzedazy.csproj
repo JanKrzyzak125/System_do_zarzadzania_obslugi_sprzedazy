@@ -73,6 +73,12 @@
       <DependentUpon>Contractors.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice.cs" />
+    <Compile Include="InvoiceDetails.xaml.cs">
+      <DependentUpon>InvoiceDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfInvoices.xaml.cs">
+      <DependentUpon>ListOfInvoices.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewInvoice.xaml.cs">
       <DependentUpon>NewInvoice.xaml</DependentUpon>
     </Compile>
@@ -105,6 +111,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contractors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InvoiceDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListOfInvoices.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
