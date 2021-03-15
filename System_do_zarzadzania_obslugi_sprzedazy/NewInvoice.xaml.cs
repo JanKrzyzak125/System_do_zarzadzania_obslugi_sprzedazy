@@ -29,12 +29,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             int id = Int32.Parse(ID.Text);
             int idSeller = Int32.Parse(IdSeller.Text);
             int idCompany = Int32.Parse(IdCompany.Text);
-            string idProduct = IdProduct.Text;
+            string idProduct = Int32.Parse(IdProduct.Text);
             int number = Int32.Parse(Number.Text);
             string creationDate = CreationDate.Text;
             string saleDate = SaleDate.Text;
-            int paymentType = Int32.Parse(PaymentType.Text);
-            int paymentDeadline = Int32.Parse(PaymentDeadline.Text);
+            int paymentType = PaymentType.Text;
+            int paymentDeadline = PaymentDeadline.Text;
             string toPay = ToPay.Text;
             string toPayInWord = ToPayInWord.Text;
             string paid = Paid.Text;
