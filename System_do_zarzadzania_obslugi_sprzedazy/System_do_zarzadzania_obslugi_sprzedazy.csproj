@@ -68,26 +68,34 @@
     <Compile Include="addUser.xaml.cs">
       <DependentUpon>addUser.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="Company.cs" />
-
     <Compile Include="Contractors.xaml.cs">
       <DependentUpon>Contractors.xaml</DependentUpon>
     </Compile>
-
-    <Compile Include="Invoice.xaml.cs">
-      <DependentUpon>Invoice.xaml</DependentUpon>
+    <Compile Include="Invoice.cs" />
+    <Compile Include="InvoiceDetails.xaml.cs">
+      <DependentUpon>InvoiceDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfInvoices.xaml.cs">
+      <DependentUpon>ListOfInvoices.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfSellers.xaml.cs">
+      <DependentUpon>ListOfSellers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewInvoice.xaml.cs">
+      <DependentUpon>NewInvoice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Print.xaml.cs">
       <DependentUpon>Print.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Product.cs" />
     <Compile Include="Search.xaml.cs">
       <DependentUpon>Search.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Seller.cs" />
     <Compile Include="Settlements.xaml.cs">
       <DependentUpon>Settlements.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="SQLiteDataAccess.cs" />
     <Compile Include="Statments.xaml.cs">
       <DependentUpon>Statments.xaml</DependentUpon>
@@ -109,7 +117,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Invoice.xaml">
+    <Page Include="InvoiceDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListOfInvoices.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListOfSellers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,6 +141,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewInvoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Print.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" ResizeMode="CanMinimize">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25*"  />
@@ -68,17 +69,17 @@
         <Button x:Name="Settlements" Content="Rozliczenia" HorizontalAlignment="Left" Margin="425,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Settlements_Open"/>
         <Button x:Name="Contractors" Content="Kontrahenci" HorizontalAlignment="Left" Margin="637,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Contractors_Open"/>
         <Button x:Name="Statments" Content="Zestawienia" HorizontalAlignment="Left" Margin="849,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Statments_Open"/>
-        <Button x:Name="VATRegister" Content="Rejestry VAT" HorizontalAlignment="Left" Margin="1061,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="VATRegister_Open"/>
-        <Button x:Name="Invoice" Content="Faktury" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Margin="1,0,0,0" Click="Invoice_Open"/>
+        <Button x:Name="VATRegister" Content="Rejestry VAT" HorizontalAlignment="Left" Margin="1061,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="206" Height="81" Click="VATRegister_Open"/>
+        <Button x:Name="Invoice" Content="Faktury" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="208" Height="81" Margin="5,0,0,0" Click="Invoice_Open"/>
 
-        <Button x:Name="AddUser" Content="Dodaj Firmę" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Add_User"/>
-        <Button Content="Usuń Firmę" HorizontalAlignment="Left" Margin="109,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Remove_User"/>
-        <Button x:Name="refresh" Content="Odśwież" HorizontalAlignment="Left" Margin="218,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="refresh_Click"/>
-        <Button x:Name="Print" Content="Drukuj" HorizontalAlignment="Left" Margin="951,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Print_Open"/>
-        <Button x:Name="Search" Content="Znajdź" HorizontalAlignment="Left" Margin="1060,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Search_Open"/>
-        <Button x:Name="ToSquare" Content="Rozlicz" HorizontalAlignment="Left" Margin="1169,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="ToSquare_Open"/>
+        <Button x:Name="AddUser" Content="Dodaj Firmę" HorizontalAlignment="Left" Margin="5,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Add_User"/>
+        <Button Content="Usuń Firmę" HorizontalAlignment="Left" Margin="114,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Remove_User"/>
+        <Button x:Name="refresh" Content="Odśwież" HorizontalAlignment="Left" Margin="223,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="refresh_Click"/>
+        <Button x:Name="Print" Content="Drukuj" HorizontalAlignment="Left" Margin="945,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Print_Open"/>
+        <Button x:Name="Search" Content="Znajdź" HorizontalAlignment="Left" Margin="1054,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Search_Open"/>
+        <Button x:Name="ToSquare" Content="Rozlicz" HorizontalAlignment="Left" Margin="1163,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="ToSquare_Open"/>
         <Grid HorizontalAlignment="Left" Height="475" Margin="330,6,0,0" Grid.Row="3" VerticalAlignment="Top" Width="934">
-            <ListView BorderThickness="1" ItemsSource="{Binding}" Margin="0,10,0,0" Height="Auto" x:Name="FirmaListBox" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <ListView BorderThickness="1" Margin="0,10,0,0" Height="Auto" x:Name="FirmaListBox" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                 <ListView.View>
                     <GridView>
                         <GridView.Columns>
@@ -92,6 +93,7 @@
                         </GridView.Columns>
                     </GridView>
                 </ListView.View>
+
             </ListView>
         </Grid>
     </Grid>

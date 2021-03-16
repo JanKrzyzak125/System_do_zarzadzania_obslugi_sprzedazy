@@ -15,13 +15,16 @@ using System.Windows.Shapes;
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
     /// <summary>
-    /// Logika interakcji dla klasy Invoice.xaml
+    /// Interaction logic for ListOfSellers.xaml
     /// </summary>
-    public partial class Invoice : Window
+    public partial class ListOfSellers : Window
     {
-        public Invoice()
+        List<Seller> sellers;
+        public ListOfSellers()
         {
+            sellers = SQLiteDataAccess.LoadSellers();
             InitializeComponent();
+            SellersListView.ItemsSource = sellers;
         }
     }
 }

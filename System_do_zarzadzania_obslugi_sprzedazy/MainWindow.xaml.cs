@@ -25,6 +25,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
     {
 
         List<Company> companies = new List<Company>();
+        List<Seller> sellers = new List<Seller>();
 
         //private bool invoiceOpen=false;
         private Invoice invoice;
@@ -63,6 +64,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
+        private void WiredUpSellersList()
+        {
+            FirmaListBox.ItemsSource = null;
+            FirmaListBox.ItemsSource = sellers;
+        }
+
+        private void LoadSellersList()
+        {
+            sellers = SQLiteDataAccess.LoadSellers();
+            WiredUpSellersList();
+      
+        }
+
         private void refresh_Click(object sender, RoutedEventArgs e)
         {
             LoadCompaniesList();
@@ -70,27 +84,27 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Add_User(object sender, RoutedEventArgs e)
         {
-            addUser addUser = new addUser();
-            addUser.Show();
+          
+            
+                addUser addUser = new addUser();
+                addUser.Show();
+           
         }
 
         private void Remove_User(object sender, RoutedEventArgs e)
         {
-        //    if (FirmaListBox.SelectedItem != null)
-        //    {
-        //        //firma.Remove((Firma)FirmaListBox.SelectedItem);
-        //       // WiredUpPeople();
-        //        //SQLiteDataAccess.DeletePeople((Firma)FirmaListBox.SelectedItem);
-        //    }
+           if (FirmaListBox.SelectedItem != null)
+            {
+              SQLiteDataAccess.DeleteUsers((Company)FirmaListBox.SelectedItem);
+              companies.Remove((Company)FirmaListBox.SelectedItem);
+              WiredUpCompaniesList();
+            }
         }
 
         private void Invoice_Open(object sender, RoutedEventArgs e)
-        {
-            
-            invoice=new Invoice();
-            //if (invoiceOpen== false) 
-            invoice.Show();
-            //invoiceOpen=true;
+        {         
+            ListOfInvoices listOfInvoices = new ListOfInvoices();
+            listOfInvoices.Show();
         }
 
         private void Storage_Open(object sender, RoutedEventArgs e)
@@ -107,8 +121,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
         {
-            contractors = new Contractors();
-            contractors.Show();
+            ListOfSellers listOfSellers = new ListOfSellers();
+            listOfSellers.Show();
         }
 
         private void Statments_Open(object sender, RoutedEventArgs e)
@@ -139,6 +153,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             toSquare = new ToSquare();
             toSquare.Show();
+        }
+
+        private void FirmaListBox_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
         }
     }
 }
