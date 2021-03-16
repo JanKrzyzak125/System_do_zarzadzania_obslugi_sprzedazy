@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -67,9 +68,64 @@
     <Compile Include="addUser.xaml.cs">
       <DependentUpon>addUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Firma.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="Contractors.xaml.cs">
+      <DependentUpon>Contractors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice.cs" />
+    <Compile Include="InvoiceDetails.xaml.cs">
+      <DependentUpon>InvoiceDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfInvoices.xaml.cs">
+      <DependentUpon>ListOfInvoices.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfSellers.xaml.cs">
+      <DependentUpon>ListOfSellers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewInvoice.xaml.cs">
+      <DependentUpon>NewInvoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Print.xaml.cs">
+      <DependentUpon>Print.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Product.cs" />
+    <Compile Include="Search.xaml.cs">
+      <DependentUpon>Search.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Seller.cs" />
+    <Compile Include="Settlements.xaml.cs">
+      <DependentUpon>Settlements.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SQLiteDataAccess.cs" />
+    <Compile Include="Statments.xaml.cs">
+      <DependentUpon>Statments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Storage.xaml.cs">
+      <DependentUpon>Storage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToSquare.xaml.cs">
+      <DependentUpon>ToSquare.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VATRegister.xaml.cs">
+      <DependentUpon>VATRegister.xaml</DependentUpon>
+    </Compile>
     <Page Include="addUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contractors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InvoiceDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListOfInvoices.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListOfSellers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -85,6 +141,38 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewInvoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Print.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Search.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settlements.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Statments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Storage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ToSquare.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VATRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
