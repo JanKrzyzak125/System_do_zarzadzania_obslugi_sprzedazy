@@ -59,8 +59,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void WiredUpCompaniesList()
         {
-            FirmaListBox.ItemsSource = null;
-            FirmaListBox.ItemsSource = companies;
+            CompanyDataGrid.ItemsSource = null;
+            CompanyDataGrid.ItemsSource = companies;
 
         }
 
@@ -83,20 +83,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         private void Add_User(object sender, RoutedEventArgs e)
-        {
-          
-            
+        { 
                 addUser addUser = new addUser();
-                addUser.Show();
-           
+                addUser.Show();      
         }
 
         private void Remove_User(object sender, RoutedEventArgs e)
         {
-           if (FirmaListBox.SelectedItem != null)
+           if (CompanyDataGrid.SelectedItem != null)
             {
-              SQLiteDataAccess.DeleteUsers((Company)FirmaListBox.SelectedItem);
-              companies.Remove((Company)FirmaListBox.SelectedItem);
+              SQLiteDataAccess.DeleteUsers((Company)CompanyDataGrid.SelectedItem);
+              companies.Remove((Company)CompanyDataGrid.SelectedItem);
               WiredUpCompaniesList();
             }
         }
