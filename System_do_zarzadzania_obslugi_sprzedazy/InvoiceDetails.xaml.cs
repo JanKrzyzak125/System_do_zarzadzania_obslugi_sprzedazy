@@ -28,12 +28,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ID.Text = showInvoice.Id.ToString();
             IdSeller.Text = showInvoice.IdSeller.ToString();
             IdCompany.Text = showInvoice.IdCompany.ToString();
-            IdProduct.Text = showInvoice.IdProduct;
+            IdProduct.Text = showInvoice.IdProduct.ToString();
             Number.Text = showInvoice.Number.ToString();
             CreationDate.Text = showInvoice.CreationDate;
             SaleDate.Text = showInvoice.SaleDate;
-            PaymentType.Text = showInvoice.PaymentType.ToString();
-            PaymentDeadline.Text = showInvoice.PaymentDeadline.ToString();
+            PaymentType.Text = showInvoice.PaymentType;
+            PaymentDeadline.Text = showInvoice.PaymentDeadline;
             ToPay.Text = showInvoice.ToPay;
             ToPayInWord.Text = showInvoice.ToPayInWords;
             Paid.Text = showInvoice.Paid;

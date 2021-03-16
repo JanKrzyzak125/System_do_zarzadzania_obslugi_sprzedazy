@@ -44,14 +44,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             get { return saleDate; }
             set { saleDate = value; }
         }
-        private int paymentType;
-        public int PaymentType
+        private string paymentType;
+        public string PaymentType
         {
             get { return paymentType; }
             set { paymentType = value; }
         }
-        private int paymentDeadline;
-        public int PaymentDeadline
+        private string paymentDeadline;
+        public string PaymentDeadline
         {
             get { return paymentDeadline; }
             set { paymentDeadline = value; }
@@ -80,8 +80,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             get { return remarks; }
             set { remarks = value; }
         }
-        private string idProduct;
-        public string IdProduct
+        private int idProduct;
+        public int IdProduct
         {
             get { return idProduct; }
             set { idProduct = value; }
@@ -92,7 +92,23 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
-        public Invoice(int id, int idSeller, int idCompany, string idProduct, int number, string creationDate, string saleDate, int paymentType, int paymentDeadline, string toPay,
+        public Invoice(int idSeller, int idCompany, int idProduct, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
+            string toPayInWord, string paid, string remarks)
+        {
+            IdSeller = idSeller;
+            IdCompany = idCompany;
+            IdProduct = idProduct;
+            Number = number;
+            CreationDate = creationDate;
+            SaleDate = saleDate;
+            PaymentType = paymentType;
+            PaymentDeadline = paymentDeadline;
+            ToPay = toPay;
+            ToPayInWords = toPayInWord;
+            Paid = paid;
+            Remarks = remarks;
+        }
+        public Invoice(int id, int idSeller, int idCompany, int idProduct, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
             string toPayInWord, string paid, string remarks)
         {
             Id = id;

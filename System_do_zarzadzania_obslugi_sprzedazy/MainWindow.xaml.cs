@@ -121,7 +121,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
         {
-
+            ListOfSellers listOfSellers = new ListOfSellers();
+            listOfSellers.Show();
         }
 
         private void Statments_Open(object sender, RoutedEventArgs e)
