@@ -6,14 +6,8 @@ using System.Threading.Tasks;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
-    public class Invoice
+    public class Invoice : BaseInvoice
     {
-        private int id;
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
         private int idSeller;
         public int IdSeller
         {
@@ -25,18 +19,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             get { return idCompany; }
             set { idCompany = value; }
-        }
-        private int number;
-        public int Number
-        {
-            get { return number; }
-            set { number = value; }
-        }
-        private string creationDate;
-        public string CreationDate
-        {
-            get { return creationDate; }
-            set { creationDate = value; }
         }
         private string saleDate;
         public string SaleDate
@@ -68,12 +50,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             get { return toPayInWord; }
             set { toPayInWord = value; }
         }
-        private string paid;
-        public string Paid
-        {
-            get { return paid; }
-            set { paid = value; }
-        }
+
         private string remarks;
         public string Remarks
         {

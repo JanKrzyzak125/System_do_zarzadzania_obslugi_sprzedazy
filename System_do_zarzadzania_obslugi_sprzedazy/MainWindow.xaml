@@ -81,19 +81,7 @@
         <Button x:Name="Search" Content="Znajdź" HorizontalAlignment="Left" Margin="1039,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Search_Open"/>
         <Button x:Name="ToSquare" Content="Rozlicz" HorizontalAlignment="Left" Margin="1148,11,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="ToSquare_Open" Grid.RowSpan="2"/>
         <Grid HorizontalAlignment="Left" Height="475" Margin="330,6,0,0" Grid.Row="3" VerticalAlignment="Top" Width="922">
-            <DataGrid Name="CompanyDataGrid" AutoGenerateColumns="False" GridLinesVisibility="None">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding CompanyID}"/>
-                    <DataGridTextColumn Header="Nazwa Firmy" Binding="{Binding CompanyName}"/>
-                    <DataGridTextColumn Header="Nip" Binding="{Binding Nip}"/>
-                    <DataGridTextColumn Header="Miasto" Binding="{Binding City}"/>
-                    <DataGridTextColumn Header="Ulica" Binding="{Binding Street}"/>
-                    <DataGridTextColumn Header="Numer Telefonu" Binding="{Binding PhoneNumber}"/>
-                    <DataGridTextColumn Header="E-mail" Binding="{Binding Email}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <ListView BorderThickness="1" Margin="929,462,0,0" Height="Auto" x:Name="FirmaListBox" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-            </ListView>
+            <DataGrid Name="CompanyDataGrid" AutoGenerateColumns="True" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False"/>
         </Grid>
     </Grid>
 </Window>

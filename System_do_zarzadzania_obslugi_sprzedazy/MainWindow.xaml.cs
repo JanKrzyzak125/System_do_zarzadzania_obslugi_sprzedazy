@@ -26,23 +26,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         List<Company> companies = new List<Company>();
         List<Seller> sellers = new List<Seller>();
+        List<BaseInvoice> baseInvoices = new List<BaseInvoice>();
+        List<Invoice> invoices = new List<Invoice>();
 
         //private bool invoiceOpen=false;
-        private Invoice invoice;
-        private Storage storage;
-        private Settlements settlements;
-        private Contractors contractors;
-        private Statments statments;
-        private VATRegister vATRegister;
-        private Print print;
-        private Search search;
-        private ToSquare toSquare;
 
 
         public MainWindow()
         {
             InitializeComponent();
-            LoadCompaniesList();
+            LoadInvoicesList();
         }
 
 
@@ -66,8 +59,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void WiredUpSellersList()
         {
-            FirmaListBox.ItemsSource = null;
-            FirmaListBox.ItemsSource = sellers;
+            CompanyDataGrid.ItemsSource = null;
+            CompanyDataGrid.ItemsSource = sellers;
+        }
+
+        private void WiredUpInvoicesList()
+        {
+            CompanyDataGrid.ItemsSource = null;
+            CompanyDataGrid.ItemsSource = baseInvoices;
+        }
+
+        private void LoadInvoicesList()
+        {
+            invoices = SQLiteDataAccess.LoadInvoices();
+            baseInvoices = invoices.ConvertAll(x => (BaseInvoice)x);
+            WiredUpInvoicesList();
         }
 
         private void LoadSellersList()
@@ -99,57 +105,48 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         private void Invoice_Open(object sender, RoutedEventArgs e)
-        {         
-            ListOfInvoices listOfInvoices = new ListOfInvoices();
-            listOfInvoices.Show();
+        {
+            LoadInvoicesList();
         }
 
         private void Storage_Open(object sender, RoutedEventArgs e)
         {
-            storage = new Storage();
-            storage.Show();
+            CompanyDataGrid.ItemsSource = null;
         }
 
         private void Settlements_Open(object sender, RoutedEventArgs e)
         {
-            settlements = new Settlements();
-            settlements.Show();
+            CompanyDataGrid.ItemsSource = null;
         }
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
         {
-            ListOfSellers listOfSellers = new ListOfSellers();
-            listOfSellers.Show();
+            LoadSellersList();
         }
 
         private void Statments_Open(object sender, RoutedEventArgs e)
         {
-            statments = new Statments();
-            statments.Show();
+            CompanyDataGrid.ItemsSource = null;
         }
 
         private void VATRegister_Open(object sender, RoutedEventArgs e)
         {
-            vATRegister = new VATRegister();
-            vATRegister.Show();
+            CompanyDataGrid.ItemsSource = null;
         }
 
         private void Print_Open(object sender, RoutedEventArgs e)
         {
-            print = new Print();
-            print.Show();
+
         }
 
         private void Search_Open(object sender, RoutedEventArgs e)
         {
-            search = new Search();
-            search.Show();
+
         }
 
         private void ToSquare_Open(object sender, RoutedEventArgs e)
         {
-            toSquare = new ToSquare();
-            toSquare.Show();
+
         }
 
         private void FirmaListBox_SourceUpdated(object sender, DataTransferEventArgs e)
