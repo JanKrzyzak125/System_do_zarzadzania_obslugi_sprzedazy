@@ -9,60 +9,77 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
     public class Invoice : BaseInvoice
     {
         private int idSeller;
+        private int idCompany;
+        private string saleDate;
+        private string paymentType;
+        private string paymentDeadline;
+        private string toPayInWord;
+        private string toPay;
+        private string remarks;
+        private int idProduct;
+        private int idParent;
+
+
         public int IdSeller
         {
             get { return idSeller; }
             set { idSeller = value; }
         }
-        private int idCompany;
+
         public int IdCompany
         {
             get { return idCompany; }
             set { idCompany = value; }
         }
-        private string saleDate;
+
         public string SaleDate
         {
             get { return saleDate; }
             set { saleDate = value; }
         }
-        private string paymentType;
+
         public string PaymentType
         {
             get { return paymentType; }
             set { paymentType = value; }
         }
-        private string paymentDeadline;
+
         public string PaymentDeadline
         {
             get { return paymentDeadline; }
             set { paymentDeadline = value; }
         }
-        private string toPay;
+
         public string ToPay
         {
             get { return toPay; }
             set { toPay = value; }
         }
-        private string toPayInWord;
+
         public string ToPayInWords
         {
             get { return toPayInWord; }
             set { toPayInWord = value; }
         }
 
-        private string remarks;
         public string Remarks
         {
             get { return remarks; }
             set { remarks = value; }
         }
-        private int idProduct;
+
         public int IdProduct
         {
             get { return idProduct; }
             set { idProduct = value; }
         }
+
+        public int IdParent
+        {
+            get { return idParent; }
+            set { idParent = value; }
+        }
+
 
         public Invoice()
         {
@@ -70,7 +87,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         public Invoice(int idSeller, int idCompany, int idProduct, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
-            string toPayInWord, string paid, string remarks)
+            string toPayInWord, string paid, string remarks, int idParent)
         {
             IdSeller = idSeller;
             IdCompany = idCompany;
@@ -84,9 +101,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ToPayInWords = toPayInWord;
             Paid = paid;
             Remarks = remarks;
+            IdParent = idParent;
         }
         public Invoice(int id, int idSeller, int idCompany, int idProduct, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
-            string toPayInWord, string paid, string remarks)
+            string toPayInWord, string paid, string remarks, int idParent)
         {
             Id = id;
             IdSeller = idSeller;
@@ -101,6 +119,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ToPayInWords = toPayInWord;
             Paid = paid;
             Remarks = remarks;
+            IdParent = idParent;
         }
     }
 

@@ -39,7 +39,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             string paid = Paid.Text;
             string remarks = Remarks.Text;
             Invoice invoice = new Invoice(idSeller, idCompany, idProduct, number, creationDate, saleDate, paymentType, paymentDeadline, toPay,
-            toPayInWord, paid, remarks);
+            toPayInWord, paid, remarks, 15);
             SQLiteDataAccess.SaveInvoice(invoice);
             this.Close();
         }
