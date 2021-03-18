@@ -61,116 +61,60 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="ConfigFiles\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="addUser.xaml.cs">
+    <Compile Include="Winows\addUser.xaml.cs">
       <DependentUpon>addUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BaseInvoice.cs" />
-    <Compile Include="Company.cs" />
-    <Compile Include="Contractors.xaml.cs">
-      <DependentUpon>Contractors.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Invoice.cs" />
-    <Compile Include="InvoiceDetails.xaml.cs">
+    <Compile Include="Classes\BaseInvoice.cs" />
+    <Compile Include="Classes\Company.cs" />
+    <Compile Include="Classes\Invoice.cs" />
+    <Compile Include="Winows\InvoiceDetails.xaml.cs">
       <DependentUpon>InvoiceDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ListOfInvoices.xaml.cs">
+    <Compile Include="Winows\ListOfInvoices.xaml.cs">
       <DependentUpon>ListOfInvoices.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ListOfSellers.xaml.cs">
-      <DependentUpon>ListOfSellers.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NewInvoice.xaml.cs">
+    <Compile Include="Winows\NewInvoice.xaml.cs">
       <DependentUpon>NewInvoice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Print.xaml.cs">
-      <DependentUpon>Print.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Product.cs" />
-    <Compile Include="Search.xaml.cs">
+    <Compile Include="Classes\Product.cs" />
+    <Compile Include="Winows\Search.xaml.cs">
       <DependentUpon>Search.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Seller.cs" />
-    <Compile Include="Settlements.xaml.cs">
-      <DependentUpon>Settlements.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SQLiteDataAccess.cs" />
-    <Compile Include="Statments.xaml.cs">
-      <DependentUpon>Statments.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Storage.xaml.cs">
-      <DependentUpon>Storage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ToSquare.xaml.cs">
-      <DependentUpon>ToSquare.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="VATRegister.xaml.cs">
-      <DependentUpon>VATRegister.xaml</DependentUpon>
-    </Compile>
-    <Page Include="addUser.xaml">
+    <Compile Include="Classes\Seller.cs" />
+    <Compile Include="Classes\SQLiteDataAccess.cs" />
+    <Page Include="Winows\addUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Contractors.xaml">
+    <Page Include="Winows\InvoiceDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InvoiceDetails.xaml">
+    <Page Include="Winows\ListOfInvoices.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ListOfInvoices.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ListOfSellers.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Winows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="ConfigFiles\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Winows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NewInvoice.xaml">
+    <Page Include="Winows\NewInvoice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Print.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Search.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Settlements.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Statments.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Storage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ToSquare.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="VATRegister.xaml">
+    <Page Include="Winows\Search.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -196,15 +140,16 @@
     <Content Include="Baza_danych_klientow.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
+    <None Include="ConfigFiles\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="ConfigFiles\App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

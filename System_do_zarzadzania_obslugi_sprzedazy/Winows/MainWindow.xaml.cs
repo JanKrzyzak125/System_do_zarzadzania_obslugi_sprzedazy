@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
-
+using System.ComponentModel;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
@@ -144,13 +144,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
-        private void ToSquare_Open(object sender, RoutedEventArgs e)
+        private void CompanyDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-
-        }
-
-        private void FirmaListBox_SourceUpdated(object sender, DataTransferEventArgs e)
-        {
+            if (e.PropertyDescriptor is PropertyDescriptor descriptor)
+            {
+                e.Column.Header = descriptor.DisplayName ?? descriptor.Name;
+            }
         }
     }
 }

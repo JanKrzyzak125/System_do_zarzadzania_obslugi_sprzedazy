@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private string numberPhone;
 
+        [DisplayName("ID Sprzedawcy")]
         public int IdSeller
         {
             get
@@ -32,6 +34,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        [DisplayName("Imię")]
         public string Name
         {
             get
@@ -44,6 +47,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        [DisplayName("Nazwisko")]
         public string Surname
         {
             get
@@ -56,6 +60,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        [DisplayName("Miasto")]
         public string City
         {
             get
@@ -68,6 +73,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        [DisplayName("Ulica")]
         public string Street
         {
             get
@@ -80,6 +86,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        [DisplayName("Numer telefonu")]
         public string NumberPhone
         {
             get
