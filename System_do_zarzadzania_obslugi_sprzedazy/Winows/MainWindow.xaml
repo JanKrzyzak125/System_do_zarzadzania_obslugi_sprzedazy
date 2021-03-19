@@ -80,7 +80,7 @@
         <Button x:Name="Print" Content="Drukuj" HorizontalAlignment="Left" Margin="1039,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Print_Open" RenderTransformOrigin="0.481,-0.462"/>
         <Button x:Name="Search" Content="Znajdź" HorizontalAlignment="Left" Margin="1148,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Search_Open"/>
         <Grid HorizontalAlignment="Left" Height="475" Margin="330,6,0,0" Grid.Row="3" VerticalAlignment="Top" Width="922">
-            <DataGrid Name="CompanyDataGrid" AutoGenerateColumns="True" Background="White" AutoGeneratingColumn="CompanyDataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False"/>
+            <DataGrid Name="CompanyDataGrid" AutoGenerateColumns="True" Background="White" AutoGeneratingColumn="CompanyDataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False" MouseDoubleClick="DoubleClick_Open"/>
         </Grid>
     </Grid>
 </Window>

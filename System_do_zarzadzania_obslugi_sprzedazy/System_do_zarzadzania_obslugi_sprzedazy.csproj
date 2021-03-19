@@ -77,8 +77,11 @@
     <Compile Include="Winows\ListOfInvoices.xaml.cs">
       <DependentUpon>ListOfInvoices.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Winows\ListofProducts.xaml.cs">
-      <DependentUpon>ListofProducts.xaml</DependentUpon>
+    <Compile Include="Winows\ProductList.xaml.cs">
+      <DependentUpon>ProductList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winows\ProductsList.xaml.cs">
+      <DependentUpon>ProductsList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Winows\NewInvoice.xaml.cs">
       <DependentUpon>NewInvoice.xaml</DependentUpon>
@@ -101,7 +104,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winows\ListofProducts.xaml">
+    <Page Include="Winows\ProductList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winows\ProductsList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

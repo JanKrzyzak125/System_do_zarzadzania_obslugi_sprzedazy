@@ -15,13 +15,28 @@ using System.Windows.Shapes;
 namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 {
     /// <summary>
-    /// Logika interakcji dla klasy ListofProducts.xaml
+    /// Logika interakcji dla klasy ProductList.xaml
     /// </summary>
-    public partial class ListofProducts : Window
+    public partial class ProductList : Window
     {
-        public ListofProducts()
+        public ProductList()
         {
             InitializeComponent();
+        }
+
+        private void AddProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DelProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
