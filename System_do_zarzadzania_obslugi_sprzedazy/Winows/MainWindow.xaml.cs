@@ -38,7 +38,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             LoadInvoicesList();
         }
 
-
         private void LoadCompaniesList()
         {
             companies = SQLiteDataAccess.LoadUsers();
@@ -91,7 +90,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private void Add_User(object sender, RoutedEventArgs e)
         { 
                 addUser addUser = new addUser();
-                addUser.Show();      
+                addUser.Show();
+                addUser.Closed += (s, eventarg) =>
+                {
+                    LoadCompaniesList();
+                };
         }
 
         private void Remove_User(object sender, RoutedEventArgs e)
