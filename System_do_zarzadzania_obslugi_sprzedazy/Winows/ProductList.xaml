@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy.Winows"
         mc:Ignorable="d"
-        Title="ProductList" Height="450" Width="735">
+        Title="ProductList" Height="450" Width="1100">
     <Grid Margin="0,0,2,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="37*"/>
-            <ColumnDefinition Width="143*"/>
+            <ColumnDefinition Width="187*"/>
+            <ColumnDefinition Width="903*"/>
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="560">
-            <DataGrid x:Name="InvoiceProductListDataGrid" Margin="0,0,-1,-1" Background="White" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False"/>
-        </Border>
-        <Button x:Name="AddProduct" Content="Dodawanie" HorizontalAlignment="Left" Margin="5,36,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="AddProduct_Click"/>
-        <Button x:Name="DelProduct" Content="Usuwanie" HorizontalAlignment="Left" Margin="5,91,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="DelProduct_Click"/>
-        <Button x:Name="Close" Content="Zamykanie" HorizontalAlignment="Left" Margin="5,146,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="Close_Click"/>
+
+        <DataGrid x:Name="InvoiceProductListDataGrid" Margin="10" Background="White" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False" Grid.Column="1"/>
+
+        <Button x:Name="AddProduct" Content="Dodawanie" HorizontalAlignment="Left" Margin="33,67,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="AddProduct_Click"/>
+        <Button x:Name="DelProduct" Content="Usuwanie" HorizontalAlignment="Left" Margin="33,141,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="DelProduct_Click"/>
+        <Button x:Name="Close" Content="Zamykanie" HorizontalAlignment="Left" Margin="33,220,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="Close_Click"/>
 
     </Grid>
 </Window>

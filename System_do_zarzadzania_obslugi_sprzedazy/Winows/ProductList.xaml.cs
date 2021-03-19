@@ -33,7 +33,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            NewProduct newProduct = new NewProduct();
+            newProduct.Show();
         }
 
         private void DelProduct_Click(object sender, RoutedEventArgs e)
