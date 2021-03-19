@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System_do_zarzadzania_obslugi_sprzedazy.Winows;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
@@ -34,8 +35,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             PaymentType.Text = showInvoice.PaymentType;
             PaymentDeadline.Text = showInvoice.PaymentDeadline;
             ToPay.Text = showInvoice.ToPay;
-            ToPayInWord.Text = showInvoice.ToPayInWords;
+            ToPayInWords.Text = showInvoice.ToPayInWords;
             Paid.Text = showInvoice.Paid;
+            DateOfIssue.Text = showInvoice.DateOfIssue;
+            NameOfService.Text = showInvoice.NameOfService;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ProductList productList = new ProductList(showInvoice.Id);
+            productList.Show();
         }
     }
 }

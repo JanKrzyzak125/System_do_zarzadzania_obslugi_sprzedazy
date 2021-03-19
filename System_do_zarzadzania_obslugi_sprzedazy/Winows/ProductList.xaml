@@ -12,7 +12,7 @@
             <ColumnDefinition Width="143*"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="560">
-            <DataGrid Margin="0,0,-1,-1" Background="White"/>
+            <DataGrid x:Name="InvoiceProductListDataGrid" Margin="0,0,-1,-1" Background="White" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False"/>
         </Border>
         <Button x:Name="AddProduct" Content="Dodawanie" HorizontalAlignment="Left" Margin="5,36,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="AddProduct_Click"/>
         <Button x:Name="DelProduct" Content="Usuwanie" HorizontalAlignment="Left" Margin="5,91,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="DelProduct_Click"/>

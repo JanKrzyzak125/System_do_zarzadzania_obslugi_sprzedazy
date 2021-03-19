@@ -6,35 +6,36 @@
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
         Title="InvoiceDetails" Height="450" Width="800" ResizeMode="NoResize">
-    <Grid Margin="0,-11,-54,-43">
+    <Grid Margin="0,-11,-80,-83">
 
         <Label Content="ID" HorizontalAlignment="Left" Height="37" Margin="10,81,0,0"  VerticalAlignment="Top" Width="54" />
         <Label Content="ID Sprzedawcy" HorizontalAlignment="Left" Height="37" Margin="10,39,0,0"  VerticalAlignment="Top" Width="94" RenderTransformOrigin="0.504,0.045" />
         <Label Content="ID Firmy" HorizontalAlignment="Left" Height="37" Margin="10,123,0,0"  VerticalAlignment="Top" Width="54" />
-        <Label Content="ID Produktu" HorizontalAlignment="Left" Height="37" Margin="10,165,0,0"  VerticalAlignment="Top" Width="84" />
-        <Label Content="Numer" HorizontalAlignment="Left" Height="37" Margin="10,207,0,0"  VerticalAlignment="Top" Width="54" RenderTransformOrigin="0.549,0.046" />
-        <Label Content="Data stworzenia" HorizontalAlignment="Left" Height="37" Margin="10,249,0,0"  VerticalAlignment="Top" Width="98" />
-        <Label Content="Data sprzedaży" HorizontalAlignment="Left" Height="37" Margin="10,296,0,0"  VerticalAlignment="Top" Width="98" RenderTransformOrigin="0.501,-0.474" />
-        <Label Content="Typ płatności" HorizontalAlignment="Left" Height="37" Margin="10,338,0,0"  VerticalAlignment="Top" Width="84" />
-        <Label Content="Termin płatności" HorizontalAlignment="Left" Height="37" Margin="372,39,0,0"  VerticalAlignment="Top" Width="106" />
-        <Label Content="Do zapłaty" HorizontalAlignment="Left" Height="37" Margin="372,99,0,0"  VerticalAlignment="Top" Width="71" />
-        <Label Content="Słownie do zapłaty" HorizontalAlignment="Left" Height="37" Margin="372,165,0,0"  VerticalAlignment="Top" Width="121" />
-        <Label Content="Zapłacono" HorizontalAlignment="Left" Height="37" Margin="372,225,0,0"  VerticalAlignment="Top" Width="71" RenderTransformOrigin="-0.212,0.387" />
-        <Label Content="Uwagi" HorizontalAlignment="Left" Height="37" Margin="372,291,0,0"  VerticalAlignment="Top" Width="71" />
+        <Label Content="Data wydania" HorizontalAlignment="Left" Height="37" Margin="387,278,0,0"  VerticalAlignment="Top" Width="89" />
+        <Label Content="Numer" HorizontalAlignment="Left" Height="37" Margin="10,165,0,0"  VerticalAlignment="Top" Width="54" RenderTransformOrigin="0.549,0.046" />
+        <Label Content="Data stworzenia" HorizontalAlignment="Left" Height="37" Margin="10,207,0,0"  VerticalAlignment="Top" Width="98" />
+        <Label Content="Data sprzedaży" HorizontalAlignment="Left" Height="37" Margin="10,249,0,0"  VerticalAlignment="Top" Width="98" RenderTransformOrigin="0.501,-0.474" />
+        <Label Content="Typ płatności" HorizontalAlignment="Left" Height="37" Margin="10,291,0,0"  VerticalAlignment="Top" Width="84" />
+        <Label Content="Termin płatności" HorizontalAlignment="Left" Height="37" Margin="387,39,0,0"  VerticalAlignment="Top" Width="106" />
+        <Label Content="Do zapłaty" HorizontalAlignment="Left" Height="37" Margin="387,100,0,0"  VerticalAlignment="Top" Width="71" />
+        <Label Content="Słownie do zapłaty" HorizontalAlignment="Left" Height="37" Margin="387,165,0,0"  VerticalAlignment="Top" Width="121" />
+        <Label Content="Zapłacono" HorizontalAlignment="Left" Height="37" Margin="387,226,0,0"  VerticalAlignment="Top" Width="71" RenderTransformOrigin="-0.212,0.387" />
+        <Label Content="Nazwa usługi" HorizontalAlignment="Left" Height="37" Margin="387,333,0,0"  VerticalAlignment="Top" Width="106" />
 
 
         <TextBox x:Name="ID" HorizontalAlignment="Center" Height="37" Margin="120,81,465,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
         <TextBox x:Name="IdSeller" HorizontalAlignment="Center" Height="37" Margin="120,39,465,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
         <TextBox x:Name="IdCompany" HorizontalAlignment="Center" Height="37" Margin="120,123,465,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
-        <TextBox x:Name="IdProduct" HorizontalAlignment="Center" Height="37" Margin="120,164,465,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
-        <TextBox x:Name="Number" HorizontalAlignment="Center" Height="37" Margin="120,206,465,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
-        <TextBox x:Name="CreationDate" HorizontalAlignment="Center" Height="37" Margin="120,248,465,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
-        <TextBox x:Name="SaleDate" HorizontalAlignment="Center" Height="37" Margin="120,291,465,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
-        <TextBox x:Name="PaymentType" HorizontalAlignment="Center" Height="37" Margin="120,333,465,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
+        <TextBox x:Name="DateOfIssue" HorizontalAlignment="Center" Height="37" Margin="536,278,88,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" IsEnabled="False"/>
+        <TextBox x:Name="Number" HorizontalAlignment="Center" Height="37" Margin="147,165,492,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
+        <TextBox x:Name="CreationDate" HorizontalAlignment="Center" Height="37" Margin="147,207,492,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
+        <TextBox x:Name="SaleDate" HorizontalAlignment="Center" Height="37" Margin="147,249,492,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
+        <TextBox x:Name="PaymentType" HorizontalAlignment="Center" Height="37" Margin="147,291,492,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
         <TextBox x:Name="PaymentDeadline" HorizontalAlignment="Center" Height="37" Margin="509,39,61,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" IsEnabled="False"/>
         <TextBox x:Name="ToPay" HorizontalAlignment="Center" Height="37" Margin="509,99,61,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" IsEnabled="False"/>
-        <TextBox x:Name="ToPayInWord" HorizontalAlignment="Center" Height="37" Margin="509,164,61,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" IsEnabled="False"/>
+        <TextBox x:Name="ToPayInWords" HorizontalAlignment="Center" Height="37" Margin="509,164,61,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" IsEnabled="False"/>
         <TextBox x:Name="Paid" HorizontalAlignment="Center" Height="37" Margin="509,225,61,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" IsEnabled="False"/>
-        <TextBox x:Name="Remarks" HorizontalAlignment="Center" Height="37" Margin="509,290,61,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" IsEnabled="False"/>
+        <TextBox x:Name="NameOfService" HorizontalAlignment="Center" Height="37" Margin="536,333,88,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" IsEnabled="False"/>
+        <Button Content="Produkty" HorizontalAlignment="Left" Margin="147,365,0,0" VerticalAlignment="Top" Width="127" Height="45" Click="Button_Click"/>
     </Grid>
 </Window>

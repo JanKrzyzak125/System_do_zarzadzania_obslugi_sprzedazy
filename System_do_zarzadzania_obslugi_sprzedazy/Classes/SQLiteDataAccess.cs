@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
@@ -62,6 +63,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 cnn.Execute("insert into Database_for_invoices(" + s1 + ")values(@idSeller, @idCompany, @number, @creationDate, @saleDate, @paymentType, @paymentDeadline, @toPay, @toPayInWords, @paid, @dateOfIssue, @nameOfService)", invoice);
             }
         }
+
+        public static List<InvoiceProduct> LoadInvoicesProduct(int ID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<InvoiceProduct>("select * from InvoicesProduct where IdInvoice=" + ID.ToString(), new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;

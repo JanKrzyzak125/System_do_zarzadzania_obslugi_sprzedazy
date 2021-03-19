@@ -25,7 +25,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ProductList windowProductList;
 
         List<Company> companies = new List<Company>();
         List<Seller> sellers = new List<Seller>();
@@ -163,10 +162,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void DoubleClick_Open(object sender, MouseButtonEventArgs e)
         {
-            windowProductList = new ProductList();
-            windowProductList.Show();
-
-
+            if (CompanyDataGrid.SelectedItem != null)
+            {
+                InvoiceDetails invoiceDetails = new InvoiceDetails(CompanyDataGrid.SelectedItem as Invoice);
+                invoiceDetails.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz pozycję z listy!");
+            }
         }
     }
 }

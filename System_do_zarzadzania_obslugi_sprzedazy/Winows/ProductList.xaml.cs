@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 {
@@ -19,9 +21,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
     /// </summary>
     public partial class ProductList : Window
     {
-        public ProductList()
+        private int invoiceID;
+        List<InvoiceProduct> invoiceProducts;
+        public ProductList(int ID)
         {
             InitializeComponent();
+            invoiceID = ID;
+            invoiceProducts = SQLiteDataAccess.LoadInvoicesProduct(invoiceID);
+            InvoiceProductListDataGrid.ItemsSource = invoiceProducts;
         }
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
@@ -38,5 +45,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         {
 
         }
+
+        private void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyDescriptor is PropertyDescriptor descriptor)
+            {
+                e.Column.Header = descriptor.DisplayName ?? descriptor.Name;
+            }
+        }
     }
-}
+    }
+
