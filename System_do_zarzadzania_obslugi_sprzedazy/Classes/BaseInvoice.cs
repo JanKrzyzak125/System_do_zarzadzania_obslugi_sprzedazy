@@ -10,7 +10,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
     public class BaseInvoice
     {
         private int id;
-        private int number;
+        private string number;
         private string creationDate;
         private string paid;
 
@@ -22,7 +22,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         [DisplayName("Numer")]
-        public int Number
+        public string Number
         {
             get { return number; }
             set { number = value; }
@@ -46,7 +46,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
-        public BaseInvoice(int id, int number, string creationDate, string paid)
+        public BaseInvoice(int id, string number, string creationDate, string paid)
         {
             Id = id;
             Number = number;

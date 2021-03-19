@@ -13,11 +13,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private string saleDate;
         private string paymentType;
         private string paymentDeadline;
-        private string toPayInWord;
+        private string toPayInWords;
         private string toPay;
-        private int idInvoice;
         private string dateOfIssue;
-
+        private string nameOfService;
 
         public int IdSeller
         {
@@ -57,30 +56,25 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         public string ToPayInWords
         {
-            get { return toPayInWord; }
-            set { toPayInWord = value; }
+            get { return toPayInWords; }
+            set { toPayInWords = value; }
         }
 
-        private string nameOfService;
+        
         public string NameOfService
         {
             get { return nameOfService; }
             set { nameOfService = value; }
         }
-        
-
-        public int IdInvoice
-        {
-            get { return idInvoice; }
-            set { idInvoice = value; }
-        }
-        
+       
 
         public string DateOfIssue
         {
             get { return dateOfIssue; }
             set { dateOfIssue = value; }
         }
+
+
         
 
         public Invoice()
@@ -88,8 +82,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
-        public Invoice(int idSeller, int idCompany, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
-            string toPayInWord, string paid, string remarks)
+        public Invoice(int idSeller, int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
+            string toPayInWords, string paid, string dateOfIssue, string nameOfService)
         {
             IdSeller = idSeller;
             IdCompany = idCompany;
@@ -99,12 +93,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             PaymentType = paymentType;
             PaymentDeadline = paymentDeadline;
             ToPay = toPay;
-            ToPayInWords = toPayInWord;
+            ToPayInWords = toPayInWords;
             Paid = paid;
-
+            DateOfIssue = dateOfIssue;
+            NameOfService = nameOfService;
+            
         }
-        public Invoice(int id, int idSeller, int idProduct, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
-            string toPayInWord, string paid, string remarks)
+        public Invoice(int id, int idSeller,int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
+            string toPayInWords, string paid, string dateOfIssue, string nameOfService)
         {
             Id = id;
             IdSeller = idSeller;
@@ -115,9 +111,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             PaymentType = paymentType;
             PaymentDeadline = paymentDeadline;
             ToPay = toPay;
-            ToPayInWords = toPayInWord;
+            ToPayInWords = toPayInWords;
             Paid = paid;
-
+            DateOfIssue = dateOfIssue;
+            NameOfService = nameOfService;
         }
     }
 
