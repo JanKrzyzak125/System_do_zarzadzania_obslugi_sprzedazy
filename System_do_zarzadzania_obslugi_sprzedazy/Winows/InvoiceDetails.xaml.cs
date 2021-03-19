@@ -28,7 +28,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ID.Text = showInvoice.Id.ToString();
             IdSeller.Text = showInvoice.IdSeller.ToString();
             IdCompany.Text = showInvoice.IdCompany.ToString();
-            IdProduct.Text = showInvoice.IdProduct.ToString();
             Number.Text = showInvoice.Number.ToString();
             CreationDate.Text = showInvoice.CreationDate;
             SaleDate.Text = showInvoice.SaleDate;
@@ -37,7 +36,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ToPay.Text = showInvoice.ToPay;
             ToPayInWord.Text = showInvoice.ToPayInWords;
             Paid.Text = showInvoice.Paid;
-            Remarks.Text = showInvoice.Remarks;
         }
     }
 }

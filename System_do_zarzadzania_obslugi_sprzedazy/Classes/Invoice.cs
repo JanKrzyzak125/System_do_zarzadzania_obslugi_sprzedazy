@@ -101,7 +101,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ToPay = toPay;
             ToPayInWords = toPayInWord;
             Paid = paid;
-            Remarks = remarks;
+
         }
         public Invoice(int id, int idSeller, int idProduct, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
             string toPayInWord, string paid, string remarks)
@@ -117,7 +117,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ToPay = toPay;
             ToPayInWords = toPayInWord;
             Paid = paid;
-            Remarks = remarks;
+
         }
     }
 
