@@ -91,13 +91,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         private void Add_User(object sender, RoutedEventArgs e)
-        { 
-                addUser addUser = new addUser();
-                addUser.Show();
-                addUser.Closed += (s, eventarg) =>
-                {
-                    LoadCompaniesList();
-                };
+        {
+            //addUser addUser = new addUser();
+            //addUser.Show();
+            //addUser.Closed += (s, eventarg) =>
+            //{
+            //    LoadCompaniesList();
+            //};
+            NewInvoice newInvoice = new NewInvoice();
+            newInvoice.Show();
+
         }
 
         private void Remove_User(object sender, RoutedEventArgs e)

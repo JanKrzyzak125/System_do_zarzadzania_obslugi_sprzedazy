@@ -15,8 +15,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private string paymentDeadline;
         private string toPayInWord;
         private string toPay;
-        private int idInvoice;
+
         private string dateOfIssue;
+        private string nameOfService;
+
 
 
         public int IdSeller
@@ -61,7 +63,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             set { toPayInWord = value; }
         }
 
-        private string nameOfService;
+        
         public string NameOfService
         {
             get { return nameOfService; }
@@ -69,12 +71,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
         
 
-        public int IdInvoice
-        {
-            get { return idInvoice; }
-            set { idInvoice = value; }
-        }
-        
 
         public string DateOfIssue
         {
@@ -88,8 +84,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
-        public Invoice(int idSeller, int idCompany, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
-            string toPayInWord, string paid, string remarks)
+        public Invoice(int idSeller, int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
+            string toPayInWord, string paid, string dateOfIssue):base()
         {
             IdSeller = idSeller;
             IdCompany = idCompany;
@@ -101,10 +97,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ToPay = toPay;
             ToPayInWords = toPayInWord;
             Paid = paid;
-
+            DateOfIssue = dateOfIssue;
+            
         }
-        public Invoice(int id, int idSeller, int idProduct, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
-            string toPayInWord, string paid, string remarks)
+        public Invoice(int id, int idSeller,int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
+            string toPayInWord, string paid, string dateOfIssue):base(id,number,creationDate,paid)
         {
             Id = id;
             IdSeller = idSeller;
@@ -117,7 +114,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ToPay = toPay;
             ToPayInWords = toPayInWord;
             Paid = paid;
-
+            DateOfIssue = dateOfIssue;
         }
     }
 

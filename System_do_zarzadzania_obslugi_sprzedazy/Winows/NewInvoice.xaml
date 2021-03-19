@@ -20,7 +20,7 @@
         <Label Content="Słownie do zapłaty" HorizontalAlignment="Left" Height="37" Margin="678,347,0,0"  VerticalAlignment="Top" Width="120" />
         <Label Content="Zapłacono" HorizontalAlignment="Left" Height="37" Margin="678,444,0,0"  VerticalAlignment="Top" Width="78" />
         <Label Content="Data wydania" HorizontalAlignment="Left" Height="37" Margin="678,541,0,0"  VerticalAlignment="Top" Width="102" />
-
+        <Label Content="Nazwa usługi" HorizontalAlignment="Left" Height="37" Margin="678,630,0,0"  VerticalAlignment="Top" Width="102" />
 
 
         <TextBox x:Name="IdSeller" HorizontalAlignment="Center" Height="37" Margin="221,75,684,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="367"/>
@@ -35,6 +35,10 @@
         <TextBox x:Name="ToPayInWord" HorizontalAlignment="Center" Height="37" Margin="824,347,39,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="409"/>
         <TextBox x:Name="Paid" HorizontalAlignment="Center" Height="37" Margin="824,444,39,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="409"/>
         <TextBox x:Name="DateOfIssue" HorizontalAlignment="Center" Height="37" Margin="824,541,39,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="409"/>
-        <Button x:Name="AddInvoice" HorizontalAlignment="Stretch" Content="Dodaj" Margin="578,0,596,85" Click="AddInvoice_Click" Height="56" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="NameOfService" HorizontalAlignment="Center" Height="37" Margin="824,630,39,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="408"/>
+
+        <Button x:Name="AddInvoice" HorizontalAlignment="Stretch" Content="Dodaj" Margin="599,0,575,39" Click="AddInvoice_Click" Height="56" VerticalAlignment="Bottom"/>
+
+
     </Grid>
 </Window>
