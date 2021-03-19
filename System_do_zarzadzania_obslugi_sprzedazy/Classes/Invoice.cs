@@ -15,9 +15,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private string paymentDeadline;
         private string toPayInWord;
         private string toPay;
-        private string remarks;
-        private int idProduct;
-        private int idParent;
+        private int idInvoice;
+        private string dateOfIssue;
 
 
         public int IdSeller
@@ -62,36 +61,38 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             set { toPayInWord = value; }
         }
 
-        public string Remarks
+        private string nameOfService;
+        public string NameOfService
         {
-            get { return remarks; }
-            set { remarks = value; }
+            get { return nameOfService; }
+            set { nameOfService = value; }
         }
+        
 
-        public int IdProduct
+        public int IdInvoice
         {
-            get { return idProduct; }
-            set { idProduct = value; }
+            get { return idInvoice; }
+            set { idInvoice = value; }
         }
+        
 
-        public int IdParent
+        public string DateOfIssue
         {
-            get { return idParent; }
-            set { idParent = value; }
+            get { return dateOfIssue; }
+            set { dateOfIssue = value; }
         }
-
+        
 
         public Invoice()
         {
 
         }
 
-        public Invoice(int idSeller, int idCompany, int idProduct, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
-            string toPayInWord, string paid, string remarks, int idParent)
+        public Invoice(int idSeller, int idCompany, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
+            string toPayInWord, string paid, string remarks)
         {
             IdSeller = idSeller;
             IdCompany = idCompany;
-            IdProduct = idProduct;
             Number = number;
             CreationDate = creationDate;
             SaleDate = saleDate;
@@ -101,15 +102,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ToPayInWords = toPayInWord;
             Paid = paid;
             Remarks = remarks;
-            IdParent = idParent;
         }
-        public Invoice(int id, int idSeller, int idCompany, int idProduct, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
-            string toPayInWord, string paid, string remarks, int idParent)
+        public Invoice(int id, int idSeller, int idProduct, int number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
+            string toPayInWord, string paid, string remarks)
         {
             Id = id;
             IdSeller = idSeller;
             IdCompany = idCompany;
-            IdProduct = idProduct;
             Number = number;
             CreationDate = creationDate;
             SaleDate = saleDate;
@@ -119,7 +118,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ToPayInWords = toPayInWord;
             Paid = paid;
             Remarks = remarks;
-            IdParent = idParent;
         }
     }
 
