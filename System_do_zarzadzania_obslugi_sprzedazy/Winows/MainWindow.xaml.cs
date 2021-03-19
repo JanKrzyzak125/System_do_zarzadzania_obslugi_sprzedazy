@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
 using System.ComponentModel;
+using System_do_zarzadzania_obslugi_sprzedazy.Winows;
+
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
@@ -23,6 +25,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ProductList windowProductList;
 
         List<Company> companies = new List<Company>();
         List<Seller> sellers = new List<Seller>();
@@ -153,6 +156,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 e.Column.Header = descriptor.DisplayName ?? descriptor.Name;
             }
+        }
+
+        private void DoubleClick_Open(object sender, MouseButtonEventArgs e)
+        {
+            windowProductList = new ProductList();
+            windowProductList.Show();
+
+
         }
     }
 }
