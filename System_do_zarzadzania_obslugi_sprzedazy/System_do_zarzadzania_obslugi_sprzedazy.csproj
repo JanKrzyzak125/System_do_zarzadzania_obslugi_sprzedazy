@@ -77,6 +77,9 @@
     <Compile Include="Winows\ListOfInvoices.xaml.cs">
       <DependentUpon>ListOfInvoices.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Winows\ListofProducts.xaml.cs">
+      <DependentUpon>ListofProducts.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Winows\NewInvoice.xaml.cs">
       <DependentUpon>NewInvoice.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Winows\ListOfInvoices.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winows\ListofProducts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
