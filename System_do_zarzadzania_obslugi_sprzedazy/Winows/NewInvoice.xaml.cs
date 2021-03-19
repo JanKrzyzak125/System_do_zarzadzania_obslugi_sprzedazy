@@ -36,7 +36,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             string toPay = ToPay.Text;
             string toPayInWord = ToPayInWord.Text;
             string paid = Paid.Text;
-            string remarks = Remarks.Text;
+            string dateOfIssue = DateOfIssue.Text;
             //Invoice invoice = new Invoice(idSeller, idCompany, idProduct, number, creationDate, saleDate, paymentType, paymentDeadline, toPay,
             //toPayInWord, paid, remarks, 15);
             //SQLiteDataAccess.SaveInvoice(invoice);
