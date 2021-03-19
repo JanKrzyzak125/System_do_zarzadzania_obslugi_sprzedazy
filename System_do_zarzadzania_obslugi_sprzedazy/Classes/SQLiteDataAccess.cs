@@ -58,7 +58,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into Database_for_invoices(IdSeller, IdCompany, IdProduct, Number, CreationDate, SaleDate, PaymentType, PaymentDeadline, ToPay, ToPayInWord, Paid, Remarks) values(@idSeller, @idCompany, @idProduct, @number, @creationDate, @saleDate, @paymentType, @paymentDeadline, @toPay, @toPayInWord, @paid, @remarks)",invoice);
+                string s1 = "IdSeller,  IdCompany,  Number,  CreationDate,  SaleDate,  PaymentType,  PaymentDeadline,  ToPay, ToPayInWords,  Paid,  DateOfIssue, NameOfService";
+                cnn.Execute("insert into Database_for_invoices(" + s1 + ")values(@idSeller, @idCompany, @number, @creationDate, @saleDate, @paymentType, @paymentDeadline, @toPay, @toPayInWords, @paid, @dateOfIssue, @nameOfService)", invoice);
             }
         }
         private static string LoadConnectionString(string id = "Default")

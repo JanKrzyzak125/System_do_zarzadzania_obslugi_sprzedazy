@@ -28,7 +28,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             int idSeller = Int32.Parse(IdSeller.Text);
             int idCompany = Int32.Parse(IdCompany.Text);
-            int number = Int32.Parse(Number.Text);
+            string number = Number.Text;
             string creationDate = CreationDate.Text;
             string saleDate = SaleDate.Text;
             string paymentType = PaymentType.Text;
@@ -36,10 +36,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             string toPay = ToPay.Text;
             string toPayInWord = ToPayInWord.Text;
             string paid = Paid.Text;
-            string remarks = Remarks.Text;
-            //Invoice invoice = new Invoice(idSeller, idCompany, idProduct, number, creationDate, saleDate, paymentType, paymentDeadline, toPay,
-            //toPayInWord, paid, remarks, 15);
-            //SQLiteDataAccess.SaveInvoice(invoice);
+            string dateOfIssue = DateOfIssue.Text;
+            string nameOfService = NameOfService.Text;
+            Invoice invoice = new Invoice(idSeller, idCompany, number, creationDate, saleDate, paymentType, paymentDeadline, toPay,
+            toPayInWord, paid, dateOfIssue, nameOfService);
+            SQLiteDataAccess.SaveInvoice(invoice);
             this.Close();
         }
     }
