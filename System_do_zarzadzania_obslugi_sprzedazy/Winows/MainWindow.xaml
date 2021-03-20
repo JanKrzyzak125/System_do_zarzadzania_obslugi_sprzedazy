@@ -10,63 +10,18 @@
 
     <Grid Margin="0,0,-6,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="25*"  />
-            <RowDefinition Height="89*"/>
-            <RowDefinition Height="49*"/>
-            <RowDefinition Height="524*"   />
+            <RowDefinition Height="16*"  />
+            <RowDefinition Height="98*"/>
+            <RowDefinition Height="52*"/>
+            <RowDefinition Height="520*"   />
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
 
         </Grid.ColumnDefinitions>
         <DockPanel>
-            <Menu DockPanel.Dock="Top" Height="26" Margin="0,0,10,0">
-                <MenuItem Header="_Dane">
-                </MenuItem>
-                <MenuItem Header="_Edycja">
-                    <MenuItem Header="_Save"/>
-                </MenuItem>
-                <MenuItem Header="Widok">
-                    <MenuItem Header="_Close"/>
-                </MenuItem>
-                <MenuItem Header="_Pomoc" Height="26" Width="49"/>
-            </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        <Grid Height="493" Margin="10,10,952,0" Grid.Row="3" VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="222*"/>
-                <RowDefinition Height="221*"/>
-            </Grid.RowDefinitions>
-            <TreeView Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="227" Margin="19,10,0,0" VerticalAlignment="Top" Width="283">
-                <ListBoxItem Content="Daty wystawienia"/>
-                <TreeViewItem Header="2021" IsExpanded="True">
-                    <TreeViewItem Header="Styczeń"/>
-                    <TreeViewItem Header="Luty"/>
-                    <TreeViewItem Header="Marzec"/>
-                </TreeViewItem>
-
-
-            </TreeView>
-
-
-            <TreeView Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="214" Margin="19,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="283">
-                <TreeViewItem Header="Dokumenty" IsExpanded="True">
-                    <TreeViewItem.Items>
-                        <StackPanel>
-                            <Button>Dokumenty sprzedaży</Button>
-                            <Button>Dokumenty zakupu</Button>
-                            <Button>Zamówienia dla sprzedaży</Button>
-                        </StackPanel>
-                    </TreeViewItem.Items>
-
-                </TreeViewItem>
-            </TreeView>
-        </Grid>
         <Button x:Name="Storage" Content="Magazyn" HorizontalAlignment="Left" Margin="213,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Storage_Open"/>
         <Button x:Name="Settlements" Content="Rozliczenia" HorizontalAlignment="Left" Margin="425,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Settlements_Open"/>
         <Button x:Name="Contractors" Content="Kontrahenci" HorizontalAlignment="Left" Margin="637,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Contractors_Open"/>
@@ -80,7 +35,7 @@
         <Button x:Name="Print" Content="Drukuj" HorizontalAlignment="Left" Margin="1039,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Print_Open" RenderTransformOrigin="0.481,-0.462"/>
         <Button x:Name="Search" Content="Znajdź" HorizontalAlignment="Left" Margin="1148,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Search_Open"/>
         <Grid HorizontalAlignment="Left" Height="475" Margin="330,6,0,0" Grid.Row="3" VerticalAlignment="Top" Width="922">
-            <DataGrid Name="CompanyDataGrid" AutoGenerateColumns="True" Background="White" AutoGeneratingColumn="CompanyDataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False" MouseDoubleClick="DoubleClick_Open"/>
+            <DataGrid Name="CompanyDataGrid" AutoGenerateColumns="True" Background="White" AutoGeneratingColumn="CompanyDataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False" MouseDoubleClick="DoubleClick_Open" Margin="-302,0,10,-18"/>
         </Grid>
     </Grid>
 </Window>
