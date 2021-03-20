@@ -51,7 +51,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 
         private void DelProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            if(InvoiceProductListDataGrid.SelectedItem!=null)
+            {
+                SQLiteDataAccess.DeleteProductFromInvoice((InvoiceProduct)InvoiceProductListDataGrid.SelectedItem);
+                invoiceProducts.Remove((InvoiceProduct)InvoiceProductListDataGrid.SelectedItem);
+                LoadInvoiceList();
+            }
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)

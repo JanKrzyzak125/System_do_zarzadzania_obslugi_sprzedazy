@@ -37,6 +37,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var output = cnn.Query<Company>(str);
             }
         }
+
+        public static void DeleteProductFromInvoice(InvoiceProduct invoiceProduct)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                String str = "delete from InvoicesProduct where IdProduct=" + invoiceProduct.IdProduct;
+                var output = cnn.Query<Company>(str);
+            }
+        }
         public static List<Seller> LoadSellers()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
