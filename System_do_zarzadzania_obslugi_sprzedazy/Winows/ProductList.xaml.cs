@@ -23,18 +23,30 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
     {
         private int invoiceID;
         List<InvoiceProduct> invoiceProducts;
-        public ProductList(int ID)
+        private int companyID;
+        public ProductList(int ID, int companyID)
         {
             InitializeComponent();
             invoiceID = ID;
+            this.companyID = companyID;
+            LoadInvoiceList();
+        }
+
+        private void LoadInvoiceList()
+        {
             invoiceProducts = SQLiteDataAccess.LoadInvoicesProduct(invoiceID);
             InvoiceProductListDataGrid.ItemsSource = invoiceProducts;
         }
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
-            NewProduct newProduct = new NewProduct();
+
+            NewProduct newProduct = new NewProduct(invoiceID, companyID);
             newProduct.Show();
+            newProduct.Closed += (s, eventarg) =>
+            {
+                LoadInvoiceList();
+            };
         }
 
         private void DelProduct_Click(object sender, RoutedEventArgs e)

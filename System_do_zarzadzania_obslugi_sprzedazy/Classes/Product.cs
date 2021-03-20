@@ -53,10 +53,34 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             get { return vatValue; }
             set { vatValue = value; }
         }
-        public string GrossValie
+        public string GrossValue
         {
             get { return grossValue; }
             set { grossValue = value; }
         }
-    }
+
+        public Product()
+        {
+
+        }
+
+        public Product(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public Product(int id, string name, string quantity, string netPrice, string vat, string vatValue, string grossValue )
+        {
+
+            Id = id;
+            Name = name;
+            Quantity = quantity;
+            NetPrice = netPrice;
+            Vat = vat;
+            VatValue = vatValue;
+            GrossValue = grossValue;
+        }
+}
+
 }

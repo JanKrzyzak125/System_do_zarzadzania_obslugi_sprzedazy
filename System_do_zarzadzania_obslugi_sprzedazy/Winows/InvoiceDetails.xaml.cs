@@ -43,7 +43,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ProductList productList = new ProductList(showInvoice.Id);
+            ProductList productList = new ProductList(showInvoice.Id, showInvoice.IdCompany);
             productList.Show();
         }
     }

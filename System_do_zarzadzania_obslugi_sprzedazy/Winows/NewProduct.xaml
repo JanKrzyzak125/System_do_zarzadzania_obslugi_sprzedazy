@@ -15,7 +15,7 @@
         <TextBox x:Name="ProductQuantity" HorizontalAlignment="Left" Height="24" Margin="231,411,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
         <TextBox x:Name="ProductQuantityUnit" HorizontalAlignment="Left" Height="24" Margin="231,513,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
         <TextBox x:Name="ProductVat" HorizontalAlignment="Left" Height="24" Margin="734,409,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
-        <Button x:Name="AddProductToInvoice" Content="Dodaj" HorizontalAlignment="Left" Margin="567,554,0,0" VerticalAlignment="Top" Width="83" Height="42"/>
+        <Button x:Name="AddProductToInvoice" Content="Dodaj" HorizontalAlignment="Left" Margin="567,554,0,0" VerticalAlignment="Top" Width="83" Height="42" Click="AddProductToInvoice_Click"/>
         <Label Content="ID Faktury" HorizontalAlignment="Left" Margin="113,93,0,0" VerticalAlignment="Top" Width="81"/>
         <Label Content="ID Produktu" HorizontalAlignment="Left" Margin="113,199,0,0" VerticalAlignment="Top" Width="81"/>
         <Label Content="Nazwa Produktu" HorizontalAlignment="Left" Margin="113,297,0,0" VerticalAlignment="Top" Width="97"/>
@@ -24,7 +24,14 @@
         <Label Content="Cena Netto" HorizontalAlignment="Left" Margin="648,199,0,0" VerticalAlignment="Top" Width="81"/>
         <Label Content="Cena Brutto" HorizontalAlignment="Left" Margin="648,295,0,0" VerticalAlignment="Top" Width="81"/>
         <Label Content="% VAT" HorizontalAlignment="Left" Margin="648,409,0,0" VerticalAlignment="Top" Width="81"/>
-        <ComboBox x:Name="ProductNameComboBox" HorizontalAlignment="Left" Margin="511,299,0,0" VerticalAlignment="Top" Width="59"/>
-
+        <ComboBox x:Name="ProductNameComboBox" HorizontalAlignment="Left" Margin="511,299,0,0" VerticalAlignment="Top" Width="108" SelectionChanged="ProductNameComboBox_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </Window>

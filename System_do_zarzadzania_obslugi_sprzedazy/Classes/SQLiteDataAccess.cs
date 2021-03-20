@@ -73,6 +73,23 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static List<Product> LoadInvoiceProduct(int CompanyID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<Product>("SELECT Product.Id, Product.Name FROM CompanyWithPoroduct INNER JOIN Product ON CompanyWithPoroduct.IdProduct = Product.Id WHERE CompanyWithPoroduct.IdCompany=" + CompanyID.ToString(), new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+        public static void SaveInvoiceProduct(InvoiceProduct invoiceProduct)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "IdInvoice, IdProduct, ProductName, Quantity, QuantityUnits, NettoPrice, BruttoPrice, Vat";
+                cnn.Execute("insert into InvoicesProduct("+s1+ ")values(@idInvoice, @idProduct, @productName, @quantity, @quantityUnits, @nettoPrice, @bruttoPrice, @vat)", invoiceProduct);
+            }
+        }
 
         private static string LoadConnectionString(string id = "Default")
         {
