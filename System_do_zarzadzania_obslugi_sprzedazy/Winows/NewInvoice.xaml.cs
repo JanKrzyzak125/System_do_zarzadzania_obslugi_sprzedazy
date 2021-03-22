@@ -53,12 +53,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 if(PaymentTypeComboBox.SelectedItem == Gotowka)
                 {
-                    AccountNumber.IsEnabled = false;
+                    AccountNumber.Visibility = Visibility.Hidden;
+                    AccountNumberLabel.Visibility = Visibility.Hidden;
                     AccountNumber.Clear();
                 }
                 else
                 {
-                    AccountNumber.IsEnabled = true;
+                    AccountNumber.Visibility = Visibility.Visible;
+                    AccountNumberLabel.Visibility = Visibility.Visible;
+
                 }
             }
 

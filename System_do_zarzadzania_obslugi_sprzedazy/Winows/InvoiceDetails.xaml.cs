@@ -39,7 +39,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             Paid.Text = showInvoice.Paid;
             DateOfIssue.Text = showInvoice.DateOfIssue;
             NameOfService.Text = showInvoice.NameOfService;
-            if (showInvoice.AccountNumber == "")
+            if (showInvoice.AccountNumber == "" || showInvoice.AccountNumber == null)
             {
                 AccountNumber.Visibility = Visibility.Hidden;
                 AccountNumberLabel.Visibility = Visibility.Hidden;
