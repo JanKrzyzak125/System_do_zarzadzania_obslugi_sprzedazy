@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
         Title="NewInvoice" Height="571.5" Width="1006">
-    <Grid Margin="-24,-42,-407,-31">
+    <Grid Margin="-24,-42,-432,-31" HorizontalAlignment="Left" Width="1454">
 
         <Label Content="ID Sprzedawcy" HorizontalAlignment="Left" Height="25" Margin="78,74,0,0"  VerticalAlignment="Top" Width="100" />
         <Label Content="ID Firmy" HorizontalAlignment="Left" Height="36" Margin="78,150,0,0"  VerticalAlignment="Top" Width="100" />
@@ -19,21 +19,34 @@
         <Label Content="Zapłacono" HorizontalAlignment="Left" Height="37" Margin="552,223,0,0"  VerticalAlignment="Top" Width="78" />
         <Label Content="Data wydania" HorizontalAlignment="Left" Height="24" Margin="552,311,0,0"  VerticalAlignment="Top" Width="102" />
         <Label Content="Nazwa usługi" HorizontalAlignment="Left" Height="34" Margin="552,389,0,0"  VerticalAlignment="Top" Width="102" />
+        <Label Content="Numer konta" HorizontalAlignment="Left" Margin="552,461,0,0" VerticalAlignment="Top" Width="87"/>
 
 
-        <TextBox x:Name="IdSeller" HorizontalAlignment="Center" Height="24" Margin="204,75,926,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
-        <TextBox x:Name="IdCompany" HorizontalAlignment="Center" Height="24" Margin="204,150,926,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
-        <TextBox x:Name="CreationDate" HorizontalAlignment="Center" Height="24" Margin="204,236,926,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
-        <TextBox x:Name="SaleDate" HorizontalAlignment="Center" Height="24" Margin="204,311,926,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
-        <TextBox x:Name="PaymentType" HorizontalAlignment="Center" Height="24" Margin="204,396,926,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
-        <TextBox x:Name="PaymentDeadline" HorizontalAlignment="Center" Height="24" Margin="220,463,941,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
-        <TextBox x:Name="ToPay" HorizontalAlignment="Center" Height="24" Margin="672,75,458,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
-        <TextBox x:Name="ToPayInWord" HorizontalAlignment="Center" Height="24" Margin="672,150,458,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
-        <TextBox x:Name="Paid" HorizontalAlignment="Center" Height="24" Margin="672,223,458,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
-        <TextBox x:Name="DateOfIssue" HorizontalAlignment="Center" Height="24" Margin="672,311,458,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
-        <TextBox x:Name="NameOfService" HorizontalAlignment="Center" Height="24" Margin="688,396,473,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="IdSeller" HorizontalAlignment="Center" Height="24" Margin="232,75,954,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="IdCompany" HorizontalAlignment="Center" Height="24" Margin="232,150,954,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="CreationDate" HorizontalAlignment="Center" Height="24" Margin="232,236,954,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="SaleDate" HorizontalAlignment="Center" Height="24" Margin="232,311,954,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="PaymentDeadline" HorizontalAlignment="Center" Height="24" Margin="232,463,954,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="ToPay" HorizontalAlignment="Center" Height="24" Margin="700,75,486,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="ToPayInWord" HorizontalAlignment="Center" Height="24" Margin="700,150,486,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="Paid" HorizontalAlignment="Center" Height="24" Margin="700,223,486,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="DateOfIssue" HorizontalAlignment="Center" Height="24" Margin="700,311,486,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="NameOfService" HorizontalAlignment="Center" Height="24" Margin="700,396,486,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268"/>
+        <TextBox x:Name="AccountNumber" HorizontalAlignment="Left" Height="24" Margin="700,463,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268"/>
 
-        <Button x:Name="AddInvoice" HorizontalAlignment="Stretch" Content="Dodaj" Margin="552,0,729,54" Click="AddInvoice_Click" Height="56" VerticalAlignment="Bottom"/>
+        <Button x:Name="AddInvoice" HorizontalAlignment="Stretch" Content="Dodaj" Margin="499,0,839,45" Click="AddInvoice_Click" Height="40" VerticalAlignment="Bottom"/>
+        <ComboBox x:Name="PaymentTypeComboBox" HorizontalAlignment="Left" Margin="232,396,0,0" VerticalAlignment="Top" Width="268" Height="24" SelectionChanged="PaymentTypeComboBox_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding }"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+            
+        </ComboBox>
+
+
 
 
     </Grid>

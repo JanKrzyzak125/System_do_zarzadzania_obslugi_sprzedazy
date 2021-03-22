@@ -31,7 +31,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             int idCompany = Int32.Parse(IdCompany.Text);
             string creationDate = CreationDate.Text;
             string saleDate = SaleDate.Text;
-            string paymentType = PaymentType.Text;
+            string paymentType = PaymentTypeComboBox.Text;
             string paymentDeadline = PaymentDeadline.Text;
             string toPay = ToPay.Text;
             string toPayInWord = ToPayInWord.Text;
@@ -44,6 +44,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             toPayInWord, paid, dateOfIssue, nameOfService);
             SQLiteDataAccess.SaveInvoice(invoice);
             this.Close();
+        }
+
+        private void PaymentTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

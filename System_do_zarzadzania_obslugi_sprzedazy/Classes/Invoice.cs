@@ -17,6 +17,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private string toPay;
         private string dateOfIssue;
         private string nameOfService;
+        private string accountNumber;
 
         public int IdSeller
         {
@@ -72,10 +73,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             get { return dateOfIssue; }
             set { dateOfIssue = value; }
+        }    
+
+        public string AccountNumber
+        {
+            get { return accountNumber; }
+            set { accountNumber = value; }
         }
 
-
-        
 
         public Invoice()
         {
@@ -83,7 +88,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         public Invoice(int idSeller, int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
-            string toPayInWords, string paid, string dateOfIssue, string nameOfService)
+            string toPayInWords, string paid, string dateOfIssue, string nameOfService, string accountNumber)
         {
             IdSeller = idSeller;
             IdCompany = idCompany;
@@ -97,10 +102,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             Paid = paid;
             DateOfIssue = dateOfIssue;
             NameOfService = nameOfService;
+            AccountNumber = accountNumber;
             
         }
         public Invoice(int id, int idSeller,int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
-            string toPayInWords, string paid, string dateOfIssue, string nameOfService)
+            string toPayInWords, string paid, string dateOfIssue, string nameOfService, string accountNumber)
         {
             Id = id;
             IdSeller = idSeller;
@@ -115,6 +121,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             Paid = paid;
             DateOfIssue = dateOfIssue;
             NameOfService = nameOfService;
+            AccountNumber = accountNumber;
         }
     }
 
