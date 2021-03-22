@@ -30,8 +30,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<Seller> sellers = new List<Seller>();
         List<BaseInvoice> baseInvoices = new List<BaseInvoice>();
         List<Invoice> invoices = new List<Invoice>();
+        
 
-        //private bool invoiceOpen=false;
+        private bool invoiceOpen=true;
+        private bool StorageOpen = false;
+        private bool SettlementsOpen = false;
+        private bool ContractorsOpen = false;
+        private bool StatmentsOpen = false;
+        private bool VATRegisterOpen = false;
+
+
 
 
         public MainWindow()
@@ -96,13 +104,37 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             //addUser.Closed += (s, eventarg) =>
             //{
             //    LoadCompaniesList();
-            //};
-            NewInvoice newInvoice = new NewInvoice();
-            newInvoice.Show();
-            newInvoice.Closed += (s, eventarg) =>
+            //}
+            if (invoiceOpen)
             {
-                LoadInvoicesList();
-            };
+                NewInvoice newInvoice = new NewInvoice();
+                newInvoice.Show();
+                newInvoice.Closed += (s, eventarg) =>
+                {
+                    LoadInvoicesList();
+                };
+            }
+            if(StorageOpen)
+            {
+                
+            }
+            if(SettlementsOpen)
+            {
+                
+            }
+            if(ContractorsOpen)
+            {
+
+            }
+            if(StatmentsOpen)
+            {
+
+            }
+            if(VATRegisterOpen)
+            {
+
+            }
+          
         }
 
         private void Remove_User(object sender, RoutedEventArgs e)
@@ -117,31 +149,51 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Invoice_Open(object sender, RoutedEventArgs e)
         {
+            SettingToFalse();
+            invoiceOpen = true;
+            AddUser.Content = "Dodaj fakture";
             LoadInvoicesList();
+
         }
 
         private void Storage_Open(object sender, RoutedEventArgs e)
         {
+            SettingToFalse();
+            StorageOpen = true;
+            AddUser.Content = "Dodaj przedmiot";
             CompanyDataGrid.ItemsSource = null;
         }
 
         private void Settlements_Open(object sender, RoutedEventArgs e)
         {
+            SettingToFalse();
+            SettlementsOpen = true;
+            AddUser.Content = "Dodaj rozliczenie";
             CompanyDataGrid.ItemsSource = null;
         }
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
         {
+            SettingToFalse();
+            ContractorsOpen = true;
+            AddUser.Content = "Dodaj Kontrahenta";
             LoadSellersList();
         }
 
         private void Statments_Open(object sender, RoutedEventArgs e)
         {
+            SettingToFalse();
+            StatmentsOpen = true;
+            AddUser.Content = "Dodaj sprawozdanie";
             CompanyDataGrid.ItemsSource = null;
         }
 
         private void VATRegister_Open(object sender, RoutedEventArgs e)
         {
+            SettingToFalse();
+            VATRegisterOpen = true;
+            AddUser.Content = "Dodaj rejestr vat";
+
             CompanyDataGrid.ItemsSource = null;
         }
 
@@ -175,5 +227,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 MessageBox.Show("Wybierz pozycję z listy!");
             }
         }
+
+        private void SettingToFalse()
+        {
+              invoiceOpen = false;
+              StorageOpen = false;
+              SettlementsOpen = false;
+              ContractorsOpen = false;
+              StatmentsOpen = false;
+              VATRegisterOpen = false;
+        }
+        
     }
 }
