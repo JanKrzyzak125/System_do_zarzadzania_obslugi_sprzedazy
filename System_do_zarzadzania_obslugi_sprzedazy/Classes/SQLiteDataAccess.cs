@@ -105,7 +105,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<int>("SELECT seq FROM sqlite_sequence WHERE name =" + name, new DynamicParameters());
+                var output = cnn.Query<int>("SELECT seq FROM sqlite_sequence WHERE name =\""+name+"\"", new DynamicParameters());
                 return output.ToList();
             }
         }
