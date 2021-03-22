@@ -141,9 +141,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
            if (CompanyDataGrid.SelectedItem != null)
             {
-              SQLiteDataAccess.DeleteUsers((Company)CompanyDataGrid.SelectedItem);
-              companies.Remove((Company)CompanyDataGrid.SelectedItem);
-              WiredUpCompaniesList();
+              SQLiteDataAccess.DeleteInvoice((Invoice)CompanyDataGrid.SelectedItem);
+              invoices.Remove((Invoice)CompanyDataGrid.SelectedItem);
+              LoadInvoicesList();
             }
         }
 
