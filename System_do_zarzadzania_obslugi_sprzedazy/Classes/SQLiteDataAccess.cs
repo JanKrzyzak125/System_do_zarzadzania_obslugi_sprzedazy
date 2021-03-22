@@ -99,6 +99,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 cnn.Execute("insert into InvoicesProduct("+s1+ ")values(@idInvoice, @idProduct, @productName, @quantity, @quantityUnits, @nettoPrice, @bruttoPrice, @vat)", invoiceProduct);
             }
         }
+        
+        //Wczytuje id z autoincrementa
+        public static List<int> LoadAiCompanyId(string name)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<int>("SELECT seq FROM sqlite_sequence WHERE name =" + name, new DynamicParameters());
+                return output.ToList();
+            }
+        }
 
         private static string LoadConnectionString(string id = "Default")
         {
