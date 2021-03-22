@@ -39,7 +39,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             string dateOfIssue = DateOfIssue.Text;
             string nameOfService = NameOfService.Text;
             string[] date = creationDate.Split('.');
-            string number = num.ToString()+"/"+date[2]+"/"+date[1];
+            string number = num.ToString()+"/"+date[1]+"/"+date[2];
             Invoice invoice = new Invoice(idSeller, idCompany, number, creationDate, saleDate, paymentType, paymentDeadline, toPay,
             toPayInWord, paid, dateOfIssue, nameOfService);
             SQLiteDataAccess.SaveInvoice(invoice);
