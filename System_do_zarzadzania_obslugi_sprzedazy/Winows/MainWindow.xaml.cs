@@ -99,7 +99,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             //};
             NewInvoice newInvoice = new NewInvoice();
             newInvoice.Show();
-
+            newInvoice.Closed += (s, eventarg) =>
+            {
+                LoadInvoicesList();
+            };
         }
 
         private void Remove_User(object sender, RoutedEventArgs e)
