@@ -39,6 +39,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             Paid.Text = showInvoice.Paid;
             DateOfIssue.Text = showInvoice.DateOfIssue;
             NameOfService.Text = showInvoice.NameOfService;
+            if (showInvoice.AccountNumber == "")
+            {
+                AccountNumber.Visibility = Visibility.Hidden;
+                AccountNumberLabel.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                AccountNumber.Text = showInvoice.AccountNumber;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

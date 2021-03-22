@@ -36,14 +36,12 @@
 
         <Button x:Name="AddInvoice" HorizontalAlignment="Stretch" Content="Dodaj" Margin="499,0,839,45" Click="AddInvoice_Click" Height="40" VerticalAlignment="Bottom"/>
         <ComboBox x:Name="PaymentTypeComboBox" HorizontalAlignment="Left" Margin="232,396,0,0" VerticalAlignment="Top" Width="268" Height="24" SelectionChanged="PaymentTypeComboBox_SelectionChanged">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding }"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-            
+            <ComboBoxItem x:Name="Gotowka">
+                <TextBlock Text="Gotówka"/>
+            </ComboBoxItem>
+            <ComboBoxItem x:Name="Przelew">
+                <TextBlock Text="Przelew"/>
+            </ComboBoxItem>
         </ComboBox>
 
 

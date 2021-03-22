@@ -40,14 +40,28 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             string nameOfService = NameOfService.Text;
             string[] date = creationDate.Split('.');
             string number = num.ToString()+"/"+date[1]+"/"+date[2];
+            string accountNumber = AccountNumber.Text;
             Invoice invoice = new Invoice(idSeller, idCompany, number, creationDate, saleDate, paymentType, paymentDeadline, toPay,
-            toPayInWord, paid, dateOfIssue, nameOfService);
+            toPayInWord, paid, dateOfIssue, nameOfService, accountNumber);
             SQLiteDataAccess.SaveInvoice(invoice);
             this.Close();
         }
 
         private void PaymentTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(PaymentTypeComboBox.SelectedItem!=null)
+            {
+                if(PaymentTypeComboBox.SelectedItem == Gotowka)
+                {
+                    AccountNumber.IsEnabled = false;
+                    AccountNumber.Clear();
+                }
+                else
+                {
+                    AccountNumber.IsEnabled = true;
+                }
+            }
+
 
         }
     }
