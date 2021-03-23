@@ -37,7 +37,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             if(InvoicesListView.SelectedItem != null)
             {
-                InvoiceDetails invoiceDetails = new InvoiceDetails(InvoicesListView.SelectedItem as Invoice);
+                Invoice inv = InvoicesListView.SelectedItem as Invoice;
+                InvoiceDetails invoiceDetails = new InvoiceDetails(inv, inv.Id, inv.IdCompany);
                 invoiceDetails.Show();
             }
         }

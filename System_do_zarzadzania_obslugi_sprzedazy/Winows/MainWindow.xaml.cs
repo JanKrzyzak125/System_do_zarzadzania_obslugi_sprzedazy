@@ -219,7 +219,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             if (CompanyDataGrid.SelectedItem != null)
             {
-                InvoiceDetails invoiceDetails = new InvoiceDetails(CompanyDataGrid.SelectedItem as Invoice);
+                Invoice inv = CompanyDataGrid.SelectedItem as Invoice;
+                InvoiceDetails invoiceDetails = new InvoiceDetails(inv,inv.Id, inv.IdCompany);
                 invoiceDetails.Show();
             }
             else
