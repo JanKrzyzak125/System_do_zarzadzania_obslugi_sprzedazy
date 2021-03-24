@@ -30,6 +30,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<Seller> sellers = new List<Seller>();
         List<BaseInvoice> baseInvoices = new List<BaseInvoice>();
         List<Invoice> invoices = new List<Invoice>();
+        List<Product> products = new List<Product>();
         
 
         private bool invoiceOpen=true;
@@ -66,6 +67,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
+        
         private void WiredUpSellersList()
         {
             CompanyDataGrid.ItemsSource = null;
@@ -77,7 +79,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.ItemsSource = null;
             CompanyDataGrid.ItemsSource = baseInvoices;
         }
-
+        private void WiredUpProductList()
+        {
+            CompanyDataGrid.ItemsSource = null;
+            CompanyDataGrid.ItemsSource = products;
+        }
         private void LoadInvoicesList()
         {
             invoices = SQLiteDataAccess.LoadInvoices();
@@ -90,6 +96,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             sellers = SQLiteDataAccess.LoadSellers();
             WiredUpSellersList();
       
+        }
+        private void LoadProductsList()
+        {
+            products = SQLiteDataAccess.LoadProducts();
+            WiredUpProductList();
+
         }
 
         private void refresh_Click(object sender, RoutedEventArgs e)
@@ -116,7 +128,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
             if(StorageOpen)
             {
-                
+                AddNewProductMagazine addNewProductMagazine = new AddNewProductMagazine();
+                addNewProductMagazine.Show();
+                addNewProductMagazine.Closed += (s, eventarg) =>
+                {
+                    LoadProductsList();
+                };
             }
             if(SettlementsOpen)
             {
@@ -139,12 +156,48 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Remove_User(object sender, RoutedEventArgs e)
         {
-           if (CompanyDataGrid.SelectedItem != null)
+            if (invoiceOpen)
             {
-              SQLiteDataAccess.DeleteInvoice((Invoice)CompanyDataGrid.SelectedItem);
-              invoices.Remove((Invoice)CompanyDataGrid.SelectedItem);
-              LoadInvoicesList();
+                if (CompanyDataGrid.SelectedItem != null)
+                {
+
+
+                    SQLiteDataAccess.DeleteInvoice((Invoice)CompanyDataGrid.SelectedItem);
+                    invoices.Remove((Invoice)CompanyDataGrid.SelectedItem);
+                    LoadInvoicesList();
+                }
             }
+            if (StorageOpen)
+            {
+                if (CompanyDataGrid.SelectedItem != null)
+                {
+
+
+                    SQLiteDataAccess.DeleteProduct((Product)CompanyDataGrid.SelectedItem);
+                    products.Remove((Product)CompanyDataGrid.SelectedItem);
+                    LoadProductsList();
+                }
+
+            }
+            if (SettlementsOpen)
+            {
+
+            }
+            if (ContractorsOpen)
+            {
+
+            }
+            if (StatmentsOpen)
+            {
+
+            }
+            if (VATRegisterOpen)
+            {
+
+            }
+
+
+            
         }
 
         private void Invoice_Open(object sender, RoutedEventArgs e)
@@ -152,6 +205,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             SettingToFalse();
             invoiceOpen = true;
             AddUser.Content = "Dodaj fakture";
+            RemoveUser.Content = "Usuń fakture";
             LoadInvoicesList();
 
         }
@@ -161,7 +215,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             SettingToFalse();
             StorageOpen = true;
             AddUser.Content = "Dodaj przedmiot";
+            RemoveUser.Content = "Usuń przedmiot";
             CompanyDataGrid.ItemsSource = null;
+            LoadProductsList();
         }
 
         private void Settlements_Open(object sender, RoutedEventArgs e)
@@ -169,6 +225,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             SettingToFalse();
             SettlementsOpen = true;
             AddUser.Content = "Dodaj rozliczenie";
+            RemoveUser.Content = "Usuń rozliczenie";
             CompanyDataGrid.ItemsSource = null;
         }
 
@@ -177,6 +234,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             SettingToFalse();
             ContractorsOpen = true;
             AddUser.Content = "Dodaj Kontrahenta";
+            RemoveUser.Content = "Usuń Kontrahenta";
             LoadSellersList();
         }
 
@@ -185,6 +243,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             SettingToFalse();
             StatmentsOpen = true;
             AddUser.Content = "Dodaj sprawozdanie";
+            RemoveUser.Content = "Usuń sprawozdanie";
             CompanyDataGrid.ItemsSource = null;
         }
 
@@ -193,6 +252,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             SettingToFalse();
             VATRegisterOpen = true;
             AddUser.Content = "Dodaj rejestr vat";
+            RemoveUser.Content = "Usuń rejestr vat";
 
             CompanyDataGrid.ItemsSource = null;
         }
@@ -238,6 +298,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
               StatmentsOpen = false;
               VATRegisterOpen = false;
         }
-        
+
+       
     }
 }

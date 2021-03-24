@@ -46,6 +46,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var output = cnn.Query<Company>(str);
             }
         }
+        public static void DeleteProduct(Product product)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                String str = "delete from Product where Id=" + product.Id;
+                var output = cnn.Query<Company>(str);
+            }
+        }
 
         public static void DeleteProductFromInvoice(InvoiceProduct invoiceProduct)
         {
@@ -116,6 +124,22 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 var output = cnn.Query<int>("SELECT seq FROM sqlite_sequence WHERE name =\""+name+"\"", new DynamicParameters());
                 return output.ToList();
+            }
+        }
+        public static List<Product> LoadProducts()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<Product>("select * from Product", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+        public static void SaveProduct(Product product)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "name,quantity,netPrice,vat,vatValue,grossValue";
+                cnn.Execute("insert into Product(" + s1 + ")values(@name, @quantity, @netPrice, @vat, @vatValue, @grossValue)", product);
             }
         }
 

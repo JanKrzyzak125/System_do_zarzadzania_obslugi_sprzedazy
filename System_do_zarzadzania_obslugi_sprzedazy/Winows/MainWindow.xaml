@@ -30,7 +30,7 @@
         <Button x:Name="Invoice" Content="Faktury" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="208" Height="81" Margin="5,0,0,0" Click="Invoice_Open"/>
 
         <Button x:Name="AddUser" Content="Dodaj Fakturę" HorizontalAlignment="Left" Margin="5,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Add_User"/>
-        <Button Content="Usuń Fakturę" HorizontalAlignment="Left" Margin="114,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Remove_User"/>
+        <Button x:Name="RemoveUser" Content="Usuń Fakturę" HorizontalAlignment="Left" Margin="114,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Remove_User"/>
         <Button x:Name="refresh" Content="Odśwież" HorizontalAlignment="Left" Margin="223,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="refresh_Click"/>
         <Button x:Name="Print" Content="Drukuj" HorizontalAlignment="Left" Margin="1039,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Print_Open" RenderTransformOrigin="0.481,-0.462"/>
         <Button x:Name="Search" Content="Znajdź" HorizontalAlignment="Left" Margin="1148,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Search_Open"/>

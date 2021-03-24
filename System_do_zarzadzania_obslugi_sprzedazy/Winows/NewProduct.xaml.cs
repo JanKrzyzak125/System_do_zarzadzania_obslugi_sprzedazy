@@ -58,5 +58,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct);
             this.Close();
         }
+
+        
     }
 }
