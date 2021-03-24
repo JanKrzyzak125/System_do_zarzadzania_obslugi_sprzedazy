@@ -37,13 +37,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             get { return name; }
             set { name = value; }
         }
-        [DisplayName("Iloœæ")]
+        [DisplayName("Ilosc")]
         public string Quantity
         {
             get { return quantity; }
             set { quantity = value; }
         }
-        [DisplayName("Wartoœæ Netto ")]
+        [DisplayName("Wartosc Netto ")]
         public string NetPrice
         {
             get { return netPrice; }
@@ -55,13 +55,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             get { return vat; }
             set { vat = value; }
         }
-        [DisplayName("Wartoœæ Vat")]
+        [DisplayName("Wartosc Vat")]
         public string VatValue
         {
             get { return vatValue; }
             set { vatValue = value; }
         }
-        [DisplayName("Wartoœæ Brutto")]
+        [DisplayName("Wartosc Brutto")]
         public string GrossValue
         {
             get { return grossValue; }
