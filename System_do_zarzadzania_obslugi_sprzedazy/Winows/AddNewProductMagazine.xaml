@@ -1,0 +1,27 @@
+﻿<Window x:Class="System_do_zarzadzania_obslugi_sprzedazy.Winows.AddNewProductMagazine"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy.Winows"
+        mc:Ignorable="d"
+          Title="NewProduct" Height="459.29" Width="674.581">
+    <Grid Margin="-31,0,-29,-31" HorizontalAlignment="Left" Width="727" Height="459" VerticalAlignment="Top">
+
+
+
+        <TextBox x:Name="ProductName" HorizontalAlignment="Left" Height="24" Margin="323,51,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"  />
+        <TextBox x:Name="NetPrice1art" HorizontalAlignment="Left" Height="24" Margin="323,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" />
+        <TextBox x:Name="ProductQuantity" HorizontalAlignment="Left" Height="24" Margin="323,144,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
+        <TextBox x:Name="ProductNettoPrice" HorizontalAlignment="Left" Height="24" Margin="323,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
+        <TextBox x:Name="ProductBruttoPrice" HorizontalAlignment="Left" Height="24" Margin="323,236,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
+        <TextBox x:Name="ProductVat" HorizontalAlignment="Left" Height="24" Margin="323,286,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
+        <Button x:Name="AddProductToMagazine" Content="Dodaj" HorizontalAlignment="Left" Margin="323,344,0,0" VerticalAlignment="Top" Width="83" Height="42" Click="AddProductToMagazine_Click"  />
+        <Label Content="Cena Netto za 1 szt&#xD;&#xA;" HorizontalAlignment="Left" Margin="171,101,0,0" VerticalAlignment="Top" Width="136"/>
+        <Label Content="Nazwa Produktu" HorizontalAlignment="Left" Margin="171,49,0,0" VerticalAlignment="Top" Width="115"/>
+        <Label Content="Ilość" HorizontalAlignment="Left" Margin="171,144,0,0" VerticalAlignment="Top" Width="81"/>
+        <Label Content="Cena Netto Razem" HorizontalAlignment="Left" Margin="171,190,0,0" VerticalAlignment="Top" Width="136"/>
+        <Label Content="Cena Brutto Razem" HorizontalAlignment="Left" Margin="171,234,0,0" VerticalAlignment="Top" Width="115"/>
+        <Label Content="% VAT" HorizontalAlignment="Left" Margin="171,286,0,0" VerticalAlignment="Top" Width="81"/>
+    </Grid>
+</Window>
