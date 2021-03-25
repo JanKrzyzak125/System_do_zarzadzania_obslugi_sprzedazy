@@ -24,6 +24,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         List<Product> products;
         private int invoiceId;
         private int companyId;
+        private bool isChanged = true;
+
         public NewProduct(int invoiceId, int companyId)
         {
             this.invoiceId = invoiceId;
@@ -38,11 +40,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         {
             if(ProductNameComboBox.SelectedItem!=null)
             {
+                isChanged = true;
                 Product product = ProductNameComboBox.SelectedItem as Product;
                 ProductName.Text = product.Name;
                 ProductID.Text = product.Id.ToString();
+                ProductVat.Text = product.Vat;
                 ProductNettoPrice.Text = product.NetPrice;
                 ProductBruttoPrice.Text = product.GrossValue;
+                isChanged = false;
             }
         }
 
@@ -63,21 +68,30 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 
         private void ProductNettoPrice_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(!string.IsNullOrEmpty(ProductNettoPrice.Text))
+            if (!ProductBruttoPrice.IsFocused&&!isChanged)
             {
-                double Gross = (double.Parse(ProductNettoPrice.Text)*(double.Parse(ProductVat.Text)/100))+double.Parse(ProductNettoPrice.Text);
-                ProductBruttoPrice.Text = Gross.ToString();
+                if (!string.IsNullOrEmpty(ProductNettoPrice.Text))
+                {
+                    double Netto = double.Parse(ProductNettoPrice.Text);
+                    double Vat = double.Parse(ProductVat.Text) / 100;
+                    double Gross = Netto + Netto * Vat;
+                    ProductBruttoPrice.Text = Gross.ToString();
+                }
             }
         }
 
         private void ProductBruttoPrice_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(!string.IsNullOrEmpty(ProductBruttoPrice.Text))
+            if (!ProductNettoPrice.IsFocused&&!isChanged)
             {
-                double Vat = double.Parse(ProductVat.Text)/100;
-                double Gross = double.Parse(ProductBruttoPrice.Text);
-                double Netto = (Gross * Vat)/(1*Vat);
-                ProductBruttoPrice.Text = Netto.ToString();
+                if (!string.IsNullOrEmpty(ProductBruttoPrice.Text))
+                {
+                    double Vat = double.Parse(ProductVat.Text) / 100;
+                    double Gross = double.Parse(ProductBruttoPrice.Text);
+                    double VatPrice = (Gross * Vat) / (1 + Vat);
+                    double Netto = Gross - VatPrice;
+                    ProductNettoPrice.Text = Netto.ToString();
+                }
             }
         }
     }
