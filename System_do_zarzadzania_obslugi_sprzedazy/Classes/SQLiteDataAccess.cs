@@ -103,7 +103,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<Product>("SELECT Product.Id, Product.Name FROM CompanyWithPoroduct INNER JOIN Product ON CompanyWithPoroduct.IdProduct = Product.Id WHERE CompanyWithPoroduct.IdCompany=" + CompanyID.ToString(), new DynamicParameters());
+                var output = cnn.Query<Product>("SELECT Product.Id, Product.Name,Product.NetPrice,Product.VatPrice FROM CompanyWithPoroduct INNER JOIN Product ON CompanyWithPoroduct.IdProduct = Product.Id WHERE CompanyWithPoroduct.IdCompany=" + CompanyID.ToString(), new DynamicParameters());
                 return output.ToList();
             }
         }
@@ -126,12 +126,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
-        public static List<Product> LoadProducts()
+        public static List<Product> LoadProducts(int CompanyID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<Product>("select * from Product", new DynamicParameters());
+                var output = cnn.Query<Product>("select Product.Id, Product.Name,Product.Quantity,Product.NetPrice,Product.Vat,Product.VatValue,Product.GrossValue FROM CompanyWithPoroduct INNER JOIN Product ON CompanyWithPoroduct.IdProduct = Product.Id WHERE CompanyWithPoroduct.IdCompany=" + CompanyID.ToString(), new DynamicParameters());
                 return output.ToList();
+                
             }
         }
         public static void SaveProduct(Product product)

@@ -28,7 +28,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         {
             this.invoiceId = invoiceId;
             this.companyId = companyId;
-            products = SQLiteDataAccess.LoadInvoiceProduct(this.companyId);
+            products = SQLiteDataAccess.LoadProducts(companyId);
             InitializeComponent();
             InvoiceID.Text = invoiceId.ToString();
             ProductNameComboBox.ItemsSource = products;
@@ -41,6 +41,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 Product product = ProductNameComboBox.SelectedItem as Product;
                 ProductName.Text = product.Name;
                 ProductID.Text = product.Id.ToString();
+                ProductNettoPrice.Text = product.NetPrice;
+                ProductBruttoPrice.Text = product.GrossValue;
             }
         }
 
@@ -61,12 +63,22 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 
         private void ProductNettoPrice_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if(!string.IsNullOrEmpty(ProductNettoPrice.Text))
+            {
+                double Gross = (double.Parse(ProductNettoPrice.Text)*(double.Parse(ProductVat.Text)/100))+double.Parse(ProductNettoPrice.Text);
+                ProductBruttoPrice.Text = Gross.ToString();
+            }
         }
 
         private void ProductBruttoPrice_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if(!string.IsNullOrEmpty(ProductBruttoPrice.Text))
+            {
+                double Vat = double.Parse(ProductVat.Text)/100;
+                double Gross = double.Parse(ProductBruttoPrice.Text);
+                double Netto = (Gross * Vat)/(1*Vat);
+                ProductBruttoPrice.Text = Netto.ToString();
+            }
         }
     }
 }
