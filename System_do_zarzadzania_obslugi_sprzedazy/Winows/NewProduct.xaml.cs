@@ -59,6 +59,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             this.Close();
         }
 
-        
+        private void ProductNettoPrice_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ProductBruttoPrice_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
