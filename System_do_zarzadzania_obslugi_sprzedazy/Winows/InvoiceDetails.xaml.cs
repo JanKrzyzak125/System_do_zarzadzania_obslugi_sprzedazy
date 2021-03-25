@@ -24,9 +24,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
     {
 
         private Invoice showInvoice;
+        private Company showCompanyName;
+        private Seller showCompanySeller;
+
         private int invoiceID;
         private int companyID;
         List<InvoiceProduct> invoiceProducts;
+        List<Company> companyName;
+        List<Seller> companySellerName;
+
         public InvoiceDetails(Invoice invoice, int iID, int companyID)
         {
 
@@ -36,8 +42,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             this.companyID = companyID;
             LoadInvoiceList();
             ID.Text = showInvoice.Id.ToString();
-            IdSeller.Text = showInvoice.IdSeller.ToString();
-            IdCompany.Text = showInvoice.IdCompany.ToString();
+
+            LoadCompanyList();
+            IdCompany.Text = showCompanyName.CompanyName;
+
+            LoadSellerList();
+            //IdSeller.Text = showCompanySeller.Name;// potrzeba danych w tabelce 
+
+            
+            //IdSeller.Text = showInvoice.IdSeller.ToString();
+            //IdCompany.Text = showInvoice.IdCompany.ToString();
             Number.Text = showInvoice.Number.ToString();
             CreationDate.Text = showInvoice.CreationDate;
             SaleDate.Text = showInvoice.SaleDate;
@@ -64,6 +78,20 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             invoiceProducts = SQLiteDataAccess.LoadInvoicesProduct(invoiceID);
             InvoiceProductListDataGrid.ItemsSource = invoiceProducts;
         }
+
+        private void LoadCompanyList() 
+        {
+            companyName = SQLiteDataAccess.LoadNameCompany(companyID);
+            showCompanyName = companyName[0];
+
+        }
+
+        private void LoadSellerList()
+        {
+            companySellerName = SQLiteDataAccess.LoadNameSeller(companyID);
+            //showCompanySeller = companySellerName[0]; //potrzeba danych w tabelce 
+        }
+
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {

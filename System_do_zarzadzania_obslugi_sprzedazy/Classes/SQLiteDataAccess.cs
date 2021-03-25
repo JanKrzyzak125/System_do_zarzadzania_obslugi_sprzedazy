@@ -143,6 +143,24 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static List<Seller> LoadNameSeller(int idCompany) 
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) 
+            {                       
+                var output =cnn.Query<Seller>("SELECT Seller.Name FROM CompanyWithSellers INNER JOIN Seller ON CompanyWithSellers.IdSeller=Seller.IdSeller WHERE CompanyWithSellers.IdCompany=" + idCompany.ToString(), new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+        public static List<Company> LoadNameCompany(int idCompany) 
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output=cnn.Query<Company>("select companyName from Company where CompanyID="+ idCompany.ToString(), new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
