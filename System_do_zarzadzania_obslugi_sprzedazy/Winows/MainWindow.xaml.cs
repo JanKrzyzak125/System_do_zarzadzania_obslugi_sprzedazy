@@ -40,7 +40,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private bool StatmentsOpen = false;
         private bool VATRegisterOpen = false;
 
-
+        private int companyID = 1;
 
 
         public MainWindow()
@@ -99,7 +99,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
         private void LoadProductsList()
         {
-            products = SQLiteDataAccess.LoadProducts();
+            products = SQLiteDataAccess.LoadProducts(companyID);
             WiredUpProductList();
 
         }
@@ -277,7 +277,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void DoubleClick_Open(object sender, MouseButtonEventArgs e)
         {
-            if (CompanyDataGrid.SelectedItem != null)
+            if (CompanyDataGrid.SelectedItem != null && invoiceOpen)
             {
                 Invoice inv = CompanyDataGrid.SelectedItem as Invoice;
                 InvoiceDetails invoiceDetails = new InvoiceDetails(inv,inv.Id, inv.IdCompany);

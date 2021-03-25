@@ -24,11 +24,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         List<Product> products;
         private int invoiceId;
         private int companyId;
+        private bool isChanged = true;
+
         public NewProduct(int invoiceId, int companyId)
         {
             this.invoiceId = invoiceId;
             this.companyId = companyId;
-            products = SQLiteDataAccess.LoadInvoiceProduct(this.companyId);
+            products = SQLiteDataAccess.LoadProducts(companyId);
             InitializeComponent();
             InvoiceID.Text = invoiceId.ToString();
             ProductNameComboBox.ItemsSource = products;
@@ -38,9 +40,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         {
             if(ProductNameComboBox.SelectedItem!=null)
             {
+                isChanged = true;
                 Product product = ProductNameComboBox.SelectedItem as Product;
                 ProductName.Text = product.Name;
                 ProductID.Text = product.Id.ToString();
+                ProductVat.Text = product.Vat;
+                ProductNettoPrice.Text = product.NetPrice;
+                ProductBruttoPrice.Text = product.GrossValue;
+                isChanged = false;
             }
         }
 
@@ -59,6 +66,33 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             this.Close();
         }
 
-        
+        private void ProductNettoPrice_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!ProductBruttoPrice.IsFocused&&!isChanged)
+            {
+                if (!string.IsNullOrEmpty(ProductNettoPrice.Text))
+                {
+                    double Netto = double.Parse(ProductNettoPrice.Text);
+                    double Vat = double.Parse(ProductVat.Text) / 100;
+                    double Gross = Netto + Netto * Vat;
+                    ProductBruttoPrice.Text = Gross.ToString();
+                }
+            }
+        }
+
+        private void ProductBruttoPrice_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!ProductNettoPrice.IsFocused&&!isChanged)
+            {
+                if (!string.IsNullOrEmpty(ProductBruttoPrice.Text))
+                {
+                    double Vat = double.Parse(ProductVat.Text) / 100;
+                    double Gross = double.Parse(ProductBruttoPrice.Text);
+                    double VatPrice = (Gross * Vat) / (1 + Vat);
+                    double Netto = Gross - VatPrice;
+                    ProductNettoPrice.Text = Netto.ToString();
+                }
+            }
+        }
     }
 }
