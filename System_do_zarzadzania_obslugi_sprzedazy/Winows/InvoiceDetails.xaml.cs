@@ -39,15 +39,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             showInvoice = invoice;
             InitializeComponent();
             invoiceID = iID;
-            this.companyID = companyID;
+            //this.companyID = companyID;
+            this.companyID = 1;
             LoadInvoiceList();
             ID.Text = showInvoice.Id.ToString();
+            
 
             LoadCompanyList();
             IdCompany.Text = showCompanyName.CompanyName;
 
             LoadSellerList();
-            //IdSeller.Text = showCompanySeller.Name;// potrzeba danych w tabelce 
+            IdSeller.Text = showCompanySeller.Name + " " + showCompanySeller.Surname;// potrzeba danych w tabelce 
 
             
             //IdSeller.Text = showInvoice.IdSeller.ToString();
@@ -89,7 +91,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private void LoadSellerList()
         {
             companySellerName = SQLiteDataAccess.LoadNameSeller(companyID);
-            //showCompanySeller = companySellerName[0]; //potrzeba danych w tabelce 
+            showCompanySeller = companySellerName[0]; //potrzeba danych w tabelce 
         }
 
 
