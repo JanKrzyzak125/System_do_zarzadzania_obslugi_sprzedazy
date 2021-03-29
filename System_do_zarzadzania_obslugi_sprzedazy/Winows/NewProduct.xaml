@@ -12,7 +12,7 @@
         <TextBox x:Name="ProductBruttoPrice" HorizontalAlignment="Left" Height="24" Margin="734,299,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="ProductBruttoPrice_TextChanged"/>
         <TextBox x:Name="ProductID" HorizontalAlignment="Left" Height="24" Margin="231,201,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" IsEnabled="False"/>
         <TextBox x:Name="ProductName" HorizontalAlignment="Left" Height="24" Margin="231,299,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" IsEnabled="False"/>
-        <TextBox x:Name="ProductQuantity" HorizontalAlignment="Left" Height="24" Margin="231,411,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
+        <TextBox x:Name="ProductQuantity" HorizontalAlignment="Left" Height="24" Margin="231,411,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="ProductQuantity_TextChanged"/>
         <TextBox x:Name="ProductQuantityUnit" HorizontalAlignment="Left" Height="24" Margin="231,513,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
         <TextBox x:Name="ProductVat" HorizontalAlignment="Left" Height="24" Margin="734,409,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" IsEnabled="False"/>
         <Button x:Name="AddProductToInvoice" Content="Dodaj" HorizontalAlignment="Left" Margin="567,554,0,0" VerticalAlignment="Top" Width="83" Height="42" Click="AddProductToInvoice_Click"/>

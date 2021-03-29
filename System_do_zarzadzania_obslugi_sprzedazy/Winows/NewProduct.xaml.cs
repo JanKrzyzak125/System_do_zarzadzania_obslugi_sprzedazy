@@ -94,5 +94,20 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 }
             }
         }
+
+        private void ProductQuantity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(!ProductQuantity.IsFocused&&!isChanged)
+            {
+                if(!string.IsNullOrEmpty(ProductQuantity.Text))
+                {
+                    double Netto = double.Parse(ProductNettoPrice.Text);
+                    Netto = Netto*double.Parse(ProductQuantity.Text);
+                    double Vat = double.Parse(ProductVat.Text) / 100;
+                    double Gross = Netto + Netto * Vat;
+                    ProductBruttoPrice.Text = Gross.ToString();
+                }
+            }
+        }
     }
 }
