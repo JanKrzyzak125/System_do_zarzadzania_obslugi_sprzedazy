@@ -104,11 +104,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
-        private void refresh_Click(object sender, RoutedEventArgs e)
-        {
-            LoadCompaniesList();
-        }
-
         private void Add_User(object sender, RoutedEventArgs e)
         {
             //addUser addUser = new addUser();
