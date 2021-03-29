@@ -162,6 +162,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static void SaveProductToCustomer(int productId, int companyId)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "IdCompany, IdProduct";
+                cnn.Execute("insert into CompanyWithPoroduct(" + s1 + ")values("+companyId.ToString()+","+productId.ToString()+")");
+            }
+        }
+
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;

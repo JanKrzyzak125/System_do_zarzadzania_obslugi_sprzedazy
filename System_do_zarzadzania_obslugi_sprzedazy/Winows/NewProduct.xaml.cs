@@ -74,7 +74,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 {
                     double Netto = double.Parse(ProductNettoPrice.Text);
                     double Vat = double.Parse(ProductVat.Text) / 100;
-                    double Gross = Netto + Netto * Vat;
+                    double Gross = (Netto + Netto * Vat);
                     ProductBruttoPrice.Text = Gross.ToString();
                 }
             }
@@ -89,7 +89,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     double Vat = double.Parse(ProductVat.Text) / 100;
                     double Gross = double.Parse(ProductBruttoPrice.Text);
                     double VatPrice = (Gross * Vat) / (1 + Vat);
-                    double Netto = Gross - VatPrice;
+                    double Netto = (Gross - VatPrice);
                     ProductNettoPrice.Text = Netto.ToString();
                 }
             }
@@ -97,14 +97,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 
         private void ProductQuantity_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(!ProductQuantity.IsFocused&&!isChanged)
+            if(ProductQuantity.IsFocused&&!isChanged)
             {
-                if(!string.IsNullOrEmpty(ProductQuantity.Text))
+                if(!string.IsNullOrEmpty(ProductQuantity.Text)&&!string.IsNullOrEmpty(ProductNettoPrice.Text)&&!string.IsNullOrEmpty(ProductVat.Text))
                 {
                     double Netto = double.Parse(ProductNettoPrice.Text);
                     Netto = Netto*double.Parse(ProductQuantity.Text);
                     double Vat = double.Parse(ProductVat.Text) / 100;
                     double Gross = Netto + Netto * Vat;
+                    ProductNettoPrice.Text = Netto.ToString();
                     ProductBruttoPrice.Text = Gross.ToString();
                 }
             }

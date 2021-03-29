@@ -11,13 +11,13 @@
 
 
         <TextBox x:Name="ProductName" HorizontalAlignment="Left" Height="24" Margin="323,51,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"  />
-        <TextBox x:Name="NetPrice1art" HorizontalAlignment="Left" Height="24" Margin="323,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" />
+        <TextBox x:Name="NetPrice1art" HorizontalAlignment="Left" Height="24" Margin="323,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="NetPrice1art_TextChanged" />
         <TextBox x:Name="ProductQuantity" HorizontalAlignment="Left" Height="24" Margin="323,144,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
-        <TextBox x:Name="ProductNettoPrice" HorizontalAlignment="Left" Height="24" Margin="323,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
-        <TextBox x:Name="ProductBruttoPrice" HorizontalAlignment="Left" Height="24" Margin="323,236,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
+        <TextBox x:Name="ProductNettoPrice" HorizontalAlignment="Left" Height="24" Margin="323,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="ProductNettoPrice_TextChanged"/>
+        <TextBox x:Name="ProductBruttoPrice" HorizontalAlignment="Left" Height="24" Margin="323,236,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="ProductBruttoPrice_TextChanged"/>
         <TextBox x:Name="ProductVat" HorizontalAlignment="Left" Height="24" Margin="323,286,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
         <Button x:Name="AddProductToMagazine" Content="Dodaj" HorizontalAlignment="Left" Margin="323,344,0,0" VerticalAlignment="Top" Width="83" Height="42" Click="AddProductToMagazine_Click"  />
-        <Label Content="Cena Netto za 1 szt&#xD;&#xA;" HorizontalAlignment="Left" Margin="171,101,0,0" VerticalAlignment="Top" Width="136"/>
+        <Label Content="Cena Netto za 1 szt" HorizontalAlignment="Left" Margin="171,101,0,0" VerticalAlignment="Top" Width="136"/>
         <Label Content="Nazwa Produktu" HorizontalAlignment="Left" Margin="171,49,0,0" VerticalAlignment="Top" Width="115"/>
         <Label Content="Ilość" HorizontalAlignment="Left" Margin="171,144,0,0" VerticalAlignment="Top" Width="81"/>
         <Label Content="Cena Netto Razem" HorizontalAlignment="Left" Margin="171,190,0,0" VerticalAlignment="Top" Width="136"/>
