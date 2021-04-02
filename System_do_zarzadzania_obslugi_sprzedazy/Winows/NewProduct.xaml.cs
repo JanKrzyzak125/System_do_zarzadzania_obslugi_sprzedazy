@@ -25,6 +25,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         private int invoiceId;
         private int companyId;
         private bool isChanged = true;
+        List<string> unitNames;
 
         public NewProduct(int invoiceId, int companyId)
         {
@@ -34,6 +35,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             InitializeComponent();
             InvoiceID.Text = invoiceId.ToString();
             ProductNameComboBox.ItemsSource = products;
+            unitNames = SQLiteDataAccess.LoadQuantityUnitName();
+            ProductQuantityUnitComboBox.ItemsSource = unitNames;
+            
         }
 
         private void ProductNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,6 +54,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 isChanged = false;
             }
         }
+
+        private void ProductQuantityUnitComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        {
+            if (ProductQuantityUnitComboBox.SelectedItem != null) 
+            {
+                isChanged = true;
+                ProductQuantityUnit.Text = ProductQuantityUnitComboBox.SelectedItem as string;
+                
+
+                isChanged = false;
+            }
+        }
+
 
         private void AddProductToInvoice_Click(object sender, RoutedEventArgs e)
         {

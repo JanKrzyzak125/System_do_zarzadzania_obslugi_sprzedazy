@@ -165,6 +165,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static List<string> LoadQuantityUnitName() 
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) 
+            {
+                var output =cnn.Query<string>("select QuantityUnitName FROM QuantityUnit", new DynamicParameters());
+                return output.ToList();
+            }
+
+        }
+
         public static void SaveProductToCustomer(int productId, int companyId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

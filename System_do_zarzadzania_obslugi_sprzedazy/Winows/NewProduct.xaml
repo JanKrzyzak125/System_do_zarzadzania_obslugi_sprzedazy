@@ -33,5 +33,14 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+        <ComboBox x:Name="ProductQuantityUnitComboBox" HorizontalAlignment="Left" Margin="511,413,0,0" VerticalAlignment="Top" Width="108" SelectionChanged="ProductQuantityUnitComboBox_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding }"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </Window>
