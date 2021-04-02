@@ -47,7 +47,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         [DisplayName("Jednostka")]
-        public string QuantityUnits
+        public string QuantityUnitName
         {
             get { return quantityUnits; }
             set { quantityUnits = value; }
@@ -86,7 +86,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             IdProduct = idProduct;
             ProductName = productName;
             Quantity = quantity;
-            QuantityUnits = quantityUnits;
+            QuantityUnitName = quantityUnits;
             NettoPrice = nettoPrice;
             BruttoPrice = bruttoPrice;
             Vat = vat;

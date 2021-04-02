@@ -94,7 +94,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<InvoiceProduct>("select * from InvoicesProduct where IdInvoice=" + ID.ToString(), new DynamicParameters());
+                //var DynamicParameter = new DynamicParameters();
+                //DynamicParameter.Add("QuantityUnit")
+                string str = "SELECT InvoicesProduct.IdInvoice,InvoicesProduct.IdProduct,InvoicesProduct.ProductName,InvoicesProduct.Quantity,QuantityUnit.QuantityUnitName,InvoicesProduct.NettoPrice,InvoicesProduct.BruttoPrice,InvoicesProduct.Vat FROM InvoicesProduct INNER JOIN QuantityUnit ON InvoicesProduct.QuantityUnits=QuantityUnit.QuantityUnitID WHERE IdInvoice=";
+                var output = cnn.Query<InvoiceProduct>(str + ID.ToString(), new DynamicParameters());
                 return output.ToList();
             }
         }
