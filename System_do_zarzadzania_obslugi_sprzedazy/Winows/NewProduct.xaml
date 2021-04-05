@@ -24,7 +24,7 @@
         <Label Content="Cena Netto" HorizontalAlignment="Left" Margin="648,199,0,0" VerticalAlignment="Top" Width="81"/>
         <Label Content="Cena Brutto" HorizontalAlignment="Left" Margin="648,295,0,0" VerticalAlignment="Top" Width="81"/>
         <Label Content="% VAT" HorizontalAlignment="Left" Margin="648,409,0,0" VerticalAlignment="Top" Width="81"/>
-        <ComboBox x:Name="ProductNameComboBox" HorizontalAlignment="Left" Margin="511,299,0,0" VerticalAlignment="Top" Width="108" SelectionChanged="ProductNameComboBox_SelectionChanged">
+        <ComboBox x:Name="ProductNameComboBox" HorizontalAlignment="Left" Margin="231,299,0,0" VerticalAlignment="Top" Width="256" SelectionChanged="ProductNameComboBox_SelectionChanged" IsTextSearchEnabled="True" IsEditable="True" TextSearch.TextPath="Name" Height="24">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -33,7 +33,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox x:Name="ProductQuantityUnitComboBox" HorizontalAlignment="Left" Margin="511,413,0,0" VerticalAlignment="Top" Width="108" SelectionChanged="ProductQuantityUnitComboBox_SelectionChanged">
+        <ComboBox x:Name="ProductQuantityUnitComboBox" HorizontalAlignment="Left" Margin="231,513,0,0" VerticalAlignment="Top" Width="256" SelectionChanged="ProductQuantityUnitComboBox_SelectionChanged" IsEditable="True" Height="24">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
