@@ -111,12 +111,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
-        public static void SaveInvoiceProduct(InvoiceProduct invoiceProduct)
+        public static void SaveInvoiceProduct(InvoiceProduct invoiceProduct, int unitId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string s1 = "IdInvoice, IdProduct, ProductName, Quantity, QuantityUnits, NettoPrice, BruttoPrice, Vat";
-                cnn.Execute("insert into InvoicesProduct("+s1+ ")values(@idInvoice, @idProduct, @productName, @quantity, @quantityUnits, @nettoPrice, @bruttoPrice, @vat)", invoiceProduct);
+                cnn.Execute("insert into InvoicesProduct("+s1+ ")values(@idInvoice, @idProduct, @productName, @quantity,"+unitId.ToString() +", @nettoPrice, @bruttoPrice, @vat)", invoiceProduct);
             }
         }
         

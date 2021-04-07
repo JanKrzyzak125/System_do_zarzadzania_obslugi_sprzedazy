@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 
-
+//W linii 89 mamy na sztywno ustawione id konsumenta
 namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 {
     /// <summary>
@@ -80,11 +80,43 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             int vat = Int32.Parse(ProductVat.Text);
 
             //Wykorzystamy metode indexof w celu wyciagniecia numeru indexu danego elementu z listy unitname jesli index = -1 nalezy dodac nowy element do listy
+
+                if(!isAlreadyExisting(products, productName))
+                {
+                    Product product = new Product(productName, "0", nettoPrice.ToString(), vat.ToString(), "0", bruttoPrice.ToString());
+                    int IdProduct = SQLiteDataAccess.LoadAiCompanyId("Product")[0] + 1;
+                    SQLiteDataAccess.SaveProductToCustomer(IdProduct, 1);
+                    SQLiteDataAccess.SaveProduct(product);
+                    //W linii 89 mamy na sztywno ustawione id konsumenta
+                }
+
             InvoiceProduct invoiceProduct = new InvoiceProduct(idInvoice, idProduct, productName, quantity, quantityUnits, nettoPrice, bruttoPrice, vat);
-            SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct);
+            if(unitNames.IndexOf(quantityUnits)==-1)
+            {
+                //Wyciagnac numer indexu ktore nadamy nowododanemu produktowi jednostki
+                //Zaladowac do tabeli ktora ma nazwy jednostki nowy produkt z tym indeksem
+                //dodac nowy produkt do faktury gdzie zamiast index of uzyjemy nowy index
+            }
+            else
+            {
+                SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct, unitNames.IndexOf(quantityUnits)+1);
+            }          
             this.Close();
         }
 
+
+        private bool isAlreadyExisting(List<Product> products, string productName)
+        {
+            bool exist = false;
+            foreach(var product in products)
+            {
+                if (productName.Equals(product.Name))
+                {
+                    exist = true;
+                }
+            }
+            return exist;
+        }
 
         private void ProductNettoPrice_TextChanged(object sender, TextChangedEventArgs e)
         {
