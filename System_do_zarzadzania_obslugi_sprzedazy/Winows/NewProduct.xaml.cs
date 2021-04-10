@@ -74,14 +74,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             int idProduct = Int32.Parse(ProductID.Text);
             string productName = ProductNameComboBox.Text;
             int quantity = Int32.Parse(ProductQuantity.Text);
-            string quantityUnits = ProductQuantityUnit.Text;
+            string quantityUnits = ProductQuantityUnitComboBox.Text;
             int nettoPrice = Int32.Parse(ProductNettoPrice.Text);
             int bruttoPrice = Int32.Parse(ProductBruttoPrice.Text);
             int vat = Int32.Parse(ProductVat.Text);
 
-            //Wykorzystamy metode indexof w celu wyciagniecia numeru indexu danego elementu z listy unitname jesli index = -1 nalezy dodac nowy element do listy
+            //Bedzie trzeba sprawdzac wszystkie kontrolki czy sa puste
 
-                if(!isAlreadyExisting(products, productName))
+            if(!String.IsNullOrEmpty(ProductQuantityUnitComboBox.Text))
+            {
+                //Wykorzystamy metode indexof w celu wyciagniecia numeru indexu danego elementu z listy unitname jesli index = -1 nalezy dodac nowy element do listy
+                if (!isAlreadyExisting(products, productName))
                 {
                     Product product = new Product(productName, "0", nettoPrice.ToString(), vat.ToString(), "0", bruttoPrice.ToString());
                     int IdProduct = SQLiteDataAccess.LoadAiCompanyId("Product")[0] + 1;
@@ -90,18 +93,24 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     //W linii 89 mamy na sztywno ustawione id konsumenta
                 }
 
-            InvoiceProduct invoiceProduct = new InvoiceProduct(idInvoice, idProduct, productName, quantity, quantityUnits, nettoPrice, bruttoPrice, vat);
-            if(unitNames.IndexOf(quantityUnits)==-1)
-            {
-                //Wyciagnac numer indexu ktore nadamy nowododanemu produktowi jednostki
-                //Zaladowac do tabeli ktora ma nazwy jednostki nowy produkt z tym indeksem
-                //dodac nowy produkt do faktury gdzie zamiast index of uzyjemy nowy index
+
+                InvoiceProduct invoiceProduct = new InvoiceProduct(idInvoice, idProduct, productName, quantity, quantityUnits, nettoPrice, bruttoPrice, vat);
+                if (unitNames.IndexOf(quantityUnits) == -1)
+                {
+
+                    //Wyciagnac numer indexu ktore nadamy nowododanemu produktowi jednostki
+                    //Zaladowac do tabeli ktora ma nazwy jednostki nowy produkt z tym indeksem
+                    //dodac nowy produkt do faktury gdzie zamiast index of uzyjemy nowy index
+                    int idUnitname = SQLiteDataAccess.LoadAiCompanyId("QuantityUnit")[0] + 1;
+                    SQLiteDataAccess.SaveUnitName(idUnitname,quantityUnits );
+                    SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct,idUnitname);
+                }
+                else
+                {
+                    SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct, unitNames.IndexOf(quantityUnits) + 1);
+                }
+                this.Close();
             }
-            else
-            {
-                SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct, unitNames.IndexOf(quantityUnits)+1);
-            }          
-            this.Close();
         }
 
 

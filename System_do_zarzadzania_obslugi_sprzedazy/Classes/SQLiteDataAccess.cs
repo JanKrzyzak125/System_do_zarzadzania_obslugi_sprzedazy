@@ -184,6 +184,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static void SaveUnitName(int unitId, string unitName)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "QuantityUnitID, QuantityUnitName";
+                cnn.Execute("insert into QuantityUnit(" + s1 + ")values(" + unitId.ToString() + "," + "\'" + unitName + "\'" + ")");
+            }
+        }
+
+
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
