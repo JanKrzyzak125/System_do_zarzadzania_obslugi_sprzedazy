@@ -69,6 +69,9 @@
     <Compile Include="Winows\AddNewProductMagazine.xaml.cs">
       <DependentUpon>AddNewProductMagazine.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Winows\AddNewSeller.xaml.cs">
+      <DependentUpon>AddNewSeller.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Winows\addUser.xaml.cs">
       <DependentUpon>addUser.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,10 @@
     <Compile Include="Classes\Seller.cs" />
     <Compile Include="Classes\SQLiteDataAccess.cs" />
     <Page Include="Winows\AddNewProductMagazine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winows\AddNewSeller.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

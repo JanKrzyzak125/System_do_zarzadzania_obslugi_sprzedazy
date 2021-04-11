@@ -20,6 +20,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private string street;
 
         private string numberPhone;
+        private string nip;
 
         [DisplayName("ID Sprzedawcy")]
         public int IdSeller
@@ -98,6 +99,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 numberPhone = value;
             }
         }
+        [DisplayName("NIP")]
+        public string Nip
+        {
+            get
+            {
+                return nip;
+            }
+            set
+            {
+                nip = value;
+            }
+        }
 
         public Seller()
         {
@@ -121,6 +134,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             City = city;
             Street = street;
             NumberPhone = numberPhone;
+        }
+        public Seller(string name, string surname, string city, string street, string numberPhone,string nip)
+        {
+            Name = name;
+            Surname = surname;
+            City = city;
+            Street = street;
+            NumberPhone = numberPhone;
+            Nip=nip;
         }
     }
 }

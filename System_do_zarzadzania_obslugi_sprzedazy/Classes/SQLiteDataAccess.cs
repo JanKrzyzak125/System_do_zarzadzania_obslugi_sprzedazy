@@ -71,6 +71,22 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
+        public static void DeleteContractors(Seller seller)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                String str = "delete from Seller where IdSeller=" + seller.IdSeller;
+                var output = cnn.Query<Seller>(str);
+            }
+        }
+        public static void SaveSeller(Seller seller)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "Name,Surname,City,Street,NumberPhone,Nip";
+                cnn.Execute("insert into Seller(" + s1 + ")values(@Name,@Surname,@City,@Street,@NumberPhone,@Nip)", seller);
+            }
+        }
 
         public static List<Invoice> LoadInvoices()
         {
@@ -101,7 +117,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
-
+        
         public static List<Product> LoadInvoiceProduct(int CompanyID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
