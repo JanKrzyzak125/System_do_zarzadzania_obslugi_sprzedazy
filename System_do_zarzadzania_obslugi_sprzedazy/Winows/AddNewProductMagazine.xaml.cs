@@ -33,11 +33,30 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             string VatValue = (ProductNettoPrice.Text);
             string GrossValue = (ProductBruttoPrice.Text);
             Product Product = new Product(Name, Quantity, NetPrice, Vat, VatValue, GrossValue);
+            int IdProduct = SQLiteDataAccess.LoadAiCompanyId("Product")[0]+1;
+            SQLiteDataAccess.SaveProductToCustomer(IdProduct, 1);
             SQLiteDataAccess.SaveProduct(Product);
             this.Close();
-
         }
 
-        
+        private void ProductNettoPrice_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        private void ProductBruttoPrice_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        private void NetPrice1art_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(ProductQuantity.Text) && !string.IsNullOrEmpty(ProductVat.Text))
+            {
+                double Netto = (double.Parse(NetPrice1art.Text))*(double.Parse(ProductQuantity.Text));
+                ProductNettoPrice.Text = Netto.ToString();
+                double Vat = double.Parse(ProductVat.Text) / 100;
+                double Gross = (Netto + Netto * Vat);
+                ProductBruttoPrice.Text = Gross.ToString();
+            }
+        }
     }
 }

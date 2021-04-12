@@ -71,6 +71,22 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
+        public static void DeleteContractors(Seller seller)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                String str = "delete from Seller where IdSeller=" + seller.IdSeller;
+                var output = cnn.Query<Seller>(str);
+            }
+        }
+        public static void SaveSeller(Seller seller)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "Name,Surname,City,Street,NumberPhone,Nip";
+                cnn.Execute("insert into Seller(" + s1 + ")values(@Name,@Surname,@City,@Street,@NumberPhone,@Nip)", seller);
+            }
+        }
 
         public static List<Invoice> LoadInvoices()
         {
@@ -94,11 +110,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<InvoiceProduct>("select * from InvoicesProduct where IdInvoice=" + ID.ToString(), new DynamicParameters());
+                //var DynamicParameter = new DynamicParameters();
+                //DynamicParameter.Add("QuantityUnit")
+                string str = "SELECT InvoicesProduct.IdInvoice,InvoicesProduct.IdProduct,InvoicesProduct.ProductName,InvoicesProduct.Quantity,QuantityUnit.QuantityUnitName,InvoicesProduct.NettoPrice,InvoicesProduct.BruttoPrice,InvoicesProduct.Vat FROM InvoicesProduct INNER JOIN QuantityUnit ON InvoicesProduct.QuantityUnits=QuantityUnit.QuantityUnitID WHERE IdInvoice=";
+                var output = cnn.Query<InvoiceProduct>(str + ID.ToString(), new DynamicParameters());
                 return output.ToList();
             }
         }
-
+        
         public static List<Product> LoadInvoiceProduct(int CompanyID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -108,12 +127,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
-        public static void SaveInvoiceProduct(InvoiceProduct invoiceProduct)
+        public static void SaveInvoiceProduct(InvoiceProduct invoiceProduct, int unitId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string s1 = "IdInvoice, IdProduct, ProductName, Quantity, QuantityUnits, NettoPrice, BruttoPrice, Vat";
-                cnn.Execute("insert into InvoicesProduct("+s1+ ")values(@idInvoice, @idProduct, @productName, @quantity, @quantityUnits, @nettoPrice, @bruttoPrice, @vat)", invoiceProduct);
+                cnn.Execute("insert into InvoicesProduct("+s1+ ")values(@idInvoice, @idProduct, @productName, @quantity,"+unitId.ToString() +", @nettoPrice, @bruttoPrice, @vat)", invoiceProduct);
             }
         }
         
@@ -148,7 +167,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) 
             {                       
-                var output =cnn.Query<Seller>("SELECT Seller.Name FROM CompanyWithSellers INNER JOIN Seller ON CompanyWithSellers.IdSeller=Seller.IdSeller WHERE CompanyWithSellers.IdCompany=" + idCompany.ToString(), new DynamicParameters());
+                var output =cnn.Query<Seller>("SELECT Seller.Name, Seller.Surname FROM CompanyWithSellers INNER JOIN Seller ON CompanyWithSellers.IdSeller=Seller.IdSeller WHERE CompanyWithSellers.IdCompany=" + idCompany.ToString(), new DynamicParameters());
                 return output.ToList();
             }
         }
@@ -161,6 +180,35 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
+
+        public static List<string> LoadQuantityUnitName() 
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) 
+            {
+                var output =cnn.Query<string>("select QuantityUnitName FROM QuantityUnit", new DynamicParameters());
+                return output.ToList();
+            }
+
+        }
+
+        public static void SaveProductToCustomer(int productId, int companyId)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "IdCompany, IdProduct";
+                cnn.Execute("insert into CompanyWithPoroduct(" + s1 + ")values("+companyId.ToString()+","+productId.ToString()+")");
+            }
+        }
+
+        public static void SaveUnitName(int unitId, string unitName)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "QuantityUnitID, QuantityUnitName";
+                cnn.Execute("insert into QuantityUnit(" + s1 + ")values(" + unitId.ToString() + "," + "\'" + unitName + "\'" + ")");
+            }
+        }
+
 
         private static string LoadConnectionString(string id = "Default")
         {

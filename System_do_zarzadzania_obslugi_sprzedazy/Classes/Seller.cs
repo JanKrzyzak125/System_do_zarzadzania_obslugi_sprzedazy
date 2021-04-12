@@ -21,6 +21,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private string numberPhone;
 
+        private string nip;
+
+        private string regon;
+
+
         [DisplayName("ID Sprzedawcy")]
         public int IdSeller
         {
@@ -98,29 +103,47 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 numberPhone = value;
             }
         }
+        [DisplayName("NIP")]
+        public string Nip
+        {
+            get
+            {
+                return nip;
+            }
+            set
+            {
+                nip = value;
+            }
+        }
+
+        [DisplayName("REGON")]
+        public string Regon
+        {
+            get { return regon; }
+            set { regon = value; }
+        }
+
+
 
         public Seller()
         {
 
         }
 
-        public Seller(int idSeller, string name, string surname, string city, string street, string numberPhone)
-        {
-            IdSeller = idSeller;
-            Name = name;
-            Surname = surname;
-            City = city;
-            Street = street;
-            NumberPhone = numberPhone;
+        public Seller(int idSeller, string name, string surname, string city, string street, string numberPhone, string nip, string regon) : this(name, surname, city, street, numberPhone, nip, regon)
+        {                      
+            IdSeller = idSeller;            
         }
 
-        public Seller(string name, string surname, string city, string street, string numberPhone)
+        public Seller(string name, string surname, string city, string street, string numberPhone, string nip, string regon)
         {
             Name = name;
             Surname = surname;
             City = city;
             Street = street;
             NumberPhone = numberPhone;
+            Nip = nip;
+            Regon = regon;
         }
     }
 }
