@@ -136,7 +136,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
             if(ContractorsOpen)
             {
-
+                AddNewSeller addNewSeller = new AddNewSeller();
+                addNewSeller.Show();
+                addNewSeller.Closed += (s, eventarg) =>
+                {
+                    LoadSellersList();
+                };
             }
             if(StatmentsOpen)
             {
@@ -180,7 +185,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
             if (ContractorsOpen)
             {
+                if (CompanyDataGrid.SelectedItem != null)
+                {
 
+
+                    SQLiteDataAccess.DeleteContractors((Seller)CompanyDataGrid.SelectedItem);
+                    sellers.Remove((Seller)CompanyDataGrid.SelectedItem);
+                    LoadSellersList();
+                }
             }
             if (StatmentsOpen)
             {
