@@ -32,7 +32,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             string street = Street.Text;
             string phonenumber = PhNum.Text;
             string nip = Nip.Text;
-            Seller seller = new Seller(name, surname, city, street, phonenumber, nip) ;
+            string regon = Regon.Text;
+            Seller seller = new Seller(name, surname, city, street, phonenumber, nip, regon) ;
             SQLiteDataAccess.SaveSeller(seller);
             this.Close();
 

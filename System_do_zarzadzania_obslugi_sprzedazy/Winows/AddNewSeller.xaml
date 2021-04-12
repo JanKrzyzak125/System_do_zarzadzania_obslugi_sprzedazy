@@ -18,6 +18,8 @@
             <Label Content="Ulica:" Width="200" Margin="10,12,0,15" />
             <Label Content="Numer Telefonu:" Width="200" Margin="10,12,0,15" />
             <Label Content="Nip" Width="200" Margin="10,12,0,15" />
+            <Label Content="REGON:" Width="200" Margin="10,12,0,15" />
+
 
         </StackPanel>
 
@@ -32,7 +34,8 @@
             <TextBox x:Name="Street" Height="23" Width="300" Margin="10,15,0,15" TextWrapping="Wrap" Text="" HorizontalAlignment ="Center"/>
             <TextBox x:Name="PhNum" Height="23" Width="300" Margin="10,15,0,15" TextWrapping="Wrap" Text="" HorizontalAlignment ="Center"/>
             <TextBox x:Name="Nip" Height="23" Width="300" Margin="10,15,0,15" TextWrapping="Wrap" Text="" HorizontalAlignment ="Center"/>
-            <Button x:Name="addSeller" Content="Add" Width="100" Height="40" Margin="15" Click="addSeller_Click"/>
+            <TextBox x:Name="Regon" Height="23" Width="300" Margin="10,15,0,15" TextWrapping="Wrap" Text="" HorizontalAlignment ="Center"/>
+            <Button x:Name="addSeller" Content="Dodaj" Width="100" Height="40" Margin="15" Click="addSeller_Click"/>
 
 
         </StackPanel>
