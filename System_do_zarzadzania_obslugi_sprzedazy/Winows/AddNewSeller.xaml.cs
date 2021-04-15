@@ -38,5 +38,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             this.Close();
 
         }
+
+        private void RadioButton_person(object sender, RoutedEventArgs e)
+        {
+            Name_Label.Content = "Imie";
+        }
+
+        private void RadioButton_Company(object sender, RoutedEventArgs e)
+        {
+            Name_Label.Content = "Nazwa Firmy";
+          
+        }
     }
 }
