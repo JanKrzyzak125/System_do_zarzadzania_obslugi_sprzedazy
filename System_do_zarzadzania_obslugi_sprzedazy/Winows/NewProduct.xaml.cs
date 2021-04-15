@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         private int companyId;
         private bool isChanged = true;
         List<string> unitNames;
+        List<Product> productBackup;
 
         public NewProduct(int invoiceId, int companyId)
         {
@@ -37,7 +39,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             ProductNameComboBox.ItemsSource = products;
             unitNames = SQLiteDataAccess.LoadQuantityUnitName();
             ProductQuantityUnitComboBox.ItemsSource = unitNames;
-            
         }
 
         private void ProductNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -170,6 +171,34 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     ProductBruttoPrice.Text = Gross.ToString();
                 }
             }
+        }
+
+        private void ProductNameComboBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string filter_param = ProductNameComboBox.Text;
+            if (String.IsNullOrWhiteSpace(filter_param))
+            {
+                ProductNameComboBox.ItemsSource = products;
+                ProductNameComboBox.IsDropDownOpen = false;
+            }
+            else
+            {
+                List<Product> productBackup = products.FindAll(x => x.StartsWith(filter_param));
+                ProductNameComboBox.ItemsSource = productBackup;
+
+
+                ProductNameComboBox.SelectedIndex = -1;
+                ProductNameComboBox.Text = filter_param;
+                ProductNameComboBox.ItemsSource = productBackup;
+                ProductNameComboBox.IsDropDownOpen = true;
+            }
+        }
+
+        private void ProductNameComboBox_DropDownOpened_1(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)((ComboBox)sender).Template.FindName("PART_EditableTextBox", (ComboBox)sender);
+            textBox.SelectionStart = ((ComboBox)sender).Text.Length;
+            textBox.SelectionLength = 0;
         }
     }
 }
