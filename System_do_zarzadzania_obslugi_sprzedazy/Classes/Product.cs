@@ -110,6 +110,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
             return (this.Name.Equals(other.Name));
         }
+
         public bool Equals(string other)
         {
             if (other == null)
@@ -125,7 +126,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             if (objAsProduct == null) return false;
             else return objAsProduct.Name == this.Name;
         }
-
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
         internal bool StartsWith(string filter_param)
         {
             if (filter_param == null)

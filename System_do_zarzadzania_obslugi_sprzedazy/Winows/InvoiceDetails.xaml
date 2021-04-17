@@ -42,6 +42,7 @@
         <DataGrid x:Name="InvoiceProductListDataGrid" Margin="566,39,100,78" Background="White" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False"/>
         <Button x:Name="AddProduct" Content="Dodawanie" HorizontalAlignment="Left" Margin="419,103,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="AddProduct_Click"/>
         <Button x:Name="DelProduct" Content="Usuwanie" HorizontalAlignment="Left" Margin="419,165,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="DelProduct_Click"/>
+        <Button x:Name="CreatePDF" Content="Utwórz PDF" HorizontalAlignment="Left" Margin="419,235,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="CreatePDF_Click"/>
 
     </Grid>
 </Window>

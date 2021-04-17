@@ -14,6 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System_do_zarzadzania_obslugi_sprzedazy.Winows;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
@@ -123,8 +127,37 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 e.Column.Header = descriptor.DisplayName ?? descriptor.Name;
             }
         }
-    }
 
+        private void ExportToPDF()
+        {
+            System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "First PDF document.pdf", FileMode.Create);
+            // Create an instance of the document class which represents the PDF document itself.  
+            Document document = new Document(PageSize.A4, 25, 25, 30, 30);
+            // Create an instance to the PDF file by creating an instance of the PDF   
+            // Writer class using the document and the filestrem in the constructor.  
+            PdfWriter writer = PdfWriter.GetInstance(document, fs);
+            document.AddAuthor("Micke Blomquist");
+            document.AddCreator("Sample application using iTextSharp");
+            document.AddKeywords("PDF tutorial education");
+            document.AddSubject("Document subject - Describing the steps creating a PDF document");
+            document.AddTitle("The document title - PDF creation using iTextSharp");
+            // Open the document to enable you to write to the document  
+            document.Open();
+            // Add a simple and wellknown phrase to the document in a flow layout manner  
+            document.Add(new iTextSharp.text.Paragraph("Hello World!"));
+            // Close the document  
+            document.Close();
+            // Close the writer instance  
+            writer.Close();
+            // Always close open filehandles explicity  
+            fs.Close(); 
+        }
+
+        private void CreatePDF_Click(object sender, RoutedEventArgs e)
+        {
+            ExportToPDF();
+        }
+    }
 
 
 }
