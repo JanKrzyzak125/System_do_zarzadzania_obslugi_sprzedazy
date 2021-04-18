@@ -167,7 +167,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) 
             {                       
-                var output =cnn.Query<Seller>("SELECT Seller.Name, Seller.Surname FROM CompanyWithSellers INNER JOIN Seller ON CompanyWithSellers.IdSeller=Seller.IdSeller WHERE CompanyWithSellers.IdCompany=" + idCompany.ToString(), new DynamicParameters());
+                var output =cnn.Query<Seller>("SELECT Seller.Name, Seller.Surname, Seller.Street, Seller.City, Seller.NumberPhone, Seller.Nip, Seller.Regon FROM CompanyWithSellers INNER JOIN Seller ON CompanyWithSellers.IdSeller=Seller.IdSeller WHERE CompanyWithSellers.IdCompany=" + idCompany.ToString(), new DynamicParameters());
                 return output.ToList();
             }
         }
@@ -176,7 +176,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output=cnn.Query<Company>("select companyName from Company where CompanyID="+ idCompany.ToString(), new DynamicParameters());
+                var output=cnn.Query<Company>("select * from Company where CompanyID="+ idCompany.ToString(), new DynamicParameters());
                 return output.ToList();
             }
         }

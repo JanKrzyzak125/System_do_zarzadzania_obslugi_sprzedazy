@@ -68,7 +68,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             Paid.Text = showInvoice.Paid;
             DateOfIssue.Text = showInvoice.DateOfIssue;
             NameOfService.Text = showInvoice.NameOfService;
-            if (showInvoice.AccountNumber == "" || showInvoice.AccountNumber == null)
+            if (String.IsNullOrEmpty(showInvoice.AccountNumber))
             {
                 AccountNumber.Visibility = Visibility.Hidden;
                 AccountNumberLabel.Visibility = Visibility.Hidden;
@@ -130,27 +130,167 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void ExportToPDF()
         {
-            System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "First PDF document.pdf", FileMode.Create);
-            // Create an instance of the document class which represents the PDF document itself.  
-            Document document = new Document(PageSize.A4, 25, 25, 30, 30);
-            // Create an instance to the PDF file by creating an instance of the PDF   
-            // Writer class using the document and the filestrem in the constructor.  
-            PdfWriter writer = PdfWriter.GetInstance(document, fs);
-            document.AddAuthor("Micke Blomquist");
-            document.AddCreator("Sample application using iTextSharp");
-            document.AddKeywords("PDF tutorial education");
-            document.AddSubject("Document subject - Describing the steps creating a PDF document");
-            document.AddTitle("The document title - PDF creation using iTextSharp");
-            // Open the document to enable you to write to the document  
-            document.Open();
-            // Add a simple and wellknown phrase to the document in a flow layout manner  
-            document.Add(new iTextSharp.text.Paragraph("Hello World!"));
-            // Close the document  
-            document.Close();
-            // Close the writer instance  
-            writer.Close();
-            // Always close open filehandles explicity  
-            fs.Close(); 
+            try
+            {
+                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + showInvoice.Number + ".pdf", FileMode.Create);
+                var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
+                pdfDoc.Open();
+
+                var spacer = new iTextSharp.text.Paragraph("")
+                {
+                    SpacingBefore = 10f,
+                    SpacingAfter = 10f,
+                };
+                pdfDoc.Add(spacer);
+
+
+                var mainTable = new PdfPTable(new[] { .5f, .5f })
+                {
+                    HorizontalAlignment = 0,
+                    WidthPercentage = 75,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+
+                mainTable.AddCell("Faktura VAT");
+                mainTable.AddCell("");
+                mainTable.AddCell("Numer faktury: ");
+                mainTable.AddCell(showInvoice.Number);
+
+                var placeTable = new PdfPTable(new[] { .5f, .5f })
+                {
+                    HorizontalAlignment = 0,
+                    WidthPercentage = 75,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+
+                mainTable.AddCell("Data wystawienia: ");
+                mainTable.AddCell(showInvoice.CreationDate);
+                mainTable.AddCell("Data wykonania usługi: ");
+                mainTable.AddCell(showInvoice.DateOfIssue);
+
+
+                var headerTable = new PdfPTable(new[] {.5f,.5f})
+                {
+                    HorizontalAlignment = 0,
+                    WidthPercentage = 75,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+                headerTable.AddCell("Nazwa Firmy");
+                headerTable.AddCell(showCompanyName.CompanyName);
+                headerTable.AddCell("Nip");
+                headerTable.AddCell(showCompanyName.Nip);
+                headerTable.AddCell("Adres");
+                headerTable.AddCell(showCompanyName.Street + "\n" + showCompanyName.City);
+                headerTable.AddCell("Numer Telefonu");
+                headerTable.AddCell(showCompanyName.PhoneNumber);
+                headerTable.AddCell("E-mail");
+                headerTable.AddCell(showCompanyName.Email);
+
+                var headerTable2 = new PdfPTable(new[] { .5f, .5f })
+                {
+                    HorizontalAlignment = 0,
+                    WidthPercentage = 75,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+
+                if (String.IsNullOrEmpty(showCompanySeller.Surname))
+                {
+                    headerTable2.AddCell("Nazwa Firmy");
+                    headerTable2.AddCell(showCompanySeller.Name);
+                    headerTable2.AddCell("Nip");
+                    headerTable2.AddCell(showCompanySeller.Nip);
+                    headerTable2.AddCell("Nip");
+                    headerTable2.AddCell(showCompanySeller.Regon);
+
+                }
+                else
+                {
+                    headerTable2.AddCell("Imię");
+                    headerTable2.AddCell(showCompanySeller.Name);
+                    headerTable2.AddCell("Nazwisko");
+                    headerTable2.AddCell(showCompanySeller.Surname);
+                }                               
+                headerTable2.AddCell("Adres");
+                headerTable2.AddCell(showCompanySeller.Street + "\n" + showCompanySeller.City);
+                headerTable2.AddCell("Numer Telefonu");
+                headerTable2.AddCell(showCompanySeller.NumberPhone);
+
+
+                pdfDoc.Add(mainTable);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(placeTable);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(headerTable);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(headerTable2);
+                pdfDoc.Add(spacer);
+
+                var columnCount = 6;
+                var columnWidths = new[] {2f, 2f, 2f, 2f, 2f, 2f};
+
+                var table = new PdfPTable(columnWidths)
+                {
+                    HorizontalAlignment = 0,
+                    WidthPercentage = 100,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+
+                var cell = new PdfPCell(new Phrase("Tabela Produktów"))
+                {
+                    Colspan = columnCount,
+                    HorizontalAlignment = 1,  //0=Left, 1=Centre, 2=Right
+                    MinimumHeight = 30f
+                };
+
+                table.AddCell(cell);
+
+                //var markCell = new PdfPCell(new Phrase("Nazwa Produktu"))
+                //{
+                //    Colspan = 7,
+                //};
+                //table.AddCell(markCell);
+                table.AddCell("Nazwa Produktu");
+                table.AddCell("Nazwa jednoski");
+                table.AddCell("Jednostka");
+                table.AddCell("Cena Netto");
+                table.AddCell("Cena Brutto");
+                table.AddCell("Podatek VAT");
+
+                invoiceProducts.ForEach(a =>
+                {
+                    //markCell = new PdfPCell(new Phrase(a.ProductName))
+                    //{
+                    //    Colspan = 7,
+                    //};
+                    //table.AddCell(markCell);
+                    table.AddCell(a.ProductName);
+                    table.AddCell(a.QuantityUnitName);
+                    table.AddCell(a.Quantity.ToString());
+                    table.AddCell(a.NettoPrice.ToString());
+                    table.AddCell(a.BruttoPrice.ToString());
+                    table.AddCell(a.Vat.ToString());
+
+                    cell = new PdfPCell(new Phrase(" "))
+                    {
+                        Colspan = columnCount,
+                        HorizontalAlignment = 1,  //0=Left, 1=Centre, 2=Right
+                        MinimumHeight = 30f
+                    };
+                    table.AddCell(cell);
+                });
+
+                pdfDoc.Add(table);
+
+                pdfDoc.Close();
+                writer.Close();
+                fs.Close();
+            }
+            catch (Exception ex)
+            {
+
+            }    
+
         }
 
         private void CreatePDF_Click(object sender, RoutedEventArgs e)
@@ -158,6 +298,4 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ExportToPDF();
         }
     }
-
-
 }
