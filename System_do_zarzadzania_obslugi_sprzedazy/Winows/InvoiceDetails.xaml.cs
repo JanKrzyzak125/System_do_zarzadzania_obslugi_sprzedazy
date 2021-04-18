@@ -148,7 +148,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var mainTable = new PdfPTable(new[] { .5f, .5f })
                 {
                     HorizontalAlignment = 0,
-                    WidthPercentage = 75,
+                    WidthPercentage = 50,
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
@@ -159,8 +159,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 var placeTable = new PdfPTable(new[] { .5f, .5f })
                 {
-                    HorizontalAlignment = 0,
-                    WidthPercentage = 75,
+                    HorizontalAlignment = 2,
+                    WidthPercentage = 50,
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
@@ -173,7 +173,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var headerTable = new PdfPTable(new[] {.5f,.5f})
                 {
                     HorizontalAlignment = 0,
-                    WidthPercentage = 75,
+                    WidthPercentage = 40,
                     DefaultCell = { MinimumHeight = 22f }
                 };
                 headerTable.AddCell("Nazwa Firmy");
@@ -189,8 +189,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 var headerTable2 = new PdfPTable(new[] { .5f, .5f })
                 {
-                    HorizontalAlignment = 0,
-                    WidthPercentage = 75,
+                    HorizontalAlignment = 2,
+                    WidthPercentage = 40,
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
@@ -222,7 +222,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 pdfDoc.Add(placeTable);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(headerTable);
-                pdfDoc.Add(spacer);
                 pdfDoc.Add(headerTable2);
                 pdfDoc.Add(spacer);
 
