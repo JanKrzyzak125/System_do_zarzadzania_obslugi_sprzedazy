@@ -136,41 +136,37 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
                 pdfDoc.Open();
-
                 var spacer = new iTextSharp.text.Paragraph("")
                 {
                     SpacingBefore = 10f,
                     SpacingAfter = 10f,
                 };
+
+                var titleFont = FontFactory.GetFont("Arial", 32, BaseColor.BLACK);
+                var numberFont = FontFactory.GetFont("Arial", 26, BaseColor.BLACK);
+                var docTitle = new iTextSharp.text.Paragraph("FAKTURA VAT", titleFont);
+                var docNumber = new iTextSharp.text.Paragraph("NR " + showInvoice.Number, numberFont);
+                docTitle.Alignment = Element.ALIGN_CENTER;
+                docNumber.Alignment = Element.ALIGN_CENTER;
+
+                pdfDoc.Add(docTitle);
+                pdfDoc.Add(docNumber);
                 pdfDoc.Add(spacer);
-
-
-                var mainTable = new PdfPTable(new[] { .5f, .5f })
-                {
-                    HorizontalAlignment = 0,
-                    WidthPercentage = 50,
-                    DefaultCell = { MinimumHeight = 22f }
-                };
-
-                mainTable.AddCell("Faktura VAT");
-                mainTable.AddCell("");
-                mainTable.AddCell("Numer faktury: ");
-                mainTable.AddCell(showInvoice.Number);
 
                 var placeTable = new PdfPTable(new[] { .5f, .5f })
                 {
-                    HorizontalAlignment = 2,
+                    HorizontalAlignment = 1,
                     WidthPercentage = 50,
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
-                mainTable.AddCell("Data wystawienia: ");
-                mainTable.AddCell(showInvoice.CreationDate);
-                mainTable.AddCell("Data wykonania usługi: ");
-                mainTable.AddCell(showInvoice.DateOfIssue);
+                placeTable.AddCell("Data wystawienia: ");
+                placeTable.AddCell(showInvoice.CreationDate);
+                placeTable.AddCell("Data wykonania usługi: ");
+                placeTable.AddCell(showInvoice.DateOfIssue);
 
 
-                var headerTable = new PdfPTable(new[] {.5f,.5f})
+                var headerTable = new PdfPTable(new[] { .5f, .5f })
                 {
                     HorizontalAlignment = 0,
                     WidthPercentage = 40,
@@ -198,26 +194,25 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 {
                     headerTable2.AddCell("Nazwa Firmy");
                     headerTable2.AddCell(showCompanySeller.Name);
-                    headerTable2.AddCell("Nip");
+                    headerTable2.AddCell("NIP");
                     headerTable2.AddCell(showCompanySeller.Nip);
-                    headerTable2.AddCell("Nip");
+                    headerTable2.AddCell("REGON");
                     headerTable2.AddCell(showCompanySeller.Regon);
 
                 }
                 else
                 {
-                    headerTable2.AddCell("Imię");
+                    headerTable2.AddCell("Imie");
                     headerTable2.AddCell(showCompanySeller.Name);
                     headerTable2.AddCell("Nazwisko");
                     headerTable2.AddCell(showCompanySeller.Surname);
-                }                               
+                }
                 headerTable2.AddCell("Adres");
                 headerTable2.AddCell(showCompanySeller.Street + "\n" + showCompanySeller.City);
                 headerTable2.AddCell("Numer Telefonu");
                 headerTable2.AddCell(showCompanySeller.NumberPhone);
 
 
-                pdfDoc.Add(mainTable);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(placeTable);
                 pdfDoc.Add(spacer);
@@ -226,7 +221,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 pdfDoc.Add(spacer);
 
                 var columnCount = 6;
-                var columnWidths = new[] {2f, 2f, 2f, 2f, 2f, 2f};
+                var columnWidths = new[] { 2.5f, 1f, 1f, 2f, 2f, 2f };
 
                 var table = new PdfPTable(columnWidths)
                 {
@@ -235,34 +230,22 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
-                var cell = new PdfPCell(new Phrase("Tabela Produktów"))
+                var cell = new PdfPCell()
                 {
                     Colspan = columnCount,
                     HorizontalAlignment = 1,  //0=Left, 1=Centre, 2=Right
                     MinimumHeight = 30f
                 };
 
-                table.AddCell(cell);
-
-                //var markCell = new PdfPCell(new Phrase("Nazwa Produktu"))
-                //{
-                //    Colspan = 7,
-                //};
-                //table.AddCell(markCell);
                 table.AddCell("Nazwa Produktu");
-                table.AddCell("Nazwa jednoski");
-                table.AddCell("Jednostka");
-                table.AddCell("Cena Netto");
-                table.AddCell("Cena Brutto");
-                table.AddCell("Podatek VAT");
+                table.AddCell("JM");
+                table.AddCell("Ilosc");
+                table.AddCell("Cena Netto [pln]");
+                table.AddCell("Cena Brutto [pln]");
+                table.AddCell("Podatek VAT [%]");
 
                 invoiceProducts.ForEach(a =>
                 {
-                    //markCell = new PdfPCell(new Phrase(a.ProductName))
-                    //{
-                    //    Colspan = 7,
-                    //};
-                    //table.AddCell(markCell);
                     table.AddCell(a.ProductName);
                     table.AddCell(a.QuantityUnitName);
                     table.AddCell(a.Quantity.ToString());
@@ -270,13 +253,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     table.AddCell(a.BruttoPrice.ToString());
                     table.AddCell(a.Vat.ToString());
 
-                    cell = new PdfPCell(new Phrase(" "))
-                    {
-                        Colspan = columnCount,
-                        HorizontalAlignment = 1,  //0=Left, 1=Centre, 2=Right
-                        MinimumHeight = 30f
-                    };
-                    table.AddCell(cell);
                 });
 
                 pdfDoc.Add(table);
@@ -288,8 +264,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             catch (Exception ex)
             {
 
-            }    
-
+            }
         }
 
         private void CreatePDF_Click(object sender, RoutedEventArgs e)
