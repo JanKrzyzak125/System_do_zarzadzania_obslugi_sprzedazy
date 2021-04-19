@@ -205,10 +205,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var secondDateVariable = new iTextSharp.text.Paragraph("Data wykonania usługi: " + showInvoice.DateOfIssue, dateFont);
                 var paymentTypeVariable = new iTextSharp.text.Paragraph("Forma platności: " + showInvoice.PaymentType, dateFont);
                 var accountNumberVariable = new iTextSharp.text.Paragraph("Numer konta: " + showInvoice.AccountNumber, dateFont);
+                var sellerParagraph = new iTextSharp.text.Paragraph("Dane sprzedawcy", dateFont);
+                var buyerParagraph = new iTextSharp.text.Paragraph("Dane nabywcy", dateFont);
                 creationDateVariable.Alignment = Element.ALIGN_RIGHT;
                 secondDateVariable.Alignment = Element.ALIGN_RIGHT;
                 paymentTypeVariable.Alignment = Element.ALIGN_RIGHT;
                 accountNumberVariable.Alignment = Element.ALIGN_RIGHT;
+                sellerParagraph.Alignment = Element.ALIGN_LEFT;
+                buyerParagraph.Alignment = Element.ALIGN_RIGHT;
 
 
 
@@ -219,31 +223,40 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(creationDateVariable);
                 pdfDoc.Add(secondDateVariable);
-                pdfDoc.Add(paymentTypeVariable);
+                pdfDoc.Add(paymentTypeVariable);                
+
+
                 if(showInvoice.PaymentType == "Przelew")
                 {
                     pdfDoc.Add(accountNumberVariable);
                 }
                 pdfDoc.Add(spacer);
 
-                //var placeTable = new PdfPTable(new[] { .5f, .5f })
-                //{
-                //    HorizontalAlignment = 1,
-                //    WidthPercentage = 50,
-                //    DefaultCell = { MinimumHeight = 22f }
-                //};
 
-                //placeTable.AddCell("Data wystawienia: ");
-                //placeTable.AddCell(showInvoice.CreationDate);
-                //placeTable.AddCell("Data wykonania usługi: ");
-                //placeTable.AddCell(showInvoice.DateOfIssue);
-               
+
                 var headerTable = new PdfPTable(new[] { .5f, .5f })
-                {
+                {                  
                     HorizontalAlignment = 0,
                     WidthPercentage = 40,
                     DefaultCell = { MinimumHeight = 22f }
                 };
+
+                var cellSeller = new PdfPCell(new Phrase("Dane sprzedawcy"))
+                {
+                    Colspan = 2,
+                    HorizontalAlignment = 1,
+                    MinimumHeight = 30f
+                };
+                var cellBuyer = new PdfPCell(new Phrase("Dane kupującego"))
+                {
+                    Colspan = 2,
+                    HorizontalAlignment = 1,
+                    MinimumHeight = 30f
+                };
+
+
+
+                headerTable.AddCell(cellSeller);
                 headerTable.AddCell("Nazwa Firmy");
                 headerTable.AddCell(showCompanyName.CompanyName);
                 headerTable.AddCell("Nip");
@@ -255,7 +268,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 headerTable.AddCell("E-mail");
                 headerTable.AddCell(showCompanyName.Email);
                 headerTable.TotalWidth = 240f;
-                headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top-230, writer.DirectContent);
+                headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top-205, writer.DirectContent);
 
 
                 var headerTable2 = new PdfPTable(new[] { .5f, .5f })
@@ -265,6 +278,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
+                headerTable2.AddCell(cellBuyer);
                 if (String.IsNullOrEmpty(showCompanySeller.Surname))
                 {
                     headerTable2.AddCell("Nazwa Firmy");
@@ -287,7 +301,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 headerTable2.AddCell("Numer Telefonu");
                 headerTable2.AddCell(showCompanySeller.NumberPhone);
                 headerTable2.TotalWidth=240f;
-                headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 230, writer.DirectContent);
+                headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 205, writer.DirectContent);
 
 
                 pdfDoc.Add(spacer);
