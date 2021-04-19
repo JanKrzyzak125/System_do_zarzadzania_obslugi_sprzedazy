@@ -194,9 +194,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     SpacingAfter = 70f,
                 };
 
-                var titleFont = FontFactory.GetFont("Arial", 32, BaseColor.BLACK);
-                var numberFont = FontFactory.GetFont("Arial", 26, BaseColor.BLACK);
+                var titleFont = FontFactory.GetFont("Arial", 28, BaseColor.BLACK);
+                var numberFont = FontFactory.GetFont("Arial", 22, BaseColor.BLACK);
                 var dateFont = FontFactory.GetFont("Arial", 14, BaseColor.BLACK);
+                var smallFont = FontFactory.GetFont("Arial", 11, BaseColor.BLACK);
                 var docTitle = new iTextSharp.text.Paragraph("FAKTURA VAT", titleFont);
                 var docNumber = new iTextSharp.text.Paragraph("NR " + showInvoice.Number, numberFont);
                 docTitle.Alignment = Element.ALIGN_CENTER;
@@ -219,7 +220,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 pdfDoc.Add(docTitle);
                 pdfDoc.Add(docNumber);
-                pdfDoc.Add(spacer);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(creationDateVariable);
                 pdfDoc.Add(secondDateVariable);
@@ -304,11 +304,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 205, writer.DirectContent);
 
 
-                pdfDoc.Add(spacer);
+
                 //pdfDoc.Add(placeTable);
-                pdfDoc.Add(spacer);
+
                 //pdfDoc.Add(headerTable);
                 //pdfDoc.Add(headerTable2);
+                pdfDoc.Add(spacer);
                 pdfDoc.Add(spacer2);
 
 
@@ -374,17 +375,25 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 var amountPaid = new iTextSharp.text.Paragraph("Zaplacono: " + sum.ToString() + " pln", dateFont);
                 amountPaid.Alignment = Element.ALIGN_LEFT;
-                
+
+                var sellerNameSign = new iTextSharp.text.Paragraph("_______________________" + "                                              " + "_______________________", dateFont);
+                var signature = new iTextSharp.text.Paragraph("          (Podpis sprzedajacego)" + "                                                             " + "                      (Podpis kupujacego)", smallFont);
+                sellerNameSign.Alignment = Element.ALIGN_LEFT;
+
 
                 pdfDoc.Add(table);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(spacer);
-                pdfDoc.Add(spacer);
                 pdfDoc.Add(vatTable);
                 pdfDoc.Add(spacer);
-                pdfDoc.Add(spacer);
-                pdfDoc.Add(spacer);
                 pdfDoc.Add(amountPaid);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(sellerNameSign);
+                pdfDoc.Add(signature);
 
                 pdfDoc.Close();
                 writer.Close();
