@@ -202,8 +202,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var docNumber = new iTextSharp.text.Paragraph("NR " + showInvoice.Number, numberFont);
                 docTitle.Alignment = Element.ALIGN_CENTER;
                 docNumber.Alignment = Element.ALIGN_CENTER;
+                var nameOfService = new iTextSharp.text.Paragraph("Na wykonanie: " + showInvoice.NameOfService, dateFont);
                 var creationDateVariable = new iTextSharp.text.Paragraph("Data wystawienia: " + showInvoice.CreationDate, dateFont);
-                var secondDateVariable = new iTextSharp.text.Paragraph("Data wykonania usługi: " + showInvoice.DateOfIssue, dateFont);
+                var secondDateVariable = new iTextSharp.text.Paragraph("Data wykonania uslugi: " + showInvoice.DateOfIssue, dateFont);
                 var paymentTypeVariable = new iTextSharp.text.Paragraph("Forma platności: " + showInvoice.PaymentType, dateFont);
                 var accountNumberVariable = new iTextSharp.text.Paragraph("Numer konta: " + showInvoice.AccountNumber, dateFont);
                 var sellerParagraph = new iTextSharp.text.Paragraph("Dane sprzedawcy", dateFont);
@@ -214,12 +215,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 accountNumberVariable.Alignment = Element.ALIGN_RIGHT;
                 sellerParagraph.Alignment = Element.ALIGN_LEFT;
                 buyerParagraph.Alignment = Element.ALIGN_RIGHT;
+                nameOfService.Alignment = Element.ALIGN_CENTER;
 
 
 
 
                 pdfDoc.Add(docTitle);
                 pdfDoc.Add(docNumber);
+                pdfDoc.Add(nameOfService);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(creationDateVariable);
                 pdfDoc.Add(secondDateVariable);
@@ -247,7 +250,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     HorizontalAlignment = 1,
                     MinimumHeight = 30f
                 };
-                var cellBuyer = new PdfPCell(new Phrase("Dane kupującego"))
+                var cellBuyer = new PdfPCell(new Phrase("Dane nabywcy"))
                 {
                     Colspan = 2,
                     HorizontalAlignment = 1,
@@ -268,7 +271,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 headerTable.AddCell("E-mail");
                 headerTable.AddCell(showCompanyName.Email);
                 headerTable.TotalWidth = 240f;
-                headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top-205, writer.DirectContent);
+                headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top-220, writer.DirectContent);
 
 
                 var headerTable2 = new PdfPTable(new[] { .5f, .5f })
@@ -301,7 +304,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 headerTable2.AddCell("Numer Telefonu");
                 headerTable2.AddCell(showCompanySeller.NumberPhone);
                 headerTable2.TotalWidth=240f;
-                headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 205, writer.DirectContent);
+                headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 220, writer.DirectContent);
 
 
 
