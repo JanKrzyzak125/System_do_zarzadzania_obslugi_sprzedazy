@@ -404,13 +404,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("Nie udało się zapisać pliku pdf");
             }
         }
 
         private void CreatePDF_Click(object sender, RoutedEventArgs e)
         {
             ExportToPDF();
+            MessageBox.Show("Plik pdf został utworzony");
         }
     }
 }
