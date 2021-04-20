@@ -38,5 +38,28 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             this.Close();
 
         }
+
+        private void RadioButton_person(object sender, RoutedEventArgs e)
+        {
+            Name_Label.Content = "Imie";
+            Surname_Label.Visibility = Visibility.Visible;
+            Nip_Label.Visibility = Visibility.Hidden;
+            Regon_Label.Visibility = Visibility.Hidden;
+            Surname.Visibility = Visibility.Visible;
+            Nip.Visibility = Visibility.Hidden;
+            Regon.Visibility = Visibility.Hidden;
+        }
+
+        private void RadioButton_Company(object sender, RoutedEventArgs e)
+        {
+            Name_Label.Content = "Nazwa Firmy";
+            Surname_Label.Visibility = Visibility.Hidden;
+            Nip_Label.Visibility = Visibility.Visible;
+            Regon_Label.Visibility = Visibility.Visible;
+            Nip.Visibility = Visibility.Visible;
+            Regon.Visibility = Visibility.Visible;
+            Surname.Visibility = Visibility.Hidden;
+
+        }
     }
 }
