@@ -255,8 +255,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 {                  
                     HorizontalAlignment = 0,
                     WidthPercentage = 40,
-                    DefaultCell = { MinimumHeight = 22f }
-
+                    DefaultCell = { MinimumHeight = 22f },                
 
                 };
 
@@ -276,16 +275,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
 
                 headerTable.AddCell(cellSeller);
-                headerTable.AddCell("Nazwa Firmy");
-                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.CompanyName, tableFont)));
-                headerTable.AddCell("Nip");
-                headerTable.AddCell(showCompanyName.Nip);
-                headerTable.AddCell("Adres");
-                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Street + "\n" + showCompanyName.City, tableFont)));
-                headerTable.AddCell("Numer Telefonu");
-                headerTable.AddCell(showCompanyName.PhoneNumber);
-                headerTable.AddCell("E-mail");
-                headerTable.AddCell(showCompanyName.Email);
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Firmy", tableFont)) );
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.CompanyName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Nip", tableFont)) );
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Adres", tableFont)) );
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Street + "\n" + showCompanyName.City, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Numer Telefonu", tableFont)) );
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.PhoneNumber, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("E-mail", tableFont)) );
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Email, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 headerTable.TotalWidth = 240f;
                 headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top-220, writer.DirectContent);
 
@@ -301,23 +300,23 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 if (String.IsNullOrEmpty(showCompanySeller.Surname))
                 {
                     headerTable2.AddCell("Nazwa Firmy");
-                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)));
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable2.AddCell("NIP");
-                    headerTable2.AddCell(showCompanySeller.Nip);
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable2.AddCell("REGON");
-                    headerTable2.AddCell(showCompanySeller.Regon);
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 }
                 else
                 {
                     headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Imię", tableFont)));
-                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)));
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable2.AddCell("Nazwisko");
-                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Surname, tableFont)));
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Surname, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 }
                 headerTable2.AddCell("Adres");
-                headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Street + "\n" + showCompanySeller.City, tableFont)));
+                headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Street + "\n" + showCompanySeller.City, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 headerTable2.AddCell("Numer Telefonu");
-                headerTable2.AddCell(showCompanySeller.NumberPhone);
+                headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.NumberPhone, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 headerTable2.TotalWidth=240f;
                 headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 220, writer.DirectContent);
 
