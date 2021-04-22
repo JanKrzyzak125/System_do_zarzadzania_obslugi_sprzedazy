@@ -182,8 +182,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             try
             {
-
-
                 System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + showInvoice.Number + ".pdf", FileMode.Create);
                 var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
@@ -376,6 +374,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 Dictionary<int, int> vatValue = vatValuesMethod();
                 Dictionary<int, int> vatValueBrutto = vatValuesBruttoMethod();
+                
 
                 foreach (KeyValuePair<int, int> entry in vatValue)
                 {
@@ -385,16 +384,33 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 }
 
                 int sum = wholeBruttoPrice(vatValueBrutto);
+                int sumNetto = wholeBruttoPrice(vatValue);
 
                 var amountPaid = new iTextSharp.text.Paragraph("Zapłacono: " + sum.ToString() + " zł", dateFont);
                 amountPaid.Alignment = Element.ALIGN_LEFT;
 
+
+                var sumTable = new PdfPTable(new[] { .75f, .75f, .75f })
+                {
+                    HorizontalAlignment = 2,
+                    WidthPercentage = 40,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+
+
+                sumTable.AddCell(sumNetto.ToString());
+                sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase("-")) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                sumTable.AddCell(sum.ToString());
                 
+
+
 
                 pdfDoc.Add(table);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(vatTable);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(sumTable);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(amountPaid);
                 pdfDoc.Add(spacer);
