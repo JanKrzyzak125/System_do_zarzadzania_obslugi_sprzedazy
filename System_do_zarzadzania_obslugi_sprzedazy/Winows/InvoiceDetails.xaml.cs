@@ -265,13 +265,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     HorizontalAlignment = 1,
                     MinimumHeight = 30f
                 };
+
+                cellSeller.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
                 var cellBuyer = new PdfPCell(new Phrase("Dane nabywcy"))
                 {
                     Colspan = 2,
                     HorizontalAlignment = 1,
                     MinimumHeight = 30f
                 };
-
+                cellBuyer.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
 
 
                 headerTable.AddCell(cellSeller);
@@ -330,7 +332,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 {
                     HorizontalAlignment = 0,
                     WidthPercentage = 100,
-                    DefaultCell = { MinimumHeight = 22f }
+                    DefaultCell = { MinimumHeight = 22f }                                                     
                 };
 
                 var cell = new PdfPCell()
@@ -340,12 +342,24 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     MinimumHeight = 30f
                 };
 
-                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Produktu", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT });
-                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("JM", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Ilość", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Cena Netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Cena Brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Podatek VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                PdfPCell cell1 = new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Produktu", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                PdfPCell cell2 = new PdfPCell(new iTextSharp.text.Paragraph("JM", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                PdfPCell cell3 = new PdfPCell(new iTextSharp.text.Paragraph("Ilość", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                PdfPCell cell4 = new PdfPCell(new iTextSharp.text.Paragraph("Cena Netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                PdfPCell cell5 = new PdfPCell(new iTextSharp.text.Paragraph("Cena Brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                PdfPCell cell6 = new PdfPCell(new iTextSharp.text.Paragraph("Podatek VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                cell1.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell2.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell3.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell4.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell5.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell6.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                table.AddCell(cell1);
+                table.AddCell(cell2);
+                table.AddCell(cell3);
+                table.AddCell(cell4);
+                table.AddCell(cell5);
+                table.AddCell(cell6);
 
                 invoiceProducts.ForEach(a =>
                 {
@@ -365,9 +379,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
-                vatTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Wartość netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                vatTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                vatTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Wartość brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+
+
+                PdfPCell cell7 = new PdfPCell(new iTextSharp.text.Paragraph("Wartość netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                PdfPCell cell8 = new PdfPCell(new iTextSharp.text.Paragraph("VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                PdfPCell cell9 = new PdfPCell(new iTextSharp.text.Paragraph("Wartość brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                cell7.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell8.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell9.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                vatTable.AddCell(cell7);
+                vatTable.AddCell(cell8);
+                vatTable.AddCell(cell9);
 
                 Dictionary<int, int> vatValue = vatValuesMethod();
                 Dictionary<int, int> vatValueBrutto = vatValuesBruttoMethod();
