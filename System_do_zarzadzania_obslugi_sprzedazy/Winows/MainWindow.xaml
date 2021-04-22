@@ -28,13 +28,17 @@
         <Button x:Name="Statments" Content="Zestawienia" HorizontalAlignment="Left" Margin="849,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Statments_Open"/>
         <Button x:Name="VATRegister" Content="Rejestry VAT" HorizontalAlignment="Left" Margin="1061,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="191" Height="81" Click="VATRegister_Open"/>
         <Button x:Name="Invoice" Content="Faktury" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="208" Height="81" Margin="5,0,0,0" Click="Invoice_Open"/>
-
-        <Button x:Name="AddUser" Content="Dodaj Fakturę" HorizontalAlignment="Left" Margin="5,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Add_User"/>
-        <Button x:Name="RemoveUser" Content="Usuń Fakturę" HorizontalAlignment="Left" Margin="114,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Remove_User"/>
-        <Button x:Name="Print" Content="Drukuj" HorizontalAlignment="Left" Margin="1039,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Print_Open" RenderTransformOrigin="0.481,-0.462"/>
-        <Button x:Name="Search" Content="Znajdź" HorizontalAlignment="Left" Margin="1148,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Search_Open"/>
         <Grid HorizontalAlignment="Left" Height="475" Margin="330,6,0,0" Grid.Row="3" VerticalAlignment="Top" Width="922">
             <DataGrid Name="CompanyDataGrid" AutoGenerateColumns="True" Background="White" AutoGeneratingColumn="CompanyDataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False" MouseDoubleClick="DoubleClick_Open" Margin="-302,0,10,-18"/>
         </Grid>
+        <Button x:Name="AddUser" Content="Dodaj Fakturę" HorizontalAlignment="Left" Margin="36,8,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Add_User"/>
+        <Button x:Name="RemoveUser" Content="Usuń Fakturę" HorizontalAlignment="Left" Margin="145,8,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Remove_User"/>
+        <Button x:Name="Print" Content="Drukuj" HorizontalAlignment="Left" Margin="1024,8,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Print_Open" RenderTransformOrigin="0.481,-0.462"/>
+        <Button x:Name="Search" Content="Znajdź" HorizontalAlignment="Left" Margin="1133,8,0,0" Grid.Row="2" VerticalAlignment="Top" Width="104" Height="39" Click="Search_Open"/>
+        <Calendar x:Name="Calendar" HorizontalAlignment="Left" Margin="36,26,0,0" Grid.Row="2" VerticalAlignment="Top" Height="179" Width="197" Grid.RowSpan="2"/>
+        <DataGrid x:Name="StorageDG" HorizontalAlignment="Left" Height="536" Margin="277,26,0,0" Grid.Row="2" VerticalAlignment="Top" Width="975" Grid.RowSpan="2"/>
+        <ComboBox x:Name="OperationCB" HorizontalAlignment="Left" Margin="46,281,0,0" Grid.Row="3" VerticalAlignment="Top" Width="177" Height="29"/>
+        <RadioButton x:Name="InvoiceRB" Content="Faktury" HorizontalAlignment="Left" Margin="36,200,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+        <RadioButton x:Name="StorageRB" Content="Magazyn" HorizontalAlignment="Left" Margin="156,197,0,0" Grid.Row="3" VerticalAlignment="Top"/>
     </Grid>
 </Window>

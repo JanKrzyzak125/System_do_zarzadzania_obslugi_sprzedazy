@@ -46,6 +46,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         public MainWindow()
         {
             InitializeComponent();
+            ShowControls();
             LoadInvoicesList();
         }
 
@@ -214,6 +215,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             AddUser.Content = "Dodaj fakture";
             RemoveUser.Content = "Usuń fakture";
             LoadInvoicesList();
+            ShowControls();
 
         }
 
@@ -225,6 +227,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             RemoveUser.Content = "Usuń przedmiot";
             CompanyDataGrid.ItemsSource = null;
             LoadProductsList();
+            ShowControls();
         }
 
         private void Settlements_Open(object sender, RoutedEventArgs e)
@@ -234,6 +237,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             AddUser.Content = "Dodaj rozliczenie";
             RemoveUser.Content = "Usuń rozliczenie";
             CompanyDataGrid.ItemsSource = null;
+            ShowControls();
         }
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
@@ -243,16 +247,47 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             AddUser.Content = "Dodaj Kontrahenta";
             RemoveUser.Content = "Usuń Kontrahenta";
             LoadSellersList();
+            ShowControls();
         }
 
         private void Statments_Open(object sender, RoutedEventArgs e)
         {
             SettingToFalse();
             StatmentsOpen = true;
-            AddUser.Content = "Dodaj sprawozdanie";
-            RemoveUser.Content = "Usuń sprawozdanie";
             CompanyDataGrid.ItemsSource = null;
+            HideControls();
         }
+
+        private void HideControls()
+        {
+            CompanyDataGrid.Visibility = Visibility.Hidden;
+            AddUser.Visibility = Visibility.Hidden;
+            RemoveUser.Visibility = Visibility.Hidden;
+            Print.Visibility = Visibility.Hidden;
+            Search.Visibility = Visibility.Hidden;
+            Calendar.Visibility = Visibility.Visible;
+            StorageDG.Visibility = Visibility.Visible;
+            StorageRB.Visibility = Visibility.Visible;
+            InvoiceRB.Visibility = Visibility.Visible;
+            OperationCB.Visibility = Visibility.Visible;
+
+
+        }
+
+        private void ShowControls()
+        {
+            CompanyDataGrid.Visibility = Visibility.Visible;
+            AddUser.Visibility = Visibility.Visible;
+            RemoveUser.Visibility = Visibility.Visible;
+            Print.Visibility = Visibility.Visible;
+            Search.Visibility = Visibility.Visible;
+            Calendar.Visibility = Visibility.Hidden;
+            StorageDG.Visibility = Visibility.Hidden;
+            StorageRB.Visibility = Visibility.Hidden;
+            InvoiceRB.Visibility = Visibility.Hidden;
+            OperationCB.Visibility = Visibility.Hidden;
+        }
+
 
         private void VATRegister_Open(object sender, RoutedEventArgs e)
         {
@@ -260,8 +295,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             VATRegisterOpen = true;
             AddUser.Content = "Dodaj rejestr vat";
             RemoveUser.Content = "Usuń rejestr vat";
-
             CompanyDataGrid.ItemsSource = null;
+            ShowControls();
         }
 
         private void Print_Open(object sender, RoutedEventArgs e)
