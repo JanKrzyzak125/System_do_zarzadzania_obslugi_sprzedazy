@@ -19,6 +19,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
 
+
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
     /// <summary>
@@ -174,14 +175,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             return sum;
         }
 
+
+
+
         private void ExportToPDF()
         {
             try
             {
+
+
                 System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + showInvoice.Number + ".pdf", FileMode.Create);
                 var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
                 pdfDoc.Open();
+
+
                 var spacer = new iTextSharp.text.Paragraph("")
                 {
                     SpacingBefore = 10f,
@@ -194,18 +202,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     SpacingAfter = 70f,
                 };
 
-                var titleFont = FontFactory.GetFont("Arial", 28, BaseColor.BLACK);
-                var numberFont = FontFactory.GetFont("Arial", 22, BaseColor.BLACK);
-                var dateFont = FontFactory.GetFont("Arial", 14, BaseColor.BLACK);
-                var smallFont = FontFactory.GetFont("Arial", 11, BaseColor.BLACK);
+                var titleFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 28);
+                var numberFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 22);
+                var dateFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 14);
+                var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
+                var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
                 var docTitle = new iTextSharp.text.Paragraph("FAKTURA VAT", titleFont);
                 var docNumber = new iTextSharp.text.Paragraph("NR " + showInvoice.Number, numberFont);
                 docTitle.Alignment = Element.ALIGN_CENTER;
                 docNumber.Alignment = Element.ALIGN_CENTER;
                 var nameOfService = new iTextSharp.text.Paragraph("Na wykonanie: " + showInvoice.NameOfService, dateFont);
                 var creationDateVariable = new iTextSharp.text.Paragraph("Data wystawienia: " + showInvoice.CreationDate, dateFont);
-                var secondDateVariable = new iTextSharp.text.Paragraph("Data wykonania uslugi: " + showInvoice.DateOfIssue, dateFont);
-                var paymentTypeVariable = new iTextSharp.text.Paragraph("Forma platności: " + showInvoice.PaymentType, dateFont);
+                var secondDateVariable = new iTextSharp.text.Paragraph("Data wykonania usługi: " + showInvoice.DateOfIssue, dateFont);
+                var paymentTypeVariable = new iTextSharp.text.Paragraph("Forma płatności: " + showInvoice.PaymentType, dateFont);
                 var accountNumberVariable = new iTextSharp.text.Paragraph("Numer konta: " + showInvoice.AccountNumber, dateFont);
                 var sellerParagraph = new iTextSharp.text.Paragraph("Dane sprzedawcy", dateFont);
                 var buyerParagraph = new iTextSharp.text.Paragraph("Dane nabywcy", dateFont);
@@ -242,6 +251,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     HorizontalAlignment = 0,
                     WidthPercentage = 40,
                     DefaultCell = { MinimumHeight = 22f }
+
+
                 };
 
                 var cellSeller = new PdfPCell(new Phrase("Dane sprzedawcy"))
@@ -261,11 +272,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 headerTable.AddCell(cellSeller);
                 headerTable.AddCell("Nazwa Firmy");
-                headerTable.AddCell(showCompanyName.CompanyName);
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.CompanyName, tableFont)));
                 headerTable.AddCell("Nip");
                 headerTable.AddCell(showCompanyName.Nip);
                 headerTable.AddCell("Adres");
-                headerTable.AddCell(showCompanyName.Street + "\n" + showCompanyName.City);
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Street + "\n" + showCompanyName.City, tableFont)));
                 headerTable.AddCell("Numer Telefonu");
                 headerTable.AddCell(showCompanyName.PhoneNumber);
                 headerTable.AddCell("E-mail");
@@ -285,22 +296,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 if (String.IsNullOrEmpty(showCompanySeller.Surname))
                 {
                     headerTable2.AddCell("Nazwa Firmy");
-                    headerTable2.AddCell(showCompanySeller.Name);
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)));
                     headerTable2.AddCell("NIP");
                     headerTable2.AddCell(showCompanySeller.Nip);
                     headerTable2.AddCell("REGON");
                     headerTable2.AddCell(showCompanySeller.Regon);
-
                 }
                 else
                 {
-                    headerTable2.AddCell("Imie");
-                    headerTable2.AddCell(showCompanySeller.Name);
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Imię", tableFont)));
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)));
                     headerTable2.AddCell("Nazwisko");
-                    headerTable2.AddCell(showCompanySeller.Surname);
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Surname, tableFont)));
                 }
                 headerTable2.AddCell("Adres");
-                headerTable2.AddCell(showCompanySeller.Street + "\n" + showCompanySeller.City);
+                headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Street + "\n" + showCompanySeller.City, tableFont)));
                 headerTable2.AddCell("Numer Telefonu");
                 headerTable2.AddCell(showCompanySeller.NumberPhone);
                 headerTable2.TotalWidth=240f;
@@ -336,15 +346,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 table.AddCell("Nazwa Produktu");
                 table.AddCell("JM");
-                table.AddCell("Ilosc");
-                table.AddCell("Cena Netto [pln]");
-                table.AddCell("Cena Brutto [pln]");
+                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Ilość", tableFont)));
+                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Cena Netto [zł]", tableFont)));
+                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Cena Brutto [zł]", tableFont)));
                 table.AddCell("Podatek VAT [%]");
 
                 invoiceProducts.ForEach(a =>
                 {
-                    table.AddCell(a.ProductName);
-                    table.AddCell(a.QuantityUnitName);
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(a.ProductName, tableFont)));
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(a.QuantityUnitName, tableFont)));
                     table.AddCell(a.Quantity.ToString());
                     table.AddCell(a.NettoPrice.ToString());
                     table.AddCell(a.BruttoPrice.ToString());
@@ -360,9 +370,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
-                vatTable.AddCell("Wartosc netto [pln]");
+                vatTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Wartosc netto [zł]", tableFont)));
                 vatTable.AddCell("VAT [%]");
-                vatTable.AddCell("Wartosc brutto [pln]");
+                vatTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Wartosc brutto [zł]", tableFont)));
 
                 Dictionary<int, int> vatValue = vatValuesMethod();
                 Dictionary<int, int> vatValueBrutto = vatValuesBruttoMethod();
@@ -376,13 +386,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 int sum = wholeBruttoPrice(vatValueBrutto);
 
-                var amountPaid = new iTextSharp.text.Paragraph("Zaplacono: " + sum.ToString() + " pln", dateFont);
+                var amountPaid = new iTextSharp.text.Paragraph("Zapłacono: " + sum.ToString() + " zł", dateFont);
                 amountPaid.Alignment = Element.ALIGN_LEFT;
 
-                var sellerNameSign = new iTextSharp.text.Paragraph("_______________________" + "                                              " + "_______________________", dateFont);
-                var signature = new iTextSharp.text.Paragraph("          (Podpis sprzedajacego)" + "                                                             " + "                      (Podpis kupujacego)", smallFont);
-                sellerNameSign.Alignment = Element.ALIGN_LEFT;
-
+                
 
                 pdfDoc.Add(table);
                 pdfDoc.Add(spacer);
@@ -395,9 +402,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(spacer);
-                pdfDoc.Add(sellerNameSign);
-                pdfDoc.Add(signature);
-
                 pdfDoc.Close();
                 writer.Close();
                 fs.Close();
