@@ -200,8 +200,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     SpacingAfter = 70f,
                 };
 
+                var spacer3 = new iTextSharp.text.Paragraph("")
+                {
+                    SpacingBefore = 50f,
+                    SpacingAfter = 30f,
+                };
+
                 var titleFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 28);
                 var numberFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 22);
+                var serviceFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 16);
                 var dateFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 14);
                 var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
                 var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
@@ -209,7 +216,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var docNumber = new iTextSharp.text.Paragraph("NR " + showInvoice.Number, numberFont);
                 docTitle.Alignment = Element.ALIGN_CENTER;
                 docNumber.Alignment = Element.ALIGN_CENTER;
-                var nameOfService = new iTextSharp.text.Paragraph("Na wykonanie: " + showInvoice.NameOfService, dateFont);
+                var nameOfService = new iTextSharp.text.Paragraph("Na wykonanie: " + showInvoice.NameOfService, serviceFont);
                 var creationDateVariable = new iTextSharp.text.Paragraph("Data wystawienia: " + showInvoice.CreationDate, dateFont);
                 var secondDateVariable = new iTextSharp.text.Paragraph("Data wykonania usługi: " + showInvoice.DateOfIssue, dateFont);
                 var paymentTypeVariable = new iTextSharp.text.Paragraph("Forma płatności: " + showInvoice.PaymentType, dateFont);
@@ -314,16 +321,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 headerTable2.TotalWidth=240f;
                 headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 220, writer.DirectContent);
 
-
-
-                //pdfDoc.Add(placeTable);
-
-                //pdfDoc.Add(headerTable);
-                //pdfDoc.Add(headerTable2);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(spacer2);
-
-
 
                 var columnCount = 6;
                 var columnWidths = new[] { 2.5f, 1f, 1f, 2f, 2f, 2f };
@@ -342,22 +341,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     MinimumHeight = 30f
                 };
 
-                table.AddCell("Nazwa Produktu");
-                table.AddCell("JM");
-                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Ilość", tableFont)));
-                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Cena Netto [zł]", tableFont)));
-                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Cena Brutto [zł]", tableFont)));
-                table.AddCell("Podatek VAT [%]");
+                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Produktu", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT });
+                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("JM", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Ilość", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Cena Netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Cena Brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Podatek VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
 
                 invoiceProducts.ForEach(a =>
                 {
-                    table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(a.ProductName, tableFont)));
-                    table.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(a.QuantityUnitName, tableFont)));
-                    table.AddCell(a.Quantity.ToString());
-                    table.AddCell(a.NettoPrice.ToString());
-                    table.AddCell(a.BruttoPrice.ToString());
-                    table.AddCell(a.Vat.ToString());
-
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.ProductName, tableFont)));
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.QuantityUnitName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Quantity.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.NettoPrice.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.BruttoPrice.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Vat.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 });
 
 
@@ -368,9 +366,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
-                vatTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Wartosc netto [zł]", tableFont)));
-                vatTable.AddCell("VAT [%]");
-                vatTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Wartosc brutto [zł]", tableFont)));
+                vatTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Wartość netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                vatTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                vatTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Wartość brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
 
                 Dictionary<int, int> vatValue = vatValuesMethod();
                 Dictionary<int, int> vatValueBrutto = vatValuesBruttoMethod();
@@ -378,9 +376,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 foreach (KeyValuePair<int, int> entry in vatValue)
                 {
-                    vatTable.AddCell(entry.Value.ToString());
-                    vatTable.AddCell(entry.Key.ToString());
-                    vatTable.AddCell(vatValueBrutto[entry.Key].ToString());
+                    vatTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Value.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    vatTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Key.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    vatTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(vatValueBrutto[entry.Key].ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 }
 
                 int sum = wholeBruttoPrice(vatValueBrutto);
@@ -398,12 +396,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 };
 
 
-                sumTable.AddCell(sumNetto.ToString());
+                sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sumNetto.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase("-")) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                sumTable.AddCell(sum.ToString());
-                
-
-
+                sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sum.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
 
                 pdfDoc.Add(table);
                 pdfDoc.Add(spacer);
@@ -411,13 +406,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 pdfDoc.Add(vatTable);
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(sumTable);
-                pdfDoc.Add(spacer);
+                pdfDoc.Add(spacer3);
                 pdfDoc.Add(amountPaid);
-                pdfDoc.Add(spacer);
-                pdfDoc.Add(spacer);
-                pdfDoc.Add(spacer);
-                pdfDoc.Add(spacer);
-                pdfDoc.Add(spacer);
                 pdfDoc.Close();
                 writer.Close();
                 fs.Close();
