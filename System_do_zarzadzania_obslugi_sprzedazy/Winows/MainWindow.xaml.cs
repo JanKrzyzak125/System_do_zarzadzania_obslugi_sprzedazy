@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using System.Drawing;
 using System.ComponentModel;
 using System_do_zarzadzania_obslugi_sprzedazy.Winows;
-
+using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
@@ -31,6 +31,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<BaseInvoice> baseInvoices = new List<BaseInvoice>();
         List<Invoice> invoices = new List<Invoice>();
         List<Product> products = new List<Product>();
+        List<StorageOperations> storage = new List<StorageOperations>();
+        List<string> operations = new List<string>();
         
 
         private bool invoiceOpen=true;
@@ -47,7 +49,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             InitializeComponent();
             ShowControls();
+            FillOperations();
             LoadInvoicesList();
+            OperationCB.ItemsSource = operations;
         }
 
         private void LoadCompaniesList()
@@ -67,6 +71,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.ItemsSource = companies;
 
         }
+        private void FillOperations()
+        {
+            operations.Add("Przyjęcie wewnętrzne");
+            operations.Add("Przyjęcie zewnętrzne");
+            operations.Add("Wydanie wewnętrzne");
+            operations.Add("Wydanie zewnętrzne");
+            operations.Add("Wybór wszystkich");
+        }
 
         
         private void WiredUpSellersList()
@@ -84,6 +96,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             CompanyDataGrid.ItemsSource = null;
             CompanyDataGrid.ItemsSource = products;
+        }
+
+        private void WiredUpStorageList()
+        {
+            StorageDG.ItemsSource = null;
+            StorageDG.ItemsSource = storage;
+        }
+
+        private void LoadStorageList()
+        {
+            storage = SQLiteDataAccess.LoadOperations();
+            WiredUpStorageList();
         }
         private void LoadInvoicesList()
         {
@@ -253,9 +277,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private void Statments_Open(object sender, RoutedEventArgs e)
         {
             SettingToFalse();
-            StatmentsOpen = true;
-            CompanyDataGrid.ItemsSource = null;
+            StatmentsOpen = true;      
             HideControls();
+            LoadStorageList();
         }
 
         private void HideControls()
@@ -265,13 +289,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             RemoveUser.Visibility = Visibility.Hidden;
             Print.Visibility = Visibility.Hidden;
             Search.Visibility = Visibility.Hidden;
-            Calendar.Visibility = Visibility.Visible;
+            DateTo.Visibility = Visibility.Visible;
+            DateFrom.Visibility = Visibility.Visible;
             StorageDG.Visibility = Visibility.Visible;
             StorageRB.Visibility = Visibility.Visible;
             InvoiceRB.Visibility = Visibility.Visible;
             OperationCB.Visibility = Visibility.Visible;
-
-
         }
 
         private void ShowControls()
@@ -281,7 +304,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             RemoveUser.Visibility = Visibility.Visible;
             Print.Visibility = Visibility.Visible;
             Search.Visibility = Visibility.Visible;
-            Calendar.Visibility = Visibility.Hidden;
+            DateTo.Visibility = Visibility.Hidden;
+            DateFrom.Visibility = Visibility.Hidden;
             StorageDG.Visibility = Visibility.Hidden;
             StorageRB.Visibility = Visibility.Hidden;
             InvoiceRB.Visibility = Visibility.Hidden;
@@ -341,6 +365,29 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
               VATRegisterOpen = false;
         }
 
-       
+        private void OperationCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            List<StorageOperations> storageOperations = storage;
+            if (DateFrom != null ||DateTo != null)
+            {
+                if (DateFrom.SelectedDate != null || DateTo.SelectedDate != null)
+                {
+                    if (DateFrom.SelectedDate != null)
+                    {
+                        storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return DateFrom.SelectedDate <= Convert.ToDateTime(x.Date); });
+                    }
+
+                    if (DateTo.SelectedDate != null)
+                    {
+                        storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return DateTo.SelectedDate >= Convert.ToDateTime(x.Date); });
+                    }
+                }
+                if(!OperationCB.SelectedItem.ToString().Equals("Wybór wszystkich"))
+                {
+                    storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return x.OperationName.ToLower().Equals(OperationCB.SelectedItem.ToString().ToLower()); });
+                }                    
+                StorageDG.ItemsSource = storageOperations;
+            }     
+        }
     }
 }

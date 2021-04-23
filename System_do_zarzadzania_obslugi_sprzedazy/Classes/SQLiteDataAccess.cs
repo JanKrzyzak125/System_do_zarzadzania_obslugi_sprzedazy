@@ -209,6 +209,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static List<StorageOperations> LoadOperations()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<StorageOperations>("SELECT StorageInformation.InformationID,StorageOperations.OperationName,StorageInformation.Quantity,StorageInformation.Date,StorageInformation.Receiver,StorageInformation.Sender FROM StorageInformation INNER JOIN StorageOperations ON StorageInformation.OperationID=StorageOperations.OperationID", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+
 
         private static string LoadConnectionString(string id = "Default")
         {

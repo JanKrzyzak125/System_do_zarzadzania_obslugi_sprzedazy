@@ -72,6 +72,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\InvoiceProduct.cs" />
+    <Compile Include="Classes\StorageOperations.cs" />
     <Compile Include="Winows\AddNewProductMagazine.xaml.cs">
       <DependentUpon>AddNewProductMagazine.xaml</DependentUpon>
     </Compile>
