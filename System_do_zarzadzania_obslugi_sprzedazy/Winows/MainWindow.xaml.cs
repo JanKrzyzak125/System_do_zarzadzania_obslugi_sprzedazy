@@ -407,8 +407,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 Filter.Visibility = Visibility.Visible;
                 OperationCB.Visibility = Visibility.Hidden;
+                InvoiceDG.Visibility = Visibility.Visible;
             }
-            StorageDG.ItemsSource = baseInvoices;
+            StorageDG.ItemsSource = storage;
+            InvoiceDG.ItemsSource = baseInvoices;
 
         }
 
@@ -420,10 +422,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 {
                     Filter.Visibility = Visibility.Hidden;
                     OperationCB.Visibility = Visibility.Visible;
+                    InvoiceDG.Visibility = Visibility.Hidden;
                 }
                 StorageDG.ItemsSource = storage;
                 StorageDG.Columns[7].Visibility = Visibility.Collapsed;
-
             }           
         }
 
@@ -444,7 +446,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         baseInvoice = baseInvoice.FindAll(delegate (BaseInvoice x) { return DateTo.SelectedDate >= Convert.ToDateTime(x.CreationDate); });
                     }
                 }
-                StorageDG.ItemsSource = baseInvoice;
+                InvoiceDG.ItemsSource = baseInvoice;
             }
         }
     }
