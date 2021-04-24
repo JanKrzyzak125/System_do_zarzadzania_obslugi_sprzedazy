@@ -213,7 +213,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<StorageOperations>("SELECT StorageInformation.InformationID,StorageOperations.OperationName,StorageInformation.Quantity,StorageInformation.Date,StorageInformation.Receiver,StorageInformation.Sender FROM StorageInformation INNER JOIN StorageOperations ON StorageInformation.OperationID=StorageOperations.OperationID", new DynamicParameters());
+                var output = cnn.Query<StorageOperations>("SELECT StorageInformation.InformationID,StorageOperations.OperationName,StorageInformation.Quantity,StorageInformation.Date,StorageInformation.Receiver,StorageInformation.Sender,Product.Name FROM((StorageInformation INNER JOIN StorageOperations ON StorageInformation.OperationID=StorageOperations.OperationID)INNER JOIN Product ON StorageInformation.ProductID=Product.Id)", new DynamicParameters());
                 return output.ToList();
             }
         }

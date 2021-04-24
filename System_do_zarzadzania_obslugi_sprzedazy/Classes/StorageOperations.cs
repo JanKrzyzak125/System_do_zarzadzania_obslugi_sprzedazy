@@ -15,6 +15,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         private string date;
         private string receiver;
         private string sender;
+        private string productName;
+        private string color;
+
 
 
         [DisplayName("ID")]
@@ -60,12 +63,40 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             set { sender = value; }
         }
 
+
+        [DisplayName("Nazwa produktu")]
+        public string Name
+        {
+            get { return productName; }
+            set { productName = value;
+                if (operationName.Contains("Przyjęcie"))
+                {
+                    Color = "Green";
+                }
+                if (operationName.Contains("Wydanie"))
+                {
+                    Color = "Red";
+                }
+            }
+        }
+
+
+        public string Color
+        {
+            get { return color; }
+            set { color = value;}
+        }
+
+
+
+
+
         public StorageOperations()
         {
 
         }
 
-        public StorageOperations(int informationID, string operationName, int quantity, string date, string receiver, string sender)
+        public StorageOperations(int informationID, string operationName, int quantity, string date, string receiver, string sender, string name)
         {
             InformationID = informationID;
             OperationName = operationName;
@@ -73,6 +104,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             Date = date;
             Receiver = receiver;
             Sender = sender;
+            Name = name;
+            
         }
     }
 
