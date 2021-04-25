@@ -373,32 +373,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void OperationCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<StorageOperations> storageOperations = storage;
-            if (DateFrom != null ||DateTo != null)
-            {
-                if (DateFrom.SelectedDate != null || DateTo.SelectedDate != null)
-                {
-                    if (DateFrom.SelectedDate != null)
-                    {
-                        storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return DateFrom.SelectedDate <= Convert.ToDateTime(x.Date); });
-                    }
-
-                    if (DateTo.SelectedDate != null)
-                    {
-                        storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return DateTo.SelectedDate >= Convert.ToDateTime(x.Date); });
-                    }
-                }
-                if(!OperationCB.SelectedItem.ToString().Equals("Wybór wszystkich"))
-                {
-                    storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return x.OperationName.ToLower().Equals(OperationCB.SelectedItem.ToString().ToLower()); });
-                }                    
-                StorageDG.ItemsSource = storageOperations;
-                if(StorageDG.Columns.Count > 0)
-                {
-                    StorageDG.Columns[7].Visibility = Visibility.Collapsed;
-                }
-               
-            }     
+            DateFilter();
         }
 
         private void InvoiceRB_Checked(object sender, RoutedEventArgs e)
@@ -411,7 +386,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
             StorageDG.ItemsSource = storage;
             InvoiceDG.ItemsSource = baseInvoices;
-
         }
 
         private void StorageRB_Checked(object sender, RoutedEventArgs e)
@@ -427,6 +401,35 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 StorageDG.ItemsSource = storage;
                 StorageDG.Columns[7].Visibility = Visibility.Collapsed;
             }           
+        }
+
+        private void DateFilter()
+        {
+            List<StorageOperations> storageOperations = storage;
+            if (DateFrom != null || DateTo != null)
+            {
+                if (DateFrom.SelectedDate != null || DateTo.SelectedDate != null)
+                {
+                    if (DateFrom.SelectedDate != null)
+                    {
+                        storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return DateFrom.SelectedDate <= Convert.ToDateTime(x.Date); });
+                    }
+
+                    if (DateTo.SelectedDate != null)
+                    {
+                        storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return DateTo.SelectedDate >= Convert.ToDateTime(x.Date); });
+                    }
+                }
+                if (!OperationCB.SelectedItem.ToString().Equals("Wybór wszystkich"))
+                {
+                    storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return x.OperationName.ToLower().Equals(OperationCB.SelectedItem.ToString().ToLower()); });
+                }
+                StorageDG.ItemsSource = storageOperations;
+                if (StorageDG.Columns.Count > 0)
+                {
+                    StorageDG.Columns[7].Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         private void Filter_Click(object sender, RoutedEventArgs e)
@@ -448,6 +451,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 }
                 InvoiceDG.ItemsSource = baseInvoice;
             }
+        }
+
+        private void DateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateFilter();
+        }
+
+        private void DateFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateFilter();
         }
     }
 }
