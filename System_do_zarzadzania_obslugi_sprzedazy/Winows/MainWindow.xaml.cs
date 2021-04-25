@@ -30,6 +30,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<Company> companies = new List<Company>();
         List<Seller> sellers = new List<Seller>();
         List<BaseInvoice> baseInvoices = new List<BaseInvoice>();
+        List<BaseInvoice> invoiceStatements = new List<BaseInvoice>();
         List<Invoice> invoices = new List<Invoice>();
         List<Product> products = new List<Product>();
         List<StorageOperations> storage = new List<StorageOperations>();
@@ -93,7 +94,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.ItemsSource = null;
             StorageDG.ItemsSource = null;
             CompanyDataGrid.ItemsSource = baseInvoices;
-            StorageDG.ItemsSource = baseInvoices;
+            InvoiceDG.ItemsSource = invoiceStatements;
         }
         private void WiredUpProductList()
         {
@@ -116,6 +117,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             invoices = SQLiteDataAccess.LoadInvoices();
             baseInvoices = invoices.ConvertAll(x => (BaseInvoice)x);
+            invoiceStatements = invoices.ConvertAll(x => (BaseInvoice)x);
             WiredUpInvoicesList();
         }
 
@@ -316,6 +318,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceRB.Visibility = Visibility.Hidden;
             OperationCB.Visibility = Visibility.Hidden;
             Filter.Visibility = Visibility.Hidden;
+            InvoiceDG.Visibility = Visibility.Hidden;
         }
 
 
@@ -384,8 +387,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 OperationCB.Visibility = Visibility.Hidden;
                 InvoiceDG.Visibility = Visibility.Visible;
             }
-            StorageDG.ItemsSource = storage;
-            InvoiceDG.ItemsSource = baseInvoices;
+            InvoiceDG.ItemsSource = invoiceStatements;
         }
 
         private void StorageRB_Checked(object sender, RoutedEventArgs e)

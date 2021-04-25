@@ -65,7 +65,6 @@
         <DatePicker x:Name="DateTo" HorizontalAlignment="Left" Margin="62,109,0,0"  Grid.Row="3" VerticalAlignment="Top" Width="187" SelectedDateChanged="DateTo_SelectedDateChanged"/>
         <Button x:Name="Filter" Content="Filtruj" Visibility="Hidden" HorizontalAlignment="Left" Margin="84,280,0,0" Grid.Row="3" VerticalAlignment="Top" Width="129" Height="29" Click="Filter_Click"/>
         <DataGrid x:Name="InvoiceDG" Visibility="Hidden" AutoGenerateColumns="True" Background="White" AutoGeneratingColumn="CompanyDataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalAlignment="Left" Height="536" Margin="277,26,0,0" Grid.Row="2" VerticalAlignment="Top" Width="975" Grid.RowSpan="2" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False">
-            
         </DataGrid>
     </Grid>
 </Window>
