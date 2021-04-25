@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Drawing;
 using System.ComponentModel;
 using System_do_zarzadzania_obslugi_sprzedazy.Winows;
+using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
@@ -31,6 +32,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<BaseInvoice> baseInvoices = new List<BaseInvoice>();
         List<Invoice> invoices = new List<Invoice>();
         List<Product> products = new List<Product>();
+        List<StorageOperations> storage = new List<StorageOperations>();
+        List<string> operations = new List<string>();
         
 
         private bool invoiceOpen=true;
@@ -46,7 +49,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         public MainWindow()
         {
             InitializeComponent();
+            ShowControls();
+            FillOperations();
             LoadInvoicesList();
+            OperationCB.ItemsSource = operations;
         }
 
         private void LoadCompaniesList()
@@ -66,6 +72,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.ItemsSource = companies;
 
         }
+        private void FillOperations()
+        {
+            operations.Add("Przyjęcie wewnętrzne");
+            operations.Add("Przyjęcie zewnętrzne");
+            operations.Add("Wydanie wewnętrzne");
+            operations.Add("Wydanie zewnętrzne");
+            operations.Add("Wybór wszystkich");
+        }
 
         
         private void WiredUpSellersList()
@@ -77,12 +91,26 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private void WiredUpInvoicesList()
         {
             CompanyDataGrid.ItemsSource = null;
+            StorageDG.ItemsSource = null;
             CompanyDataGrid.ItemsSource = baseInvoices;
+            StorageDG.ItemsSource = baseInvoices;
         }
         private void WiredUpProductList()
         {
             CompanyDataGrid.ItemsSource = null;
             CompanyDataGrid.ItemsSource = products;
+        }
+
+        private void WiredUpStorageList()
+        {
+            StorageDG.ItemsSource = null;
+            StorageDG.ItemsSource = storage;
+        }
+
+        private void LoadStorageList()
+        {
+            storage = SQLiteDataAccess.LoadOperations();
+            WiredUpStorageList();
         }
         private void LoadInvoicesList()
         {
@@ -214,6 +242,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             AddUser.Content = "Dodaj fakture";
             RemoveUser.Content = "Usuń fakture";
             LoadInvoicesList();
+            ShowControls();
 
         }
 
@@ -225,6 +254,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             RemoveUser.Content = "Usuń przedmiot";
             CompanyDataGrid.ItemsSource = null;
             LoadProductsList();
+            ShowControls();
         }
 
         private void Settlements_Open(object sender, RoutedEventArgs e)
@@ -234,6 +264,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             AddUser.Content = "Dodaj rozliczenie";
             RemoveUser.Content = "Usuń rozliczenie";
             CompanyDataGrid.ItemsSource = null;
+            ShowControls();
         }
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
@@ -243,16 +274,50 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             AddUser.Content = "Dodaj Kontrahenta";
             RemoveUser.Content = "Usuń Kontrahenta";
             LoadSellersList();
+            ShowControls();
         }
 
         private void Statments_Open(object sender, RoutedEventArgs e)
         {
             SettingToFalse();
-            StatmentsOpen = true;
-            AddUser.Content = "Dodaj sprawozdanie";
-            RemoveUser.Content = "Usuń sprawozdanie";
-            CompanyDataGrid.ItemsSource = null;
+            StatmentsOpen = true;      
+            HideControls();
+            StorageRB.IsChecked = true;
+            LoadStorageList();
+            StorageDG.Columns[7].Visibility = Visibility.Collapsed;
         }
+
+        private void HideControls()
+        {
+            CompanyDataGrid.Visibility = Visibility.Hidden;
+            AddUser.Visibility = Visibility.Hidden;
+            RemoveUser.Visibility = Visibility.Hidden;
+            Print.Visibility = Visibility.Hidden;
+            Search.Visibility = Visibility.Hidden;
+            DateTo.Visibility = Visibility.Visible;
+            DateFrom.Visibility = Visibility.Visible;
+            StorageDG.Visibility = Visibility.Visible;
+            StorageRB.Visibility = Visibility.Visible;
+            InvoiceRB.Visibility = Visibility.Visible;
+            OperationCB.Visibility = Visibility.Visible;
+        }
+
+        private void ShowControls()
+        {
+            CompanyDataGrid.Visibility = Visibility.Visible;
+            AddUser.Visibility = Visibility.Visible;
+            RemoveUser.Visibility = Visibility.Visible;
+            Print.Visibility = Visibility.Visible;
+            Search.Visibility = Visibility.Visible;
+            DateTo.Visibility = Visibility.Hidden;
+            DateFrom.Visibility = Visibility.Hidden;
+            StorageDG.Visibility = Visibility.Hidden;
+            StorageRB.Visibility = Visibility.Hidden;
+            InvoiceRB.Visibility = Visibility.Hidden;
+            OperationCB.Visibility = Visibility.Hidden;
+            Filter.Visibility = Visibility.Hidden;
+        }
+
 
         private void VATRegister_Open(object sender, RoutedEventArgs e)
         {
@@ -260,8 +325,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             VATRegisterOpen = true;
             AddUser.Content = "Dodaj rejestr vat";
             RemoveUser.Content = "Usuń rejestr vat";
-
             CompanyDataGrid.ItemsSource = null;
+            ShowControls();
         }
 
         private void Print_Open(object sender, RoutedEventArgs e)
@@ -306,6 +371,96 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
               VATRegisterOpen = false;
         }
 
-       
+        private void OperationCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateFilter();
+        }
+
+        private void InvoiceRB_Checked(object sender, RoutedEventArgs e)
+        {
+            if((bool)InvoiceRB.IsChecked)
+            {
+                Filter.Visibility = Visibility.Visible;
+                OperationCB.Visibility = Visibility.Hidden;
+                InvoiceDG.Visibility = Visibility.Visible;
+            }
+            StorageDG.ItemsSource = storage;
+            InvoiceDG.ItemsSource = baseInvoices;
+        }
+
+        private void StorageRB_Checked(object sender, RoutedEventArgs e)
+        {
+            if(Filter != null)
+            {
+                if ((bool)StorageRB.IsChecked)
+                {
+                    Filter.Visibility = Visibility.Hidden;
+                    OperationCB.Visibility = Visibility.Visible;
+                    InvoiceDG.Visibility = Visibility.Hidden;
+                }
+                StorageDG.ItemsSource = storage;
+                StorageDG.Columns[7].Visibility = Visibility.Collapsed;
+            }           
+        }
+
+        private void DateFilter()
+        {
+            List<StorageOperations> storageOperations = storage;
+            if (DateFrom != null || DateTo != null)
+            {
+                if (DateFrom.SelectedDate != null || DateTo.SelectedDate != null)
+                {
+                    if (DateFrom.SelectedDate != null)
+                    {
+                        storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return DateFrom.SelectedDate <= Convert.ToDateTime(x.Date); });
+                    }
+
+                    if (DateTo.SelectedDate != null)
+                    {
+                        storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return DateTo.SelectedDate >= Convert.ToDateTime(x.Date); });
+                    }
+                }
+                if (!OperationCB.SelectedItem.ToString().Equals("Wybór wszystkich"))
+                {
+                    storageOperations = storageOperations.FindAll(delegate (StorageOperations x) { return x.OperationName.ToLower().Equals(OperationCB.SelectedItem.ToString().ToLower()); });
+                }
+                StorageDG.ItemsSource = storageOperations;
+                if (StorageDG.Columns.Count > 0)
+                {
+                    StorageDG.Columns[7].Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void Filter_Click(object sender, RoutedEventArgs e)
+        {
+            List<BaseInvoice> baseInvoice = baseInvoices;
+            if (DateFrom != null || DateTo != null)
+            {
+                if (DateFrom.SelectedDate != null || DateTo.SelectedDate != null)
+                {
+                    if (DateFrom.SelectedDate != null)
+                    {
+                        baseInvoice = baseInvoice.FindAll(delegate (BaseInvoice x) { return DateFrom.SelectedDate <= Convert.ToDateTime(x.CreationDate); });
+                    }
+
+                    if (DateTo.SelectedDate != null)
+                    {
+                        baseInvoice = baseInvoice.FindAll(delegate (BaseInvoice x) { return DateTo.SelectedDate >= Convert.ToDateTime(x.CreationDate); });
+                    }
+                }
+                InvoiceDG.ItemsSource = baseInvoice;
+            }
+        }
+
+        private void DateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateFilter();
+        }
+
+        private void DateFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateFilter();
+        }
     }
 }

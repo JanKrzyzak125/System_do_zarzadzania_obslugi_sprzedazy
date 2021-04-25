@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
-    class Product
+    class Product : IEquatable<Product>
     {
         private int id;
         
@@ -100,6 +100,43 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             Vat = vat;
             VatValue = vatValue;
             GrossValue = grossValue;
+        }
+
+        public bool Equals(Product other)
+        {
+            if(other == null)
+            {
+                return false;
+            }
+            return (this.Name.Equals(other.Name));
+        }
+
+        public bool Equals(string other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            return this.Name==other;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            Product objAsProduct = obj as Product;
+            if (objAsProduct == null) return false;
+            else return objAsProduct.Name == this.Name;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+        internal bool StartsWith(string filter_param)
+        {
+            if (filter_param == null)
+            {
+                return false;
+            }
+            return Name.StartsWith(filter_param);
         }
     }
 

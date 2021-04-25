@@ -9,19 +9,19 @@
     <Grid Margin="0,-11,-80,-59" Height="761" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1354">
 
         <Label Content="ID" HorizontalAlignment="Left" Height="37" Margin="15,81,0,0"  VerticalAlignment="Top" Width="54" />
-        <Label Content="Sprzedawca" HorizontalAlignment="Left" Height="37" Margin="20,39,0,0"  VerticalAlignment="Top" Width="94" RenderTransformOrigin="0.504,0.045" />
+        <Label Content="Sprzedawca" HorizontalAlignment="Left" Height="37" Margin="15,39,0,0"  VerticalAlignment="Top" Width="94" RenderTransformOrigin="0.504,0.045" />
         <Label Content="Firma" HorizontalAlignment="Left" Height="37" Margin="15,123,0,0"  VerticalAlignment="Top" Width="54" />
         <Label Content="Data wydania" HorizontalAlignment="Left" Height="37" Margin="15,501,0,0"  VerticalAlignment="Top" Width="89" />
         <Label Content="Numer" HorizontalAlignment="Left" Height="37" Margin="15,165,0,0"  VerticalAlignment="Top" Width="54" RenderTransformOrigin="0.549,0.046" />
         <Label Content="Data stworzenia" HorizontalAlignment="Left" Height="37" Margin="15,207,0,0"  VerticalAlignment="Top" Width="98" />
         <Label Content="Data sprzedaży" HorizontalAlignment="Left" Height="37" Margin="15,249,0,0"  VerticalAlignment="Top" Width="98" RenderTransformOrigin="0.501,-0.474" />
-        <Label Content="Typ płatności" HorizontalAlignment="Left" Height="37" Margin="20,296,0,0"  VerticalAlignment="Top" Width="84" />
+        <Label Content="Typ płatności" HorizontalAlignment="Left" Height="37" Margin="15,291,0,0"  VerticalAlignment="Top" Width="84" />
         <Label Content="Termin płatności" HorizontalAlignment="Left" Height="37" Margin="15,333,0,0"  VerticalAlignment="Top" Width="106" />
         <Label Content="Do zapłaty" HorizontalAlignment="Left" Height="37" Margin="15,375,0,0"  VerticalAlignment="Top" Width="71" />
         <Label Content="Słownie do zapłaty" HorizontalAlignment="Left" Height="37" Margin="15,417,0,0"  VerticalAlignment="Top" Width="121" />
         <Label Content="Zapłacono" HorizontalAlignment="Left" Height="37" Margin="15,459,0,0"  VerticalAlignment="Top" Width="71" RenderTransformOrigin="-0.212,0.387" />
         <Label Content="Nazwa usługi" HorizontalAlignment="Left" Height="37" Margin="15,543,0,0"  VerticalAlignment="Top" Width="106" />
-        <Label x:Name="AccountNumberLabel" Content="Numer konta" HorizontalAlignment="Left" Margin="15,603,0,0" VerticalAlignment="Top" Width="89" RenderTransformOrigin="0.472,1.038"/>
+        <Label x:Name="AccountNumberLabel" Content="Numer konta" HorizontalAlignment="Left" Margin="15,585,0,0" VerticalAlignment="Top" Width="94" RenderTransformOrigin="0.472,1.038" Height="37"/>
 
 
         <TextBox x:Name="ID" HorizontalAlignment="Center" Height="37" Margin="176,81,969,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
@@ -37,11 +37,12 @@
         <TextBox x:Name="ToPayInWords" HorizontalAlignment="Center" Height="37" Margin="176,417,969,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
         <TextBox x:Name="Paid" HorizontalAlignment="Center" Height="37" Margin="176,459,969,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
         <TextBox x:Name="NameOfService" HorizontalAlignment="Center" Height="37" Margin="176,543,969,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
-        <TextBox x:Name="AccountNumber" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Margin="176,592,0,0" IsEnabled="False"/>
+        <TextBox x:Name="AccountNumber" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Margin="176,585,0,0" IsEnabled="False"/>
 
         <DataGrid x:Name="InvoiceProductListDataGrid" Margin="566,39,100,78" Background="White" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False"/>
         <Button x:Name="AddProduct" Content="Dodawanie" HorizontalAlignment="Left" Margin="419,103,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="AddProduct_Click"/>
-        <Button x:Name="DelProduct" Content="Usuwanie" HorizontalAlignment="Left" Margin="419,165,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="DelProduct_Click"/>
+        <Button x:Name="DelProduct" Content="Usuwanie" HorizontalAlignment="Left" Margin="419,168,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="DelProduct_Click"/>
+        <Button x:Name="CreatePDF" Content="Utwórz PDF" HorizontalAlignment="Left" Margin="419,235,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="CreatePDF_Click"/>
 
     </Grid>
 </Window>

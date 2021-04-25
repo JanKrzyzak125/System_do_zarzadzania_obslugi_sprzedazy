@@ -167,7 +167,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) 
             {                       
-                var output =cnn.Query<Seller>("SELECT Seller.Name, Seller.Surname FROM CompanyWithSellers INNER JOIN Seller ON CompanyWithSellers.IdSeller=Seller.IdSeller WHERE CompanyWithSellers.IdCompany=" + idCompany.ToString(), new DynamicParameters());
+                var output =cnn.Query<Seller>("SELECT Seller.Name, Seller.Surname, Seller.Street, Seller.City, Seller.NumberPhone, Seller.Nip, Seller.Regon FROM CompanyWithSellers INNER JOIN Seller ON CompanyWithSellers.IdSeller=Seller.IdSeller WHERE CompanyWithSellers.IdCompany=" + idCompany.ToString(), new DynamicParameters());
                 return output.ToList();
             }
         }
@@ -176,7 +176,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output=cnn.Query<Company>("select companyName from Company where CompanyID="+ idCompany.ToString(), new DynamicParameters());
+                var output=cnn.Query<Company>("select * from Company where CompanyID="+ idCompany.ToString(), new DynamicParameters());
                 return output.ToList();
             }
         }
@@ -208,6 +208,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 cnn.Execute("insert into QuantityUnit(" + s1 + ")values(" + unitId.ToString() + "," + "\'" + unitName + "\'" + ")");
             }
         }
+
+        public static List<StorageOperations> LoadOperations()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<StorageOperations>("SELECT StorageInformation.InformationID,StorageOperations.OperationName,StorageInformation.Quantity,StorageInformation.Date,StorageInformation.Receiver,StorageInformation.Sender,Product.Name FROM((StorageInformation INNER JOIN StorageOperations ON StorageInformation.OperationID=StorageOperations.OperationID)INNER JOIN Product ON StorageInformation.ProductID=Product.Id)", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
 
 
         private static string LoadConnectionString(string id = "Default")
