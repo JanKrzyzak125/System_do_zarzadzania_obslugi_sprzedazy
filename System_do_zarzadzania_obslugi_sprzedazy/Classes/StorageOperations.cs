@@ -9,6 +9,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
 {
     class StorageOperations
     {
+
+        private List<InvoiceProduct> invoiceProducts = new List<InvoiceProduct>();
+
         private int informationID;
         private string operationName;
         private int quantity;
@@ -17,6 +20,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         private string sender;
         private string productName;
         private string color;
+        private int invoiceID;
 
 
 
@@ -87,8 +91,32 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             set { color = value;}
         }
 
+       
+
+        public string InvoiceProducts
+        {
+            get {
+                StringBuilder listText = new StringBuilder("");
+                foreach(InvoiceProduct invoiceProduct in invoiceProducts)
+                {
+                    listText.Append(invoiceProduct.ToString());
+                    listText.Append("\n");
+                }               
+                return listText.ToString(); }            
+        }
 
 
+
+        public int InvoiceID
+        {
+            get { return invoiceID; }
+            set { invoiceID = value;
+                if (invoiceID != 0)
+                {
+                    invoiceProducts = SQLiteDataAccess.LoadInvoicesProduct(invoiceID);
+                }
+                }
+        }
 
 
         public StorageOperations()

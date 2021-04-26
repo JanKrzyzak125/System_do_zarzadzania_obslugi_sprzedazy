@@ -74,6 +74,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             set { vat = value; }
         }
 
+        public override string ToString()
+        {
+            return "Nazwa Produktu: " + productName + " Ilość: " + Quantity.ToString(); 
+        }
+
         public InvoiceProduct()
         {
 
