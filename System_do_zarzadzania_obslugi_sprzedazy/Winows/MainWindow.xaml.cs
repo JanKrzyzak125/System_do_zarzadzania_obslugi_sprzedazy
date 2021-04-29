@@ -134,6 +134,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
+        private void LoadHistoryList() 
+        {
+
+            
+        }
+
         private void Add_User(object sender, RoutedEventArgs e)
         {
             //addUser addUser = new addUser();
@@ -212,6 +218,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             if (SettlementsOpen)
             {
 
+
             }
             if (ContractorsOpen)
             {
@@ -266,7 +273,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             AddUser.Content = "Dodaj rozliczenie";
             RemoveUser.Content = "Usuń rozliczenie";
             CompanyDataGrid.ItemsSource = null;
-            ShowControls();
+
+            ShowControlsSettelments();
         }
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
@@ -298,12 +306,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             RemoveUser.Visibility = Visibility.Hidden;
             Print.Visibility = Visibility.Hidden;
             Search.Visibility = Visibility.Hidden;
+            
             DateTo.Visibility = Visibility.Visible;
             DateFrom.Visibility = Visibility.Visible;
             StorageDG.Visibility = Visibility.Visible;
             StorageRB.Visibility = Visibility.Visible;
             InvoiceRB.Visibility = Visibility.Visible;
             OperationCB.Visibility = Visibility.Visible;
+            GridSettelmentIncome.Visibility = Visibility.Hidden;
+            GridSettelmentDebt.Visibility = Visibility.Hidden;
+            DateSettelmentFrom.Visibility = Visibility.Hidden;
+            DateSettelmentTo.Visibility = Visibility.Hidden;
         }
 
         private void ShowControls()
@@ -321,8 +334,34 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             OperationCB.Visibility = Visibility.Hidden;
             Filter.Visibility = Visibility.Hidden;
             InvoiceDG.Visibility = Visibility.Hidden;
+            GridSettelmentIncome.Visibility = Visibility.Hidden;
+            GridSettelmentDebt.Visibility = Visibility.Hidden;
+            DateSettelmentFrom.Visibility = Visibility.Hidden;
+            DateSettelmentTo.Visibility = Visibility.Hidden;
         }
 
+        private void ShowControlsSettelments() 
+        {
+            CompanyDataGrid.Visibility = Visibility.Hidden;
+            AddUser.Visibility = Visibility.Hidden;
+            RemoveUser.Visibility = Visibility.Hidden;
+            Print.Visibility = Visibility.Hidden;
+            Search.Visibility = Visibility.Hidden;
+            DateTo.Visibility = Visibility.Hidden;
+            DateFrom.Visibility = Visibility.Hidden;
+            StorageDG.Visibility = Visibility.Hidden;
+            StorageRB.Visibility = Visibility.Hidden;
+            InvoiceRB.Visibility = Visibility.Hidden;
+            OperationCB.Visibility = Visibility.Hidden;
+            Filter.Visibility = Visibility.Hidden;
+            InvoiceDG.Visibility = Visibility.Hidden;
+            GridSettelmentIncome.Visibility = Visibility.Visible;
+            GridSettelmentDebt.Visibility = Visibility.Visible;
+            DateSettelmentFrom.Visibility = Visibility.Visible;
+            DateSettelmentTo.Visibility = Visibility.Visible;
+
+
+        }
 
         private void VATRegister_Open(object sender, RoutedEventArgs e)
         {
