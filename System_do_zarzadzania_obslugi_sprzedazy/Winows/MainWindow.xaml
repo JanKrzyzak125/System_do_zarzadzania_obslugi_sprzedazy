@@ -54,7 +54,7 @@
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
-        
+
         <ComboBox x:Name="OperationCB" SelectedIndex="4"  HorizontalAlignment="Left" Margin="62,280,0,0" Grid.Row="3" VerticalAlignment="Top" Width="187" Height="29" SelectionChanged="OperationCB_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -72,5 +72,9 @@
         <Button x:Name="Filter" Content="Filtruj" Visibility="Hidden" HorizontalAlignment="Left" Margin="84,280,0,0" Grid.Row="3" VerticalAlignment="Top" Width="129" Height="29" Click="Filter_Click"/>
         <DataGrid x:Name="InvoiceDG" Visibility="Hidden" AutoGenerateColumns="True" Background="White" AutoGeneratingColumn="CompanyDataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalAlignment="Left" Height="536" Margin="277,26,0,0" Grid.Row="2" VerticalAlignment="Top" Width="975" Grid.RowSpan="2" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False">
         </DataGrid>
+        <DataGrid x:Name="GridSettelmentIncome" HorizontalAlignment="Left" Height="510" Margin="254,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="460"/>
+        <DataGrid x:Name="GridSettelmentDebt" HorizontalAlignment="Left" Height="510" Margin="740,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="497"/>
+        <DatePicker x:Name="DateSettelmentFrom" HorizontalAlignment="Left" Height="29" Margin="36,18,0,0" Grid.Row="3" VerticalAlignment="Top" Width="213"/>
+        <DatePicker x:Name="DateSettelmentTo" HorizontalAlignment="Left" Height="27" Margin="36,77,0,0" Grid.Row="3" VerticalAlignment="Top" Width="213"/>
     </Grid>
 </Window>
