@@ -73,6 +73,7 @@
     </ApplicationDefinition>
     <Compile Include="Classes\InvoiceProduct.cs" />
     <Compile Include="Classes\StorageOperations.cs" />
+    <Compile Include="Classes\StorageProduct.cs" />
     <Compile Include="Winows\AddNewProductMagazine.xaml.cs">
       <DependentUpon>AddNewProductMagazine.xaml</DependentUpon>
     </Compile>

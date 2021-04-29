@@ -213,10 +213,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<StorageOperations>("SELECT StorageInformation.InformationID,StorageOperations.OperationName,StorageInformation.Quantity,StorageInformation.Date,StorageInformation.Receiver,StorageInformation.Sender,Product.Name,StorageInformation.InvoiceID FROM((StorageInformation INNER JOIN StorageOperations ON StorageInformation.OperationID=StorageOperations.OperationID)INNER JOIN Product ON StorageInformation.ProductID=Product.Id)", new DynamicParameters());
+                var output = cnn.Query<StorageOperations>("SELECT StorageInformation.InformationID,StorageOperations.OperationName,StorageInformation.Quantity,StorageInformation.Date,StorageInformation.Receiver,StorageInformation.Sender,Product.Name,StorageInformation.InvoiceID,StorageInformation.StorageProductID FROM((StorageInformation INNER JOIN StorageOperations ON StorageInformation.OperationID=StorageOperations.OperationID)INNER JOIN Product ON StorageInformation.ProductID=Product.Id)", new DynamicParameters());
                 return output.ToList();
             }
         }
+
+        public static List<StorageProduct> LoadStorageProduct(int ID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<StorageProduct>("SELECT * FROM StorageProduct WHERE StorageProduct.StorageProductID="+ID.ToString()+"", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+
 
 
 

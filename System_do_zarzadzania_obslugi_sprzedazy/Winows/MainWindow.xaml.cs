@@ -286,9 +286,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             HideControls();
             StorageRB.IsChecked = true;
             LoadStorageList();
+            StorageDG.Columns[5].Visibility = Visibility.Collapsed;
+            StorageDG.Columns[6].Visibility = Visibility.Collapsed;
             StorageDG.Columns[7].Visibility = Visibility.Collapsed;
             StorageDG.Columns[8].Visibility = Visibility.Collapsed;
-            StorageDG.Columns[9].Visibility = Visibility.Collapsed;
         }
 
         private void HideControls()
@@ -403,9 +404,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     InvoiceDG.Visibility = Visibility.Hidden;
                 }
                 StorageDG.ItemsSource = storage;
+                StorageDG.Columns[5].Visibility = Visibility.Collapsed;
+                StorageDG.Columns[6].Visibility = Visibility.Collapsed;
                 StorageDG.Columns[7].Visibility = Visibility.Collapsed;
                 StorageDG.Columns[8].Visibility = Visibility.Collapsed;
-                StorageDG.Columns[9].Visibility = Visibility.Collapsed;
             }           
         }
 
@@ -433,9 +435,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 StorageDG.ItemsSource = storageOperations;
                 if (StorageDG.Columns.Count > 0)
                 {
+                    StorageDG.Columns[5].Visibility = Visibility.Collapsed;
+                    StorageDG.Columns[6].Visibility = Visibility.Collapsed;
                     StorageDG.Columns[7].Visibility = Visibility.Collapsed;
                     StorageDG.Columns[8].Visibility = Visibility.Collapsed;
-                    StorageDG.Columns[9].Visibility = Visibility.Collapsed;
                 }
             }
         }

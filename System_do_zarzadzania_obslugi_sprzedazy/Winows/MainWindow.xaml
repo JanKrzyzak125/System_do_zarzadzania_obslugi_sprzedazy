@@ -39,8 +39,8 @@
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Color}" Value="Red">
-                            <Setter Property="Background" Value="Red"></Setter>
+                        <DataTrigger Binding="{Binding Color}" Value="Orange">
+                            <Setter Property="Background" Value="Orange"></Setter>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Color}" Value="Green">
                             <Setter Property="Background" Value="Green"></Setter>

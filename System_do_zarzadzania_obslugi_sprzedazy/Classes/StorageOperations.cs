@@ -11,6 +11,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
     {
 
         private List<InvoiceProduct> invoiceProducts = new List<InvoiceProduct>();
+        private StorageProduct storageProduct;
 
         private int informationID;
         private string operationName;
@@ -21,6 +22,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         private string productName;
         private string color;
         private int invoiceID;
+        private int operationID;
 
 
 
@@ -35,15 +37,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         public string  OperationName
         {
             get { return operationName; }
-            set { operationName = value; }
+            set { operationName = value;
+                if (operationName.Contains("Przyjęcie"))
+                {
+                    Color = "Green";
+                }
+                if (operationName.Contains("Wydanie"))
+                {
+                    Color = "Orange";
+                }
+            }
         }
 
-        [DisplayName("Ilość")]
-        public int Quantity
-        {
-            get { return quantity; }
-            set { quantity = value; }
-        }
+        
 
         [DisplayName("Data")]
         public string Date
@@ -68,55 +74,59 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
 
-        [DisplayName("Nazwa produktu")]
-        public string Name
-        {
-            get { return productName; }
-            set { productName = value;
-                if (operationName.Contains("Przyjęcie"))
-                {
-                    Color = "Green";
-                }
-                if (operationName.Contains("Wydanie"))
-                {
-                    Color = "Red";
-                }
-            }
-        }
-
-
         public string Color
         {
             get { return color; }
             set { color = value;}
         }
 
-       
+        public int InvoiceID
+        {
+            get { return invoiceID; }
+            set
+            {
+                invoiceID = value;
+                if (invoiceID != 0)
+                {
+                    invoiceProducts = SQLiteDataAccess.LoadInvoicesProduct(invoiceID);
+                }
+            }
+        }
+
+
+        public int StorageProductID
+        {
+            get { return operationID; }
+            set { operationID = value;
+                if (operationID != 0)
+                {
+                    storageProduct = SQLiteDataAccess.LoadStorageProduct(operationID)[0];
+                }
+            }
+        }
+
 
         public string InvoiceProducts
         {
             get {
                 StringBuilder listText = new StringBuilder("");
-                foreach(InvoiceProduct invoiceProduct in invoiceProducts)
+                if(InvoiceID!=0)
                 {
-                    listText.Append(invoiceProduct.ToString());
-                    listText.Append("\n");
-                }               
-                return listText.ToString(); }            
+                    foreach (InvoiceProduct invoiceProduct in invoiceProducts)
+                    {
+                        listText.Append(invoiceProduct.ToString());
+                        listText.Append("\n");
+                    }
+                }
+                else
+                {
+                    listText.Append(storageProduct.ToString());
+                }
+                return listText.ToString();
+            }            
         }
 
-
-
-        public int InvoiceID
-        {
-            get { return invoiceID; }
-            set { invoiceID = value;
-                if (invoiceID != 0)
-                {
-                    invoiceProducts = SQLiteDataAccess.LoadInvoicesProduct(invoiceID);
-                }
-                }
-        }
+        
 
 
         public StorageOperations()
@@ -124,15 +134,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
 
         }
 
-        public StorageOperations(int informationID, string operationName, int quantity, string date, string receiver, string sender, string name)
+        public StorageOperations(int informationID, string operationName, string date, string receiver, string sender)
         {
             InformationID = informationID;
-            OperationName = operationName;
-            Quantity = quantity;
+            OperationName = operationName;         
             Date = date;
             Receiver = receiver;
             Sender = sender;
-            Name = name;
             
         }
     }
