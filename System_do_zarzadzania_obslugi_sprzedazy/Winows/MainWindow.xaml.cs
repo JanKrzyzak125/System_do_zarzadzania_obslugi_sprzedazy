@@ -35,6 +35,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<Product> products = new List<Product>();
         List<StorageOperations> storage = new List<StorageOperations>();
         List<string> operations = new List<string>();
+        List<Debter> debters = new List<Debter>();
         
 
         private bool invoiceOpen=true;
@@ -272,10 +273,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             SettlementsOpen = true;
             AddUser.Content = "Dodaj rozliczenie";
             RemoveUser.Content = "Usuń rozliczenie";
-            CompanyDataGrid.ItemsSource = null;
 
+            LoadSellersList();
             ShowControlsSettelments();
+            GridSettelmentIncome.ItemsSource = null;
+            GridSettelmentIncome.ItemsSource = invoices;
+           
+            WiredUpDebtorList(invoices);
+            GridSettelmentDebt.ItemsSource = null;
+            GridSettelmentDebt.ItemsSource = debters;
+            GridSettelmentDebt.Columns[1].Visibility = Visibility.Collapsed;
+
         }
+
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
         {
@@ -482,6 +492,31 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        private void DateFilterDebtor()
+        {
+            List<Invoice> debtorInvoice = invoices;
+            if (DateFrom != null || DateTo != null)
+            {
+                if (DateSettelmentFrom.SelectedDate != null || DateSettelmentTo.SelectedDate != null)
+                {
+                    if (DateSettelmentFrom.SelectedDate != null)
+                    {
+                        debtorInvoice = debtorInvoice.FindAll(delegate (Invoice x) { return DateSettelmentFrom.SelectedDate <= Convert.ToDateTime(x.CreationDate); });
+                    }
+
+                    if (DateSettelmentTo.SelectedDate != null)
+                    {
+                        debtorInvoice = debtorInvoice.FindAll(delegate (Invoice x) { return DateSettelmentTo.SelectedDate >= Convert.ToDateTime(x.CreationDate); });
+                    }
+                }
+            }
+            GridSettelmentIncome.ItemsSource = null;
+            GridSettelmentIncome.ItemsSource = debtorInvoice;
+            WiredUpDebtorList(debtorInvoice);
+            GridSettelmentDebt.ItemsSource = null;
+            GridSettelmentDebt.ItemsSource = debters;
+        }
+
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
             List<BaseInvoice> baseInvoice = baseInvoices;
@@ -503,6 +538,38 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        private void WiredUpDebtorList(List<Invoice> debtorInvoice)
+        {
+            debters.Clear();
+            string fullName = "";
+            int iD;
+            int debt;
+            int paid;
+            int toPay;
+            string invoiceNumber;
+            foreach (Invoice invoice in debtorInvoice)
+            {
+                paid = Int32.Parse(invoice.Paid);
+                toPay = Int32.Parse(invoice.ToPay);
+                if(paid < toPay)
+                {
+                    debt = toPay - paid;
+                    iD = invoice.IdSeller;
+                    invoiceNumber = invoice.Number;
+                    foreach(Seller seller in sellers)
+                    {
+                        if(invoice.IdSeller == seller.IdSeller)
+                        {
+                            fullName = seller.Name + " " + seller.Surname;
+                        }
+                    }
+                     Debter debter = new Debter(fullName, iD, debt, invoiceNumber);
+                    debters.Add(debter);
+                }
+            }
+        }
+
+
         private void DateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateFilter();
@@ -511,6 +578,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private void DateFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateFilter();
+        }
+
+        private void DateSettelmentFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateFilterDebtor();
+        }
+
+        private void DateSettelmentTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateFilterDebtor();
         }
     }
 }

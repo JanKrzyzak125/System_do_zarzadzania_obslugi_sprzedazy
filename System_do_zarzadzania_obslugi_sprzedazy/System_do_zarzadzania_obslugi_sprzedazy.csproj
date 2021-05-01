@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Debter.cs" />
     <Compile Include="Classes\InvoiceProduct.cs" />
     <Compile Include="Classes\StorageOperations.cs" />
     <Compile Include="Classes\StorageProduct.cs" />
