@@ -126,9 +126,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             }            
         }
 
+        private void UpdateList(List<InvoiceProduct> updatedList)
+        {
+            invoiceProducts = updatedList;
+        }
         
-
-
         public StorageOperations()
         {
 

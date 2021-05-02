@@ -227,7 +227,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
-
+        public static void SaveOperation(StorageOperations storageOperation, int operationID, int invoiceID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "OperationID, Date, Receiver, Sender, InvoiceID";
+                cnn.Execute("insert into StorageInformation(" + s1 + ")values(" + operationID.ToString() + "," + "\'" + storageOperation.Date + "\'" + "," + "\'" + storageOperation.Receiver + "\'" + "," + "\'" + storageOperation.Sender + "\'" + "," + invoiceID.ToString() + ")");
+            }
+        }
 
 
 

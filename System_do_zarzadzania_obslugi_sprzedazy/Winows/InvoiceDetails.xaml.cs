@@ -31,6 +31,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private Invoice showInvoice;
         private Company showCompanyName;
         private Seller showCompanySeller;
+        private StorageOperations storageOperation;
 
         private int invoiceID;
         private int companyID;
@@ -439,10 +440,228 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+
+        private void GenerateStorageOperations()
+        {
+            try
+            {
+                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "WZ " +showInvoice.Number + ".pdf", FileMode.Create);
+                var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
+                pdfDoc.Open();
+
+                var titleFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 28);
+                var numberFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 22);
+                var serviceFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 16);
+                var dateFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 14);
+                var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
+                var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
+
+
+                var spacer = new iTextSharp.text.Paragraph("")
+                {
+                    SpacingBefore = 10f,
+                    SpacingAfter = 10f,
+                };
+
+                var spacer2 = new iTextSharp.text.Paragraph("")
+                {
+                    SpacingBefore = 100f,
+                    SpacingAfter = 70f,
+                };
+
+                var spacer3 = new iTextSharp.text.Paragraph("")
+                {
+                    SpacingBefore = 50f,
+                    SpacingAfter = 30f,
+                };
+
+
+                var mainParagraph = new iTextSharp.text.Paragraph("Wydanie zewnętrzne (WZ) nr " + showInvoice.Number, numberFont);
+                var storage = new iTextSharp.text.Paragraph("Magazyn: Główny magazyn", dateFont);
+                var creationDate = new iTextSharp.text.Paragraph("Data wydania: " + showInvoice.CreationDate, smallFont);
+                mainParagraph.Alignment = Element.ALIGN_CENTER;
+                storage.Alignment = Element.ALIGN_LEFT;
+                creationDate.Alignment = Element.ALIGN_RIGHT;
+
+                pdfDoc.Add(creationDate);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(mainParagraph);
+                pdfDoc.Add(spacer);
+
+
+                var headerTable = new PdfPTable(new[] { .5f, .5f })
+                {
+                    HorizontalAlignment = 0,
+                    WidthPercentage = 40,
+                    DefaultCell = { MinimumHeight = 22f },
+
+                };
+
+                var cellSeller = new PdfPCell(new Phrase("Dostawca"))
+                {
+                    Colspan = 2,
+                    HorizontalAlignment = 1,
+                    MinimumHeight = 30f
+                };
+
+                cellSeller.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                var cellBuyer = new PdfPCell(new Phrase("Odbiorca"))
+                {
+                    Colspan = 2,
+                    HorizontalAlignment = 1,
+                    MinimumHeight = 30f
+                };
+                cellBuyer.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+
+
+                headerTable.AddCell(cellSeller);
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Firmy", tableFont)));
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.CompanyName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Nip", tableFont)));
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Adres", tableFont)));
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Street + "\n" + showCompanyName.City, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Numer Telefonu", tableFont)));
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.PhoneNumber, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("E-mail", tableFont)));
+                headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Email, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable.TotalWidth = 240f;
+                headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top - 180, writer.DirectContent);
+
+
+                var headerTable2 = new PdfPTable(new[] { .5f, .5f })
+                {
+                    HorizontalAlignment = 2,
+                    WidthPercentage = 40,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+
+                headerTable2.AddCell(cellBuyer);
+                if (String.IsNullOrEmpty(showCompanySeller.Surname))
+                {
+                    headerTable2.AddCell("Nazwa Firmy");
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    headerTable2.AddCell("NIP");
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    headerTable2.AddCell("REGON");
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                }
+                else
+                {
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Imię", tableFont)));
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    headerTable2.AddCell("Nazwisko");
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Surname, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                }
+                headerTable2.AddCell("Adres");
+                headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Street + "\n" + showCompanySeller.City, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable2.AddCell("Numer Telefonu");
+                headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.NumberPhone, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                headerTable2.TotalWidth = 240f;
+                headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 180, writer.DirectContent);
+
+
+                pdfDoc.Add(spacer2);
+                pdfDoc.Add(spacer3);
+                pdfDoc.Add(storage);
+
+
+                var columnCount = 7;
+                var columnWidths = new[] { 2.2f, 1f, 1f, 1.5f, 1.5f, 1.5f, 1.5f };
+
+                var table = new PdfPTable(columnWidths)
+                {
+                    HorizontalAlignment = 0,
+                    WidthPercentage = 100,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+
+                var cell = new PdfPCell()
+                {
+                    Colspan = columnCount,
+                    HorizontalAlignment = 1,  //0=Left, 1=Centre, 2=Right
+                    MinimumHeight = 30f
+                };
+
+                PdfPCell cell1 = new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Produktu", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                PdfPCell cell2 = new PdfPCell(new iTextSharp.text.Paragraph("JM", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                PdfPCell cell3 = new PdfPCell(new iTextSharp.text.Paragraph("Ilość", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                PdfPCell cell4 = new PdfPCell(new iTextSharp.text.Paragraph("Cena Netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                PdfPCell cell5 = new PdfPCell(new iTextSharp.text.Paragraph("Cena Brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                PdfPCell cell6 = new PdfPCell(new iTextSharp.text.Paragraph("Podatek VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                PdfPCell cell7 = new PdfPCell(new iTextSharp.text.Paragraph("Wartość [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                cell1.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell2.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell3.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell4.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell5.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell6.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell7.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                table.AddCell(cell1);
+                table.AddCell(cell2);
+                table.AddCell(cell3);
+                table.AddCell(cell4);
+                table.AddCell(cell5);
+                table.AddCell(cell6);
+                table.AddCell(cell7);
+
+                int sum=0;
+
+                invoiceProducts.ForEach(a =>
+                {
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.ProductName, tableFont)));
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.QuantityUnitName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Quantity.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.NettoPrice.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.BruttoPrice.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Vat.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase((a.Quantity * a.BruttoPrice).ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    sum += a.Quantity * a.BruttoPrice;
+                });
+
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(table);
+
+                var sumTable = new PdfPTable(new[] { .75f})
+                {
+                    HorizontalAlignment = 2,
+                    WidthPercentage = 14.7f,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+
+
+                sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sum.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+
+                pdfDoc.Add(sumTable);
+
+                pdfDoc.Close();
+                writer.Close();
+                fs.Close();
+                int id = SQLiteDataAccess.LoadAiCompanyId("StorageInformation")[0]-1;
+                storageOperation = new StorageOperations(id,"Wydanie zewnętrzne", DateTime.Now.ToString(), showCompanyName.CompanyName, showCompanySeller.Name + " " + showCompanySeller.Surname);
+                SQLiteDataAccess.SaveOperation(storageOperation, 4, showInvoice.Id);
+            }
+            catch(Exception ex)
+            {
+            }
+        }
+
+
         private void CreatePDF_Click(object sender, RoutedEventArgs e)
         {
-            ExportToPDF();
-            MessageBox.Show("Plik pdf został utworzony");
+            if(invoiceProducts.Count != 0)
+            {
+                ExportToPDF();
+                GenerateStorageOperations();
+                MessageBox.Show("Plik pdf został utworzony");
+            }
+            else
+            {
+                MessageBox.Show("Brak produktów w fakturze");
+            }
         }
     }
 }
