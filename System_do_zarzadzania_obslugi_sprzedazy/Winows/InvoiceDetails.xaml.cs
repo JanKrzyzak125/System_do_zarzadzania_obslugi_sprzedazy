@@ -641,7 +641,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 writer.Close();
                 fs.Close();
                 int id = SQLiteDataAccess.LoadAiCompanyId("StorageInformation")[0]-1;
-                storageOperation = new StorageOperations(id,"Wydanie zewnętrzne", DateTime.Now.ToString(), showCompanyName.CompanyName, showCompanySeller.Name + " " + showCompanySeller.Surname);
+                storageOperation = new StorageOperations(id,"Wydanie zewnętrzne", DateTime.Now.ToString("dd/MM/yyyy"), showCompanyName.CompanyName, showCompanySeller.Name + " " + showCompanySeller.Surname);
                 SQLiteDataAccess.SaveOperation(storageOperation, 4, showInvoice.Id);
             }
             catch(Exception ex)
