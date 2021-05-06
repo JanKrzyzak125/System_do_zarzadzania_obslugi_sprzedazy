@@ -57,6 +57,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             Debt += debt;
         }
 
+        public Dictionary<string, int> returnList()
+        {
+            return invoiceDictionaty;
+        }
 
 
         public Debter()

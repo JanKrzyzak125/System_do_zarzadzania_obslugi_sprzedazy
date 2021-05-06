@@ -283,6 +283,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             GridSettelmentDebt.ItemsSource = null;
             GridSettelmentDebt.ItemsSource = debters;
             GridSettelmentDebt.Columns[1].Visibility = Visibility.Collapsed;
+            GridSettelmentDebt.Columns[3].Visibility = Visibility.Collapsed;
 
         }
 
@@ -585,12 +586,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                     }
                     if (isInList)
-                    {
-                        debter.AddToInvoiceDictionary(invoiceNumber, debt);
+                    {                       
                         debter.AddDebts(debt);
                         debters.Remove(debter);
                     }
+                    debter.AddToInvoiceDictionary(invoiceNumber, debt);
                     debters.Add(debter);
+                    
 
                 }
             }

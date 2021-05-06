@@ -21,13 +21,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
     public partial class DebtorWindow : Window
     {
         private Debter debter;
+        private Dictionary<string, int> debterDictionary = new Dictionary<string, int>();
 
 
         public DebtorWindow(Debter Debter) 
         {
             InitializeComponent();
-            debter= Debter;
+            debterDictionary = Debter.returnList();
+            debter = Debter;
+            DebtorInvoice.ItemsSource = debterDictionary;
         }
+
+       
 
         private void ClientPDF_Click(object sender, RoutedEventArgs e)
         {
