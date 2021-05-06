@@ -564,7 +564,24 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         }
                     }
                      Debter debter = new Debter(fullName, iD, debt, invoiceNumber);
+                    bool isInList = false;
+                    foreach (Debter debter1 in debters)
+                    {
+                        if (debter1.FullName.Equals(debter.FullName))
+                        {
+                            isInList = true;
+                            debter = debter1;
+                        }
+
+                    }
+                    if (isInList)
+                    {
+                        debter.AddToInvoiceDictionary(invoiceNumber, debt);
+                        debter.AddDebts(debt);
+                        debters.Remove(debter);
+                    }
                     debters.Add(debter);
+
                 }
             }
         }

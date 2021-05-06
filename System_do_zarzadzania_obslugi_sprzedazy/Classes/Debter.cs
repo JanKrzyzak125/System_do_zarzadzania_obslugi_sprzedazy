@@ -14,6 +14,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         private int iD;
         private int debt;
         private string invoiceNumber;
+        private Dictionary<string, int> invoiceDictionaty = new Dictionary<string, int>();
 
 
         [DisplayName ("Imię i nazwisko")]
@@ -43,6 +44,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             get { return invoiceNumber; }
             set { invoiceNumber = value; }
         }
+
+
+        public void AddToInvoiceDictionary(string invoiceNumber, int debtAmount)
+        {
+            invoiceDictionaty.Add(invoiceNumber, debtAmount);
+
+        }
+
+        public void AddDebts(int debt)
+        {
+            Debt += debt;
+        }
+
 
 
         public Debter()
