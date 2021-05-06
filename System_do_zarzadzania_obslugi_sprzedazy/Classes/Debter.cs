@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
 {
-    class Debter
+    public class Debter
     {
 
         private string fullName;

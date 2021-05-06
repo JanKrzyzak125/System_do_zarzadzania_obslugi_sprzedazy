@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace System_do_zarzadzania_obslugi_sprzedazy
+namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
 {
     public class Invoice : BaseInvoice
     {

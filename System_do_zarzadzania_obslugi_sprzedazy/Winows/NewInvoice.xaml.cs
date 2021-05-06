@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
