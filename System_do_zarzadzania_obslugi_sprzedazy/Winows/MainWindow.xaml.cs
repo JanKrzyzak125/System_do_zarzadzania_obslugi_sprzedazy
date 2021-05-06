@@ -374,6 +374,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
+        private void DoubleClickDebt_Open(object sender,RoutedEventArgs e) 
+        {
+            if (GridSettelmentDebt.SelectedItem != null) 
+            {
+                DebtorWindow debtorWindow = new DebtorWindow((Debter)GridSettelmentDebt.SelectedItem);
+                debtorWindow.Show();
+            }
+            
+
+        }
         private void VATRegister_Open(object sender, RoutedEventArgs e)
         {
             SettingToFalse();
