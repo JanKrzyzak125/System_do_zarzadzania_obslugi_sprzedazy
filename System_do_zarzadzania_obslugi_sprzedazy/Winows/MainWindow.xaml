@@ -86,5 +86,6 @@
         <DataGrid x:Name="GridSettelmentDebt" AutoGeneratingColumn="CompanyDataGrid_AutoGeneratingColumn" Height="510" Margin="740,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="497"  Background="White"  SelectionMode="Single" GridLinesVisibility="None" HorizontalAlignment="Left" Grid.RowSpan="2" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False" MouseDoubleClick="DoubleClickDebt_Open"/>
         <DatePicker x:Name="DateSettelmentFrom" HorizontalAlignment="Left" Height="28" Margin="47,35,0,0" Grid.Row="3" VerticalAlignment="Top" Width="187" SelectedDateChanged="DateSettelmentFrom_SelectedDateChanged"/>
         <DatePicker x:Name="DateSettelmentTo" HorizontalAlignment="Left" Height="27" Margin="47,106,0,0" Grid.Row="3" VerticalAlignment="Top" Width="187" SelectedDateChanged="DateSettelmentTo_SelectedDateChanged"/>
+        <Button x:Name="CreateStatement" Visibility="Hidden" Content="Generuj zestawienie" HorizontalAlignment="Left" Margin="84,200,0,0" Grid.Row="3" VerticalAlignment="Top" Width="129" Height="32" Click="CreateStatement_Click"/>
     </Grid>
 </Window>

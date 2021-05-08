@@ -17,7 +17,9 @@ using System.Drawing;
 using System.ComponentModel;
 using System_do_zarzadzania_obslugi_sprzedazy.Winows;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
-
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.IO;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
@@ -285,6 +287,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             GridSettelmentDebt.Columns[1].Visibility = Visibility.Collapsed;
             GridSettelmentDebt.Columns[3].Visibility = Visibility.Collapsed;
 
+
         }
 
 
@@ -317,8 +320,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             AddUser.Visibility = Visibility.Hidden;
             RemoveUser.Visibility = Visibility.Hidden;
             Print.Visibility = Visibility.Hidden;
-            Search.Visibility = Visibility.Hidden;
-            
+            Search.Visibility = Visibility.Hidden;           
             DateTo.Visibility = Visibility.Visible;
             DateFrom.Visibility = Visibility.Visible;
             StorageDG.Visibility = Visibility.Visible;
@@ -329,6 +331,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             GridSettelmentDebt.Visibility = Visibility.Hidden;
             DateSettelmentFrom.Visibility = Visibility.Hidden;
             DateSettelmentTo.Visibility = Visibility.Hidden;
+            CreateStatement.Visibility = Visibility.Hidden;
         }
 
         private void ShowControls()
@@ -350,6 +353,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             GridSettelmentDebt.Visibility = Visibility.Hidden;
             DateSettelmentFrom.Visibility = Visibility.Hidden;
             DateSettelmentTo.Visibility = Visibility.Hidden;
+            CreateStatement.Visibility = Visibility.Hidden;
         }
 
         private void ShowControlsSettelments() 
@@ -371,6 +375,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             GridSettelmentDebt.Visibility = Visibility.Visible;
             DateSettelmentFrom.Visibility = Visibility.Visible;
             DateSettelmentTo.Visibility = Visibility.Visible;
+            CreateStatement.Visibility = Visibility.Visible;
 
 
         }
@@ -598,6 +603,133 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        private void CreatestatementsPDF()
+        {
+            try {
+
+                StringBuilder date = new StringBuilder("");
+                
+                if(!String.IsNullOrEmpty(DateSettelmentFrom.Text))
+                {
+                    date.Append(" od " + DateSettelmentFrom.Text);
+                }
+                if (!String.IsNullOrEmpty(DateSettelmentTo.Text))
+                {
+                    date.Append(" do " + DateSettelmentTo.Text);
+                }
+
+                date = date.Replace("/", ".");
+
+                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "Zestawienie okresowe" + date.ToString() + ".pdf", FileMode.Create);
+                var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
+                pdfDoc.Open();
+
+                var spacer = new iTextSharp.text.Paragraph("")
+                {
+                    SpacingBefore = 10f,
+                    SpacingAfter = 10f,
+                };
+
+                var spacer2 = new iTextSharp.text.Paragraph("")
+                {
+                    SpacingBefore = 100f,
+                    SpacingAfter = 70f,
+                };
+
+                var spacer3 = new iTextSharp.text.Paragraph("")
+                {
+                    SpacingBefore = 50f,
+                    SpacingAfter = 30f,
+                };
+
+                List<Debter> debters = GridSettelmentDebt.ItemsSource as List<Debter>;
+                List<Invoice> invoiceList = GridSettelmentIncome.ItemsSource as List<Invoice>;
+
+                var titleFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 28);
+                var numberFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 22);
+                var serviceFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 16);
+                var dateFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 14);
+                var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
+                var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
+                DateTime date1 = DateTime.Today;
+
+                var docDate = new iTextSharp.text.Paragraph("Data wygenerowania: " + date1.ToString("d"), dateFont);
+                docDate.Alignment = Element.ALIGN_RIGHT;
+                var docTitle = new iTextSharp.text.Paragraph("Zestawienie okresowe" + date.ToString(), numberFont);
+                docTitle.Alignment = Element.ALIGN_CENTER;
+
+                pdfDoc.Add(docDate);
+                pdfDoc.Add(spacer3);
+                pdfDoc.Add(docTitle);
+
+                var invoiceTable = new PdfPTable(new[] { 2f, 2f, 2f, 2f })
+                {
+                    HorizontalAlignment = 1,
+                    WidthPercentage = 100,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+
+                var debtTable = new PdfPTable(new[] { 2f, 2f })
+                {
+                    HorizontalAlignment = 1,
+                    WidthPercentage = 100,
+                    DefaultCell = { MinimumHeight = 22f }
+                };
+
+                PdfPCell cell1 = new PdfPCell(new iTextSharp.text.Paragraph("Numer Faktury", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                PdfPCell cell2 = new PdfPCell(new iTextSharp.text.Paragraph("Data wystawienia", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                PdfPCell cell3 = new PdfPCell(new iTextSharp.text.Paragraph("Do zapłaty", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                PdfPCell cell4 = new PdfPCell(new iTextSharp.text.Paragraph("Zapłacono", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                cell1.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell2.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell3.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell4.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+
+                invoiceTable.AddCell(cell1);
+                invoiceTable.AddCell(cell2);
+                invoiceTable.AddCell(cell3);
+                invoiceTable.AddCell(cell4);
+
+                PdfPCell cell5 = new PdfPCell(new iTextSharp.text.Paragraph("Imie i nazwisko", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                PdfPCell cell6 = new PdfPCell(new iTextSharp.text.Paragraph("Dług", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+
+                cell5.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                cell6.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+
+                debtTable.AddCell(cell5);
+                debtTable.AddCell(cell6);
+
+
+                invoiceList.ForEach(a =>
+                {
+                    invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Number, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.CreationDate, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.ToPay.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Paid.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                });
+
+                debters.ForEach(a =>
+                {
+                    debtTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.FullName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    debtTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Debt.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                });
+
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(spacer);
+                pdfDoc.Add(invoiceTable);
+                pdfDoc.Add(spacer3);
+                pdfDoc.Add(debtTable);
+                pdfDoc.Close();
+                writer.Close();
+                fs.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Nie udało utworzyć się pliku pdf", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
         private void DateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -617,6 +749,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private void DateSettelmentTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateFilterDebtor();
+        }
+
+        private void CreateStatement_Click(object sender, RoutedEventArgs e)
+        {
+            CreatestatementsPDF();
+            MessageBox.Show("Utworzono plik pdf");
         }
     }
 }
