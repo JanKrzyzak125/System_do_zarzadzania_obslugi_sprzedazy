@@ -436,7 +436,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Nie udało się zapisać pliku pdf");
+                MessageBox.Show("Nie udało utworzyć się pliku pdf", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -646,6 +646,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
             catch(Exception ex)
             {
+
             }
         }
 
@@ -660,7 +661,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
             else
             {
-                MessageBox.Show("Brak produktów w fakturze");
+                MessageBox.Show("Brak produktów w fakturze", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

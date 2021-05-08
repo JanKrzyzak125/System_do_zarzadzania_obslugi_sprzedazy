@@ -15,8 +15,9 @@ using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
-
+using System_do_zarzadzania_obslugi_sprzedazy.Winows;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
+
 
 namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 {
@@ -45,12 +46,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 
         }
        
-
-        private void ClientPDF_Click(object sender, RoutedEventArgs e)
+        private void CreateDebtPDF()
         {
             try
             {
-                System.IO.FileStream fs = new FileStream("C:/projekcik" + "\\" +"Raport_dluznika"+ debter.FullName + ".pdf", FileMode.Create);
+                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "Raport dłużnika " + debter.FullName + ".pdf", FileMode.Create);
                 var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
                 pdfDoc.Open();
@@ -81,13 +81,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
                 DateTime date1 = DateTime.Today;
 
-                var docDate = new iTextSharp.text.Paragraph("Data wygenerowania :" + date1.ToString("d"));
+                var docDate = new iTextSharp.text.Paragraph("Data wygenerowania: " + date1.ToString("d"));
                 docDate.Alignment = Element.ALIGN_RIGHT;
 
-                
-                var docTitle = new iTextSharp.text.Paragraph("Podsumowanie niezapłaconych należności ",numberFont);
+
+                var docTitle = new iTextSharp.text.Paragraph("Podsumowanie niezapłaconych należności ", numberFont);
                 docTitle.Alignment = Element.ALIGN_CENTER;
-                var docName = new iTextSharp.text.Paragraph(debter.FullName,numberFont);
+                var docName = new iTextSharp.text.Paragraph(debter.FullName, numberFont);
                 docName.Alignment = Element.ALIGN_CENTER;
 
                 pdfDoc.Add(docDate);
@@ -96,7 +96,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 pdfDoc.Add(docName);
 
                 var columnCount = 2;
-                var columnWidths = new[] { 2f,2f };
+                var columnWidths = new[] { 2f, 2f };
 
                 var table = new PdfPTable(columnWidths)
                 {
@@ -105,39 +105,56 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
-                var cell = new PdfPCell()
-                {
-                    Colspan = columnCount,
-                    HorizontalAlignment = 1,  //0=Left, 1=Centre, 2=Right
-                    MinimumHeight = 30f
-                };
-
-                var debtTable = new PdfPTable(new[] { .75f, .75f, .75f })
+                var sumTable = new PdfPTable(new[] { 2f })
                 {
                     HorizontalAlignment = 2,
-                    WidthPercentage = 40,
+                    WidthPercentage = 50,
                     DefaultCell = { MinimumHeight = 22f }
                 };
 
-                PdfPCell cell1 = new PdfPCell(new iTextSharp.text.Paragraph("Numer Faktury", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
-                PdfPCell cell2 = new PdfPCell(new iTextSharp.text.Paragraph("Kwota", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+
+
+
+                PdfPCell cell1 = new PdfPCell(new iTextSharp.text.Paragraph("Numer Faktury", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                PdfPCell cell2 = new PdfPCell(new iTextSharp.text.Paragraph("Kwota [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
                 cell1.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
                 cell2.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
                 table.AddCell(cell1);
                 table.AddCell(cell2);
 
-              
+                Dictionary<string, int> dict = debter.returnList();
+                int sum = debter.Debt;
+                foreach (KeyValuePair<string, int> entry in dict)
+                {
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Key)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Value.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                }
+
+
+                sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sum.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                var toPayValue = new iTextSharp.text.Paragraph("Do zapłaty pozostało: " + debter.Debt.ToString() + " zł", dateFont);
+                toPayValue.Alignment = Element.ALIGN_LEFT;
+
                 pdfDoc.Add(spacer3);
                 pdfDoc.Add(table);
+                pdfDoc.Add(sumTable);
+                pdfDoc.Add(spacer3);
+                pdfDoc.Add(toPayValue);
                 pdfDoc.Close();
                 writer.Close();
                 fs.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Nie udało się zapisać pliku pdf");
+                MessageBox.Show("Nie udało utworzyć się pliku pdf", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void ClientPDF_Click(object sender, RoutedEventArgs e)
+        {
+            CreateDebtPDF();
+            MessageBox.Show("Plik pdf został utworzony");
+        }
+
 
     }
 }
