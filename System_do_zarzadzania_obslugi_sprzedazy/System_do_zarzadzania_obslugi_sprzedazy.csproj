@@ -108,6 +108,9 @@
     </Compile>
     <Compile Include="Classes\Seller.cs" />
     <Compile Include="Classes\SQLiteDataAccess.cs" />
+    <Compile Include="Winows\StorageAdditionalOperations.xaml.cs">
+      <DependentUpon>StorageAdditionalOperations.xaml</DependentUpon>
+    </Compile>
     <Page Include="Winows\AddNewProductMagazine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -153,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Winows\Search.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winows\StorageAdditionalOperations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

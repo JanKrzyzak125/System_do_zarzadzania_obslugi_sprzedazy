@@ -380,6 +380,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
+        private void ShowControlsStorage()
+        { 
+        }
+
         private void DoubleClickDebt_Open(object sender,RoutedEventArgs e) 
         {
             if (GridSettelmentDebt.SelectedItem != null) 
@@ -426,10 +430,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 InvoiceDetails invoiceDetails = new InvoiceDetails(inv,inv.Id, inv.IdCompany);
                 invoiceDetails.Show();
             }
+            if(CompanyDataGrid.SelectedItem != null && StorageOpen)
+            {
+                Product prd = CompanyDataGrid.SelectedItem as Product;
+                StorageAdditionalOperations storageAdditionalOperations = new StorageAdditionalOperations(prd);
+                storageAdditionalOperations.Show();
+            }
             else
             {
                 MessageBox.Show("Wybierz pozycję z listy!");
             }
+            
         }
 
         private void SettingToFalse()
