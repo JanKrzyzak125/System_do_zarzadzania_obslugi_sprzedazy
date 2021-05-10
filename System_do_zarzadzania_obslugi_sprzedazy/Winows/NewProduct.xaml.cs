@@ -81,6 +81,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             int vat = Int32.Parse(ProductVat.Text);
 
             //Bedzie trzeba sprawdzac wszystkie kontrolki czy sa puste
+            int id=0;
+            int productQuantity=0;
+
+            foreach(Product product1 in products)
+            {
+                if(product1.Id == idProduct)
+                {
+                    id = product1.Id;
+                    productQuantity = Int32.Parse(product1.Quantity);
+                }
+            }
 
             if(!String.IsNullOrEmpty(ProductQuantityUnitComboBox.Text))
             {
@@ -92,25 +103,49 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     SQLiteDataAccess.SaveProductToCustomer(IdProduct, 1);
                     SQLiteDataAccess.SaveProduct(product);
                     //W linii 89 mamy na sztywno ustawione id konsumenta
+                    InvoiceProduct invoiceProduct = new InvoiceProduct(idInvoice, idProduct, productName, quantity, quantityUnits, nettoPrice, bruttoPrice, vat);
+                    if (unitNames.IndexOf(quantityUnits) == -1)
+                    {
+
+                        //Wyciagnac numer indexu ktore nadamy nowododanemu produktowi jednostki
+                        //Zaladowac do tabeli ktora ma nazwy jednostki nowy produkt z tym indeksem
+                        //dodac nowy produkt do faktury gdzie zamiast index of uzyjemy nowy index
+                        int idUnitname = SQLiteDataAccess.LoadAiCompanyId("QuantityUnit")[0] + 1;
+                        SQLiteDataAccess.SaveUnitName(idUnitname, quantityUnits);
+                        SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct, idUnitname);
+                    }
+                    else
+                    {
+                        SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct, unitNames.IndexOf(quantityUnits) + 1);
+                    }
+                    this.Close();
                 }
 
-
-                InvoiceProduct invoiceProduct = new InvoiceProduct(idInvoice, idProduct, productName, quantity, quantityUnits, nettoPrice, bruttoPrice, vat);
-                if (unitNames.IndexOf(quantityUnits) == -1)
+                if(productQuantity - quantity >= 0)
                 {
+                    SQLiteDataAccess.UpdateProductQuantity(productQuantity, id);
+                    InvoiceProduct invoiceProduct = new InvoiceProduct(idInvoice, idProduct, productName, quantity, quantityUnits, nettoPrice, bruttoPrice, vat);
+                    if (unitNames.IndexOf(quantityUnits) == -1)
+                    {
 
-                    //Wyciagnac numer indexu ktore nadamy nowododanemu produktowi jednostki
-                    //Zaladowac do tabeli ktora ma nazwy jednostki nowy produkt z tym indeksem
-                    //dodac nowy produkt do faktury gdzie zamiast index of uzyjemy nowy index
-                    int idUnitname = SQLiteDataAccess.LoadAiCompanyId("QuantityUnit")[0] + 1;
-                    SQLiteDataAccess.SaveUnitName(idUnitname,quantityUnits );
-                    SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct,idUnitname);
+                        //Wyciagnac numer indexu ktore nadamy nowododanemu produktowi jednostki
+                        //Zaladowac do tabeli ktora ma nazwy jednostki nowy produkt z tym indeksem
+                        //dodac nowy produkt do faktury gdzie zamiast index of uzyjemy nowy index
+                        int idUnitname = SQLiteDataAccess.LoadAiCompanyId("QuantityUnit")[0] + 1;
+                        SQLiteDataAccess.SaveUnitName(idUnitname, quantityUnits);
+                        SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct, idUnitname);
+                    }
+                    else
+                    {
+                        SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct, unitNames.IndexOf(quantityUnits) + 1);
+                    }
+                    this.Close();
                 }
                 else
                 {
-                    SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct, unitNames.IndexOf(quantityUnits) + 1);
+                    MessageBox.Show("Brak wybranej ilości produktów na magazynie");
                 }
-                this.Close();
+                
             }
         }
 

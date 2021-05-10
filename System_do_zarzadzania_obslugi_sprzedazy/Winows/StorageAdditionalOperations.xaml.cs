@@ -145,6 +145,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             }
         }
 
+
         private void CreatePDFbutton_Click(object sender, RoutedEventArgs e)
         {
             if(!String.IsNullOrEmpty(UserQuantity.Text.ToString()))
@@ -153,9 +154,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 {
                     if (Int32.Parse(products.Quantity)- (Int32.Parse(UserQuantity.Text)) > 0)
                     {
-
+                        products.Quantity = (Int32.Parse(products.Quantity) - Int32.Parse(UserQuantity.Text)).ToString();
                         createStoragePDF();
                         MessageBox.Show("Utworzono plik pdf");
+                        SQLiteDataAccess.SaveProductInformation(products);
+                        SQLiteDataAccess.UpdateProductQuantity(products);
+                        this.Close();
                     }
                     else
                     {
@@ -164,9 +168,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 }
                 else
                 {
+                    products.Quantity = (Int32.Parse(products.Quantity) + Int32.Parse(UserQuantity.Text)).ToString();
                     createStoragePDF();
                     MessageBox.Show("Utworzono plik pdf");
+                    SQLiteDataAccess.SaveProductInformation(products);
+                    SQLiteDataAccess.UpdateProductQuantity(products);
+                    this.Close();
                 }
+
             }
         }
     }

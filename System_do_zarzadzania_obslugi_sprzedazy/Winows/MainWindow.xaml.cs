@@ -435,6 +435,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 Product prd = CompanyDataGrid.SelectedItem as Product;
                 StorageAdditionalOperations storageAdditionalOperations = new StorageAdditionalOperations(prd);
                 storageAdditionalOperations.Show();
+                storageAdditionalOperations.Closed += (s, eventarg) =>
+                {
+                    LoadProductsList();
+                };
             }
             else
             {

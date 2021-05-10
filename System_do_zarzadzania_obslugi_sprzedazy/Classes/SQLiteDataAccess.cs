@@ -236,6 +236,30 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static void SaveProductInformation(Product product)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "StorageProductName, StorageProductQuantity, StorageProductNettoPrice, StorageProductBruttoPrice";
+                cnn.Execute("insert into StorageProduct(" + s1 + ")values(" + "\'" + product.Name + "\'" + "," + "\'" + product.Quantity + "\'" + "," + "\'" + product.NetPrice + "\'" + "," + "\'" + product.GrossValue + "\'" + ")");
+            }
+        }
+
+        public static void UpdateProductQuantity(Product product)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("UPDATE Product SET Quantity = "+product.Quantity+" WHERE ID = "+product.Id+"");
+            }
+        }
+
+        public static void UpdateProductQuantity(int quantity, int id)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("UPDATE Product SET Quantity = " + quantity.ToString() + " WHERE ID = " + id.ToString() + "");
+            }
+        }
 
 
         private static string LoadConnectionString(string id = "Default")
