@@ -150,7 +150,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         {
             if(!String.IsNullOrEmpty(UserQuantity.Text.ToString()))
             {
-                int StorageProductID = SQLiteDataAccess.LoadAiCompanyId("StorageProduct")[0]-1;
+                int StorageProductID = SQLiteDataAccess.LoadAiCompanyId("StorageProduct")[0]+1;
                 
                 if (issueRB.IsChecked == true)
                 {
