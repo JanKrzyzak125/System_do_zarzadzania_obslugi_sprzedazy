@@ -150,6 +150,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         {
             if(!String.IsNullOrEmpty(UserQuantity.Text.ToString()))
             {
+                int StorageProductID = SQLiteDataAccess.LoadAiCompanyId("StorageProduct")[0]-1;
+                
                 if (issueRB.IsChecked == true)
                 {
                     if (Int32.Parse(products.Quantity)- (Int32.Parse(UserQuantity.Text)) > 0)
@@ -157,7 +159,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                         products.Quantity = (Int32.Parse(products.Quantity) - Int32.Parse(UserQuantity.Text)).ToString();
                         createStoragePDF();
                         MessageBox.Show("Utworzono plik pdf");
-                        SQLiteDataAccess.SaveProductInformation(products);
+                        SQLiteDataAccess.SaveProductInformation(products, Int32.Parse(UserQuantity.Text));
+                        SQLiteDataAccess.SaveOperation(products, 3, StorageProductID);
                         SQLiteDataAccess.UpdateProductQuantity(products);
                         this.Close();
                     }
@@ -171,7 +174,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     products.Quantity = (Int32.Parse(products.Quantity) + Int32.Parse(UserQuantity.Text)).ToString();
                     createStoragePDF();
                     MessageBox.Show("Utworzono plik pdf");
-                    SQLiteDataAccess.SaveProductInformation(products);
+                    SQLiteDataAccess.SaveProductInformation(products, Int32.Parse(UserQuantity.Text));
+                    SQLiteDataAccess.SaveOperation(products, 1, StorageProductID);
                     SQLiteDataAccess.UpdateProductQuantity(products);
                     this.Close();
                 }

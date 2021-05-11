@@ -236,12 +236,22 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
-        public static void SaveProductInformation(Product product)
+        public static void SaveOperation(Product product, int operationID, int StorageProductID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+            	//Moze byc blad trzeba date zrobic
+                string s1 = "OperationID, Date, Receiver, Sender, StorageProductID";
+                cnn.Execute("insert into StorageInformation(" + s1 + ")values(" + operationID.ToString() + "," + "\'" + DateTime.Now.ToString("d") + "\'" + "," + "\'" + "Operacja wewnetrzna" + "\'" + "," + "\'"+ "Operacja wewnetrzna" + "\'" + "," + StorageProductID.ToString() + ")");
+            }
+        }
+
+        public static void SaveProductInformation(Product product, int quantity)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string s1 = "StorageProductName, StorageProductQuantity, StorageProductNettoPrice, StorageProductBruttoPrice";
-                cnn.Execute("insert into StorageProduct(" + s1 + ")values(" + "\'" + product.Name + "\'" + "," + "\'" + product.Quantity + "\'" + "," + "\'" + product.NetPrice + "\'" + "," + "\'" + product.GrossValue + "\'" + ")");
+                cnn.Execute("insert into StorageProduct(" + s1 + ")values(" + "\'" + product.Name + "\'" + ","  + quantity.ToString() + "," +  Int32.Parse(product.NetPrice) + "," + Int32.Parse(product.GrossValue)+ ")");
             }
         }
 
