@@ -51,7 +51,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "PDF(*.pdf)|*.pdf";
-            saveFileDialog1.FileName = debter.FullName;
+            saveFileDialog1.FileName = "Raport dłużnika"+debter.FullName;
+            saveFileDialog1.InitialDirectory = @"c:\";
             if (saveFileDialog1.ShowDialog() == true)
             {
                 using (FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create))

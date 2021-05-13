@@ -20,6 +20,7 @@ using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.IO;
+using Microsoft.Win32;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
@@ -637,109 +638,118 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 DateTime date2 = DateTime.Now;
                 String save = date2.ToString("G");
                 save = save.Replace(":", ";");
-                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "Zestawienie okresowe" + save + ".pdf", FileMode.Create);
-                var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
-                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
-                pdfDoc.Open();
 
-                var spacer = new iTextSharp.text.Paragraph("")
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "PDF(*.pdf)|*.pdf";
+                saveFileDialog1.FileName = "Zestawienie okresowe" + save;
+                saveFileDialog1.InitialDirectory = @"c:\";
+                if (saveFileDialog1.ShowDialog() == true)
                 {
-                    SpacingBefore = 10f,
-                    SpacingAfter = 10f,
-                };
 
-                var spacer2 = new iTextSharp.text.Paragraph("")
-                {
-                    SpacingBefore = 100f,
-                    SpacingAfter = 70f,
-                };
+                    System.IO.FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create);
+                    var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
+                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
+                    pdfDoc.Open();
 
-                var spacer3 = new iTextSharp.text.Paragraph("")
-                {
-                    SpacingBefore = 50f,
-                    SpacingAfter = 30f,
-                };
+                    var spacer = new iTextSharp.text.Paragraph("")
+                    {
+                        SpacingBefore = 10f,
+                        SpacingAfter = 10f,
+                    };
 
-                List<Debter> debters = GridSettelmentDebt.ItemsSource as List<Debter>;
-                List<Invoice> invoiceList = GridSettelmentIncome.ItemsSource as List<Invoice>;
+                    var spacer2 = new iTextSharp.text.Paragraph("")
+                    {
+                        SpacingBefore = 100f,
+                        SpacingAfter = 70f,
+                    };
 
-                var titleFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 28);
-                var numberFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 22);
-                var serviceFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 16);
-                var dateFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 14);
-                var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
-                var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
-                DateTime date1 = DateTime.Today;
+                    var spacer3 = new iTextSharp.text.Paragraph("")
+                    {
+                        SpacingBefore = 50f,
+                        SpacingAfter = 30f,
+                    };
 
-                var docDate = new iTextSharp.text.Paragraph("Data wygenerowania: " + date1.ToString("d"), dateFont);
-                docDate.Alignment = Element.ALIGN_RIGHT;
-                var docTitle = new iTextSharp.text.Paragraph("Zestawienie okresowe" + date.ToString(), numberFont);
-                docTitle.Alignment = Element.ALIGN_CENTER;
+                    List<Debter> debters = GridSettelmentDebt.ItemsSource as List<Debter>;
+                    List<Invoice> invoiceList = GridSettelmentIncome.ItemsSource as List<Invoice>;
 
-                pdfDoc.Add(docDate);
-                pdfDoc.Add(spacer3);
-                pdfDoc.Add(docTitle);
+                    var titleFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 28);
+                    var numberFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 22);
+                    var serviceFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 16);
+                    var dateFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 14);
+                    var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
+                    var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
+                    DateTime date1 = DateTime.Today;
 
-                var invoiceTable = new PdfPTable(new[] { 2f, 2f, 2f, 2f })
-                {
-                    HorizontalAlignment = 1,
-                    WidthPercentage = 100,
-                    DefaultCell = { MinimumHeight = 22f }
-                };
+                    var docDate = new iTextSharp.text.Paragraph("Data wygenerowania: " + date1.ToString("d"), dateFont);
+                    docDate.Alignment = Element.ALIGN_RIGHT;
+                    var docTitle = new iTextSharp.text.Paragraph("Zestawienie okresowe" + date.ToString(), numberFont);
+                    docTitle.Alignment = Element.ALIGN_CENTER;
 
-                var debtTable = new PdfPTable(new[] { 2f, 2f })
-                {
-                    HorizontalAlignment = 1,
-                    WidthPercentage = 100,
-                    DefaultCell = { MinimumHeight = 22f }
-                };
+                    pdfDoc.Add(docDate);
+                    pdfDoc.Add(spacer3);
+                    pdfDoc.Add(docTitle);
 
-                PdfPCell cell1 = new PdfPCell(new iTextSharp.text.Paragraph("Numer Faktury", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
-                PdfPCell cell2 = new PdfPCell(new iTextSharp.text.Paragraph("Data wystawienia", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
-                PdfPCell cell3 = new PdfPCell(new iTextSharp.text.Paragraph("Do zapłaty", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
-                PdfPCell cell4 = new PdfPCell(new iTextSharp.text.Paragraph("Zapłacono", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
-                cell1.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
-                cell2.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
-                cell3.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
-                cell4.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    var invoiceTable = new PdfPTable(new[] { 2f, 2f, 2f, 2f })
+                    {
+                        HorizontalAlignment = 1,
+                        WidthPercentage = 100,
+                        DefaultCell = { MinimumHeight = 22f }
+                    };
 
-                invoiceTable.AddCell(cell1);
-                invoiceTable.AddCell(cell2);
-                invoiceTable.AddCell(cell3);
-                invoiceTable.AddCell(cell4);
+                    var debtTable = new PdfPTable(new[] { 2f, 2f })
+                    {
+                        HorizontalAlignment = 1,
+                        WidthPercentage = 100,
+                        DefaultCell = { MinimumHeight = 22f }
+                    };
 
-                PdfPCell cell5 = new PdfPCell(new iTextSharp.text.Paragraph("Imie i nazwisko", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
-                PdfPCell cell6 = new PdfPCell(new iTextSharp.text.Paragraph("Dług", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    PdfPCell cell1 = new PdfPCell(new iTextSharp.text.Paragraph("Numer Faktury", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    PdfPCell cell2 = new PdfPCell(new iTextSharp.text.Paragraph("Data wystawienia", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    PdfPCell cell3 = new PdfPCell(new iTextSharp.text.Paragraph("Do zapłaty", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    PdfPCell cell4 = new PdfPCell(new iTextSharp.text.Paragraph("Zapłacono", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    cell1.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell2.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell3.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell4.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
 
-                cell5.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
-                cell6.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    invoiceTable.AddCell(cell1);
+                    invoiceTable.AddCell(cell2);
+                    invoiceTable.AddCell(cell3);
+                    invoiceTable.AddCell(cell4);
 
-                debtTable.AddCell(cell5);
-                debtTable.AddCell(cell6);
+                    PdfPCell cell5 = new PdfPCell(new iTextSharp.text.Paragraph("Imie i nazwisko", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    PdfPCell cell6 = new PdfPCell(new iTextSharp.text.Paragraph("Dług", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+
+                    cell5.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell6.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+
+                    debtTable.AddCell(cell5);
+                    debtTable.AddCell(cell6);
 
 
-                invoiceList.ForEach(a =>
-                {
-                    invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Number, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                    invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.CreationDate, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                    invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.ToPay.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                    invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Paid.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                });
+                    invoiceList.ForEach(a =>
+                    {
+                        invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Number, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.CreationDate, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.ToPay.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Paid.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    });
 
-                debters.ForEach(a =>
-                {
-                    debtTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.FullName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                    debtTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Debt.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                });
+                    debters.ForEach(a =>
+                    {
+                        debtTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.FullName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        debtTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Debt.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    });
 
-                pdfDoc.Add(spacer);
-                pdfDoc.Add(spacer);
-                pdfDoc.Add(invoiceTable);
-                pdfDoc.Add(spacer3);
-                pdfDoc.Add(debtTable);
-                pdfDoc.Close();
-                writer.Close();
-                fs.Close();
+                    pdfDoc.Add(spacer);
+                    pdfDoc.Add(spacer);
+                    pdfDoc.Add(invoiceTable);
+                    pdfDoc.Add(spacer3);
+                    pdfDoc.Add(debtTable);
+                    pdfDoc.Close();
+                    writer.Close();
+                    fs.Close();
+                }
             }
             catch (Exception ex)
             {
