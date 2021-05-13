@@ -430,7 +430,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 InvoiceDetails invoiceDetails = new InvoiceDetails(inv,inv.Id, inv.IdCompany);
                 invoiceDetails.Show();
             }
-            if(CompanyDataGrid.SelectedItem != null && StorageOpen)
+            else if(CompanyDataGrid.SelectedItem != null && StorageOpen)
             {
                 Product prd = CompanyDataGrid.SelectedItem as Product;
                 StorageAdditionalOperations storageAdditionalOperations = new StorageAdditionalOperations(prd);
@@ -443,8 +443,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             else
             {
                 MessageBox.Show("Wybierz pozycję z listy!");
-            }
-            
+            }          
         }
 
         private void SettingToFalse()
