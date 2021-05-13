@@ -50,7 +50,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         {
             try
             {
-                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "Raport dłużnika " + debter.FullName + ".pdf", FileMode.Create);
+                DateTime date1 = DateTime.Now;
+                String savedate = date1.ToString("G");
+                savedate = savedate.Replace(":", ";");
+                System.IO.FileStream fs = new FileStream("C:/projekcik" + "\\" + "Raport dłużnika " + debter.FullName+ savedate + ".pdf", FileMode.Create);
                 var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
                 pdfDoc.Open();
@@ -79,9 +82,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 var dateFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 14);
                 var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
                 var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
-                DateTime date1 = DateTime.Today;
+                DateTime date2 = DateTime.Today;
 
-                var docDate = new iTextSharp.text.Paragraph("Data wygenerowania: " + date1.ToString("d"));
+                var docDate = new iTextSharp.text.Paragraph("Data wygenerowania: " + date2.ToString("d"));
                 docDate.Alignment = Element.ALIGN_RIGHT;
 
 

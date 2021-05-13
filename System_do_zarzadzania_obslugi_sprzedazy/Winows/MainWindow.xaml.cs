@@ -634,7 +634,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 date = date.Replace("/", ".");
 
-                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "Zestawienie okresowe" + date.ToString() + ".pdf", FileMode.Create);
+                DateTime date2 = DateTime.Now;
+                String save = date2.ToString("G");
+                save = save.Replace(":", ";");
+                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "Zestawienie okresowe" + save + ".pdf", FileMode.Create);
                 var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
                 pdfDoc.Open();
