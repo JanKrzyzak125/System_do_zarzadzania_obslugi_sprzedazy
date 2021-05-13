@@ -48,7 +48,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 
         private void CreateDebtPDF()
         {
-
+        
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "PDF(*.pdf)|*.pdf";
             saveFileDialog1.FileName = debter.FullName;

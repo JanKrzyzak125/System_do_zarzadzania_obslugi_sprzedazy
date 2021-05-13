@@ -183,7 +183,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             try
             {
-                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + showInvoice.Number + ".pdf", FileMode.Create);
+                DateTime date2 = DateTime.Now;
+                String savedate = date2.ToString("G");
+                savedate = savedate.Replace(":", ";");
+                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + showInvoice.Number + savedate + ".pdf", FileMode.Create);
                 var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
                 pdfDoc.Open();
@@ -445,7 +448,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             try
             {
-                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "WZ " +showInvoice.Number + ".pdf", FileMode.Create);
+                DateTime date2 = DateTime.Now;
+                String savedate = date2.ToString("G");
+                savedate = savedate.Replace(":", ";");
+                System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "WZ " +showInvoice.Number + savedate + ".pdf", FileMode.Create);
                 var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
                 pdfDoc.Open();

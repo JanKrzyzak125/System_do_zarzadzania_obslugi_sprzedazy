@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy.Winows"
         mc:Ignorable="d"
-          Title="NewProduct" Height="459.29" Width="674.581">
-    <Grid Margin="-31,0,-29,-31" HorizontalAlignment="Left" Width="727" Height="459" VerticalAlignment="Top">
+          Title="NewProduct" Height="524.827" Width="709.921">
+    <Grid Margin="-31,0,-38,-21" HorizontalAlignment="Left" Width="834" Height="525" VerticalAlignment="Top">
 
 
 
@@ -16,12 +16,29 @@
         <TextBox x:Name="ProductNettoPrice" HorizontalAlignment="Left" Height="24" Margin="323,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="ProductNettoPrice_TextChanged"/>
         <TextBox x:Name="ProductBruttoPrice" HorizontalAlignment="Left" Height="24" Margin="323,236,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="ProductBruttoPrice_TextChanged"/>
         <TextBox x:Name="ProductVat" HorizontalAlignment="Left" Height="24" Margin="323,286,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
-        <Button x:Name="AddProductToMagazine" Content="Dodaj" HorizontalAlignment="Left" Margin="323,344,0,0" VerticalAlignment="Top" Width="83" Height="42" Click="AddProductToMagazine_Click"  />
+        <Button x:Name="AddProductToMagazine" Content="Dodaj" HorizontalAlignment="Left" Margin="370,409,0,0" VerticalAlignment="Top" Width="83" Height="42" Click="AddProductToMagazine_Click"  />
         <Label Content="Cena Netto za 1 szt" HorizontalAlignment="Left" Margin="171,101,0,0" VerticalAlignment="Top" Width="136"/>
         <Label Content="Nazwa Produktu" HorizontalAlignment="Left" Margin="171,49,0,0" VerticalAlignment="Top" Width="115"/>
         <Label Content="Ilość" HorizontalAlignment="Left" Margin="171,144,0,0" VerticalAlignment="Top" Width="81"/>
         <Label Content="Cena Netto Razem" HorizontalAlignment="Left" Margin="171,190,0,0" VerticalAlignment="Top" Width="136"/>
         <Label Content="Cena Brutto Razem" HorizontalAlignment="Left" Margin="171,234,0,0" VerticalAlignment="Top" Width="115"/>
         <Label Content="% VAT" HorizontalAlignment="Left" Margin="171,286,0,0" VerticalAlignment="Top" Width="81"/>
+        <ComboBox x:Name="SellerCB" HorizontalAlignment="Left" Margin="323,332,0,0" VerticalAlignment="Top" Width="256" Height="26">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Name" />
+                                <Binding Path="Surname" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label x:Name="SellerLabel" Content="Sprzedawca" HorizontalAlignment="Left" Margin="171,332,0,0" VerticalAlignment="Top" Width="115"/>
     </Grid>
 </Window>
