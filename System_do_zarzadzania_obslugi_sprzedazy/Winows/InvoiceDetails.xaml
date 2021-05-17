@@ -45,6 +45,32 @@
         <Button x:Name="CreatePDF" Content="Utwórz PDF" HorizontalAlignment="Left" Margin="419,235,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="CreatePDF_Click"/>
         <CheckBox x:Name="EditPdfCB" Content="Wprowadź korektę" HorizontalAlignment="Left" Margin="419,303,0,0" VerticalAlignment="Top" Height="25" Width="147" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
         <Button x:Name="CreateEditedPdf" Content="Generuj PDF po korekcie" Visibility="Hidden" HorizontalAlignment="Left" Margin="419,235,0,0" VerticalAlignment="Top" Width="133" Height="51" Click="CreateEditedPdf_Click"/>
+        <ComboBox x:Name="SellerCB" Visibility="Hidden"  HorizontalAlignment="Left" Margin="176,39,0,0" VerticalAlignment="Top" Width="209" Height="37">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Name" />
+                                    <Binding Path="Surname" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox x:Name="PaymentTypeCB" Visibility="Hidden" HorizontalAlignment="Left" Margin="176,290,0,0" VerticalAlignment="Top" Width="209" Height="37" SelectionChanged="PaymentTypeCB_SelectionChanged">
+            <ComboBoxItem>
+                <TextBlock Text="Gotówka">
+                </TextBlock>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock Text="Przelew">
+                </TextBlock>
+            </ComboBoxItem>
+        </ComboBox>
 
     </Grid>
 </Window>

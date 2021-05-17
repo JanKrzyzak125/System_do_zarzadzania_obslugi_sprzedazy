@@ -55,7 +55,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             IdCompany.Text = showCompanyName.CompanyName;
 
             LoadSellerList();
-            IdSeller.Text = showCompanySeller.Name + " " + showCompanySeller.Surname;// potrzeba danych w tabelce 
+            IdSeller.Text = showCompanySeller.Name + " " + showCompanySeller.Surname;
 
             
             //IdSeller.Text = showInvoice.IdSeller.ToString();
@@ -80,6 +80,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 AccountNumber.Text = showInvoice.AccountNumber;
             }
             EditPdfCB.IsChecked = false;
+
         }
 
         private void LoadInvoiceList()
@@ -99,6 +100,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             companySellerName = SQLiteDataAccess.LoadNameSeller(companyID);
             showCompanySeller = companySellerName[0]; //potrzeba danych w tabelce 
+            SellerCB.ItemsSource = companySellerName;
         }
 
 
@@ -729,7 +731,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     var nameOfService = new iTextSharp.text.Paragraph("Na wykonanie: " + NameOfService.Text, serviceFont);
                     var creationDateVariable = new iTextSharp.text.Paragraph("Data wystawienia: " + CreationDate.Text, dateFont);
                     var secondDateVariable = new iTextSharp.text.Paragraph("Data wykonania usługi: " + DateOfIssue.Text, dateFont);
-                    var paymentTypeVariable = new iTextSharp.text.Paragraph("Forma płatności: " + PaymentType.Text, dateFont);
+                    var paymentTypeVariable = new iTextSharp.text.Paragraph("Forma płatności: " + PaymentTypeCB.Text, dateFont);
                     var accountNumberVariable = new iTextSharp.text.Paragraph("Numer konta: " + AccountNumber.Text, dateFont);
                     var sellerParagraph = new iTextSharp.text.Paragraph("Dane sprzedawcy", dateFont);
                     var buyerParagraph = new iTextSharp.text.Paragraph("Dane nabywcy", dateFont);
@@ -753,7 +755,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     pdfDoc.Add(paymentTypeVariable);
 
 
-                    if (showInvoice.PaymentType == "Przelew")
+                    if (PaymentTypeCB.Text.Equals("Przelew"))
                     {
                         pdfDoc.Add(accountNumberVariable);
                     }
@@ -807,28 +809,28 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         WidthPercentage = 40,
                         DefaultCell = { MinimumHeight = 22f }
                     };
-
+                    Seller seller = SellerCB.SelectedItem as Seller;
                     headerTable2.AddCell(cellBuyer);
-                    if (String.IsNullOrEmpty(showCompanySeller.Surname))
+                    if (String.IsNullOrEmpty(seller.Surname))
                     {
                         headerTable2.AddCell("Nazwa Firmy");
-                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(SellerCB.Text, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         headerTable2.AddCell("NIP");
-                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         headerTable2.AddCell("REGON");
-                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.Regon, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     }
                     else
                     {
                         headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Imię", tableFont)));
-                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.Name, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         headerTable2.AddCell("Nazwisko");
-                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Surname, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.Surname, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     }
                     headerTable2.AddCell("Adres");
-                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Street + "\n" + showCompanySeller.City, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.Street + "\n" + seller.City, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable2.AddCell("Numer Telefonu");
-                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.NumberPhone, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.NumberPhone, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable2.TotalWidth = 240f;
                     headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 220, writer.DirectContent);
 
@@ -980,7 +982,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             NameOfService.IsEnabled = true;
             AccountNumber.IsEnabled = true;
             CreateEditedPdf.Visibility = Visibility.Visible;
-
+            SellerCB.Visibility = Visibility.Visible;
+            PaymentTypeCB.Visibility = Visibility.Visible;
+            PaymentTypeCB.SelectedIndex = 1;
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -997,13 +1001,30 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             NameOfService.IsEnabled = false;
             AccountNumber.IsEnabled = false;
             CreateEditedPdf.Visibility = Visibility.Hidden;
+            SellerCB.Visibility = Visibility.Hidden;
+            PaymentTypeCB.Visibility = Visibility.Hidden;
 
 
         }
 
         private void CreateEditedPdf_Click(object sender, RoutedEventArgs e)
         {
+            ExportEditedPDF();
+        }
 
+        private void PaymentTypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PaymentTypeCB.Text.Equals("Przelew"))
+            {
+                AccountNumber.Visibility = Visibility.Hidden;
+                AccountNumberLabel.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                AccountNumber.Visibility = Visibility.Visible;
+                AccountNumberLabel.Visibility = Visibility.Visible;
+                //Dlaczego to tak działa, Jakby to powiedział święty jp2 NIE WIEM
+            }
         }
     }
 }
