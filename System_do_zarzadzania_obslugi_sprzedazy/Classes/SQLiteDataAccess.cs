@@ -101,8 +101,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                string s1 = "IdSeller,  IdCompany,  Number,  CreationDate,  SaleDate,  PaymentType,  PaymentDeadline,  ToPay, ToPayInWords,  Paid,  DateOfIssue, NameOfService, AccountNumber";
-                cnn.Execute("insert into Database_for_invoices(" + s1 + ")values(@idSeller, @idCompany, @number, @creationDate, @saleDate, @paymentType, @paymentDeadline, @toPay, @toPayInWords, @paid, @dateOfIssue, @nameOfService, @accountNumber)", invoice);
+                string s1 = "IdSeller,  IdCompany,  Number,  CreationDate,  SaleDate,  PaymentType,  PaymentDeadline,  ToPay, ToPayInWords,  Paid,  DateOfIssue, NameOfService, AccountNumber, IsPrinted";
+                cnn.Execute("insert into Database_for_invoices(" + s1 + ")values(@idSeller, @idCompany, @number, @creationDate, @saleDate, @paymentType, @paymentDeadline, @toPay, @toPayInWords, @paid, @dateOfIssue, @nameOfService, @accountNumber, @isPrinted)", invoice);
             }
         }
 
@@ -271,6 +271,23 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static List<InvoiceCorrection> LoadCorrection()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<InvoiceCorrection>("SELECT * FROM CorrectedPdf", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+        public static void SaveCorrectedInvoice(InvoiceCorrection invoiceCorrection)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "CorrectionID, CorrectionNumber, CorrectionDate, CorrectionReason, InvoiceConnection, CorrectionConnection";
+                cnn.Execute("insert into CorrectedPdf(" + s1 + ")values(@correctionID,@correctionNumber,@correctionDate,@correctionReason,@invoiceConnection,@correctionConnection)", invoiceCorrection);
+            }
+        }
 
         private static string LoadConnectionString(string id = "Default")
         {

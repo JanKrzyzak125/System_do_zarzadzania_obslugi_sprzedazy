@@ -18,6 +18,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         private string dateOfIssue;
         private string nameOfService;
         private string accountNumber;
+        private int isPrinted;
 
         public int IdSeller
         {
@@ -81,6 +82,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             set { accountNumber = value; }
         }
 
+        public int IsPrinted
+        {
+            get { return isPrinted; }
+            set { isPrinted = value; }
+        }
+
+
 
         public Invoice()
         {
@@ -103,6 +111,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             DateOfIssue = dateOfIssue;
             NameOfService = nameOfService;
             AccountNumber = accountNumber;
+           
             
         }
         public Invoice(int id, int idSeller,int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
@@ -122,6 +131,26 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             DateOfIssue = dateOfIssue;
             NameOfService = nameOfService;
             AccountNumber = accountNumber;
+        }
+
+        public Invoice(int id, int idSeller, int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
+                        string toPayInWords, string paid, string dateOfIssue, string nameOfService, string accountNumber, int isPrinted)
+        {
+            Id = id;
+            IdSeller = idSeller;
+            IdCompany = idCompany;
+            Number = number;
+            CreationDate = creationDate;
+            SaleDate = saleDate;
+            PaymentType = paymentType;
+            PaymentDeadline = paymentDeadline;
+            ToPay = toPay;
+            ToPayInWords = toPayInWords;
+            Paid = paid;
+            DateOfIssue = dateOfIssue;
+            NameOfService = nameOfService;
+            AccountNumber = accountNumber;
+            IsPrinted = isPrinted;
         }
     }
 
