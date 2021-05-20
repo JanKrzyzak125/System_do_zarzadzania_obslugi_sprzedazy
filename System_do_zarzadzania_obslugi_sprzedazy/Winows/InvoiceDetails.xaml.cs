@@ -985,6 +985,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             SellerCB.Visibility = Visibility.Visible;
             PaymentTypeCB.Visibility = Visibility.Visible;
             PaymentTypeCB.SelectedIndex = 1;
+            Corection.Visibility=Visibility.Visible;
+            CorectionLabel.Visibility = Visibility.Visible;
+            DateOfCoretion.Visibility = Visibility.Visible;
+            DateOfCorectionLabel.Visibility = Visibility.Visible;
+
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -1003,7 +1008,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CreateEditedPdf.Visibility = Visibility.Hidden;
             SellerCB.Visibility = Visibility.Hidden;
             PaymentTypeCB.Visibility = Visibility.Hidden;
-
+            Corection.Visibility = Visibility.Hidden;
+            CorectionLabel.Visibility = Visibility.Hidden;
+            DateOfCoretion.Visibility = Visibility.Hidden;
+            DateOfCorectionLabel.Visibility = Visibility.Hidden;
 
         }
 

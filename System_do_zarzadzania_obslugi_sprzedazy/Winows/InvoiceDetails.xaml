@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
-        Title="InvoiceDetails" Height="720" Width="1280" ResizeMode="NoResize">
+        Title="InvoiceDetails" Height="770" Width="1280" ResizeMode="NoResize">
     <Grid Margin="0,-11,-80,-59" Height="761" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1354">
 
         <Label Content="ID" HorizontalAlignment="Left" Height="37" Margin="15,81,0,0"  VerticalAlignment="Top" Width="54" />
@@ -39,7 +39,7 @@
         <TextBox x:Name="NameOfService" HorizontalAlignment="Center" Height="37" Margin="176,543,969,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" IsEnabled="False"/>
         <TextBox x:Name="AccountNumber" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Margin="176,585,0,0" IsEnabled="False"/>
 
-        <DataGrid x:Name="InvoiceProductListDataGrid" Margin="566,39,100,78" Background="White" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False"/>
+        <DataGrid x:Name="InvoiceProductListDataGrid" Margin="566,39,100,36" Background="White" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False"/>
         <Button x:Name="AddProduct" Content="Dodawanie" HorizontalAlignment="Left" Margin="419,103,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="AddProduct_Click"/>
         <Button x:Name="DelProduct" Content="Usuwanie" HorizontalAlignment="Left" Margin="419,168,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="DelProduct_Click"/>
         <Button x:Name="CreatePDF" Content="Utwórz PDF" HorizontalAlignment="Left" Margin="419,235,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="CreatePDF_Click"/>
@@ -71,6 +71,10 @@
                 </TextBlock>
             </ComboBoxItem>
         </ComboBox>
+        <TextBox x:Name="Corection" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Margin="176,627,0,0" IsEnabled="true" Visibility="Hidden"/>
+        <TextBox x:Name="DateOfCoretion" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Margin="176,669,0,0" IsEnabled="true" Visibility="Hidden"/>
+        <Label x:Name="CorectionLabel" Content="Przyczyna Korekty" HorizontalAlignment="Left" Height="28" Margin="15,627,0,0" VerticalAlignment="Top" Width="133" Visibility="Hidden"/>
+        <Label x:Name="DateOfCorectionLabel" Content="Data Korekty" HorizontalAlignment="Left" Height="27" Margin="15,669,0,0" VerticalAlignment="Top" Width="126" Visibility="Hidden"/>
 
     </Grid>
 </Window>
