@@ -38,6 +38,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<InvoiceProduct> invoiceProducts;
         List<Company> companyName;
         List<Seller> companySellerName;
+        List<EditedInvoiceProduct> editedInvoiceProducts = new List<EditedInvoiceProduct>();
 
         public InvoiceDetails(Invoice invoice, int iID, int companyID)
         {
@@ -100,7 +101,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             companySellerName = SQLiteDataAccess.LoadNameSeller(companyID);
             showCompanySeller = companySellerName[0]; //potrzeba danych w tabelce 
-            SellerCB.ItemsSource = companySellerName;
         }
 
 
@@ -735,6 +735,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     var accountNumberVariable = new iTextSharp.text.Paragraph("Numer konta: " + AccountNumber.Text, dateFont);
                     var sellerParagraph = new iTextSharp.text.Paragraph("Dane sprzedawcy", dateFont);
                     var buyerParagraph = new iTextSharp.text.Paragraph("Dane nabywcy", dateFont);
+                    var dateOfEdit = new iTextSharp.text.Paragraph("Data korekty: " + DateOfCoretion.Text, dateFont);
+                    var correction = new iTextSharp.text.Paragraph("Powód korekty: " + Corection.Text, dateFont);
+                    dateOfEdit.Alignment = Element.ALIGN_RIGHT;
+                    correction.Alignment = Element.ALIGN_LEFT;
                     creationDateVariable.Alignment = Element.ALIGN_RIGHT;
                     secondDateVariable.Alignment = Element.ALIGN_RIGHT;
                     paymentTypeVariable.Alignment = Element.ALIGN_RIGHT;
@@ -752,6 +756,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     pdfDoc.Add(spacer);
                     pdfDoc.Add(creationDateVariable);
                     pdfDoc.Add(secondDateVariable);
+                    pdfDoc.Add(dateOfEdit);
                     pdfDoc.Add(paymentTypeVariable);
 
 
@@ -800,7 +805,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("E-mail", tableFont)));
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Email, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable.TotalWidth = 240f;
-                    headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top - 220, writer.DirectContent);
+                    headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top - 235, writer.DirectContent);
 
 
                     var headerTable2 = new PdfPTable(new[] { .5f, .5f })
@@ -809,30 +814,29 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         WidthPercentage = 40,
                         DefaultCell = { MinimumHeight = 22f }
                     };
-                    Seller seller = SellerCB.SelectedItem as Seller;
                     headerTable2.AddCell(cellBuyer);
-                    if (String.IsNullOrEmpty(seller.Surname))
+                    if (String.IsNullOrEmpty(showCompanySeller.Surname))
                     {
                         headerTable2.AddCell("Nazwa Firmy");
-                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(SellerCB.Text, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         headerTable2.AddCell("NIP");
-                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         headerTable2.AddCell("REGON");
-                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.Regon, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Nip, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     }
                     else
                     {
                         headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Imię", tableFont)));
-                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.Name, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Name, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         headerTable2.AddCell("Nazwisko");
-                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.Surname, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Surname, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     }
                     headerTable2.AddCell("Adres");
-                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.Street + "\n" + seller.City, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.Street + "\n" + showCompanySeller.City, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable2.AddCell("Numer Telefonu");
-                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(seller.NumberPhone, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanySeller.NumberPhone, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable2.TotalWidth = 240f;
-                    headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 220, writer.DirectContent);
+                    headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 235, writer.DirectContent);
 
                     pdfDoc.Add(spacer);
                     pdfDoc.Add(spacer2);
@@ -887,21 +891,76 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     var vatTable = new PdfPTable(new[] { .75f, .75f, .75f })
                     {
                         HorizontalAlignment = 2,
-                        WidthPercentage = 40,
+                        WidthPercentage = 38.1f,
                         DefaultCell = { MinimumHeight = 22f }
                     };
 
 
 
-                    PdfPCell cell7 = new PdfPCell(new iTextSharp.text.Paragraph("Wartość netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
-                    PdfPCell cell8 = new PdfPCell(new iTextSharp.text.Paragraph("VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
-                    PdfPCell cell9 = new PdfPCell(new iTextSharp.text.Paragraph("Wartość brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+
+
+                    List<InvoiceProduct> localProducts = new List<InvoiceProduct>();
+
+                    foreach(InvoiceProduct invoiceProduct in InvoiceProductListDataGrid.ItemsSource)
+                    {
+                        localProducts.Add(invoiceProduct);
+                    }    
+
+
+                    foreach(InvoiceProduct invoiceProduct1 in localProducts)
+                    {
+                        EditedInvoiceProduct invoiceProduct = new EditedInvoiceProduct();
+                        invoiceProduct.ConvertInvoiceProduct(invoiceProduct1);
+                        editedInvoiceProducts.Add(invoiceProduct);
+                    }
+
+
+                    var table2 = new PdfPTable(columnWidths)
+                    {
+                        HorizontalAlignment = 0,
+                        WidthPercentage = 100,
+                        DefaultCell = { MinimumHeight = 22f }
+                    };
+
+
+                    PdfPCell cell7 = new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Produktu", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                    PdfPCell cell8 = new PdfPCell(new iTextSharp.text.Paragraph("JM", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                    PdfPCell cell9 = new PdfPCell(new iTextSharp.text.Paragraph("Ilość", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                    PdfPCell cell10 = new PdfPCell(new iTextSharp.text.Paragraph("Cena Netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                    PdfPCell cell11= new PdfPCell(new iTextSharp.text.Paragraph("Cena Brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                    PdfPCell cell12 = new PdfPCell(new iTextSharp.text.Paragraph("Podatek VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
                     cell7.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
                     cell8.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
                     cell9.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
-                    vatTable.AddCell(cell7);
-                    vatTable.AddCell(cell8);
-                    vatTable.AddCell(cell9);
+                    cell10.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell11.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell12.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    table2.AddCell(cell7);
+                    table2.AddCell(cell8);
+                    table2.AddCell(cell9);
+                    table2.AddCell(cell10);
+                    table2.AddCell(cell11);
+                    table2.AddCell(cell12);
+
+                    editedInvoiceProducts.ForEach(a =>
+                    {
+                        table2.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.EditedProductName, tableFont)));
+                        table2.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.EditedQuantityUnit, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        table2.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.EditedQuantity.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        table2.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.EditedNettoPrice.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        table2.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.EditedBruttoPrice.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        table2.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.EditedVat.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    });
+
+                    PdfPCell cell13 = new PdfPCell(new iTextSharp.text.Paragraph("Wartość netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                    PdfPCell cell14 = new PdfPCell(new iTextSharp.text.Paragraph("VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                    PdfPCell cell15 = new PdfPCell(new iTextSharp.text.Paragraph("Wartość brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
+                    cell7.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell8.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell9.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    vatTable.AddCell(cell13);
+                    vatTable.AddCell(cell14);
+                    vatTable.AddCell(cell15);
 
                     Dictionary<int, int> vatValue = vatValuesMethod();
                     Dictionary<int, int> vatValueBrutto = vatValuesBruttoMethod();
@@ -924,7 +983,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     var sumTable = new PdfPTable(new[] { .75f, .75f, .75f })
                     {
                         HorizontalAlignment = 2,
-                        WidthPercentage = 40,
+                        WidthPercentage = 38.1f,
                         DefaultCell = { MinimumHeight = 22f }
                     };
 
@@ -933,14 +992,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase("-")) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sum.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
 
+
                     pdfDoc.Add(table);
                     pdfDoc.Add(spacer);
                     pdfDoc.Add(spacer);
+                    pdfDoc.Add(table2);
                     pdfDoc.Add(vatTable);
                     pdfDoc.Add(spacer);
                     pdfDoc.Add(sumTable);
                     pdfDoc.Add(spacer3);
                     pdfDoc.Add(amountPaid);
+                    pdfDoc.Add(spacer);
+                    pdfDoc.Add(spacer);
+                    pdfDoc.Add(correction);
                     pdfDoc.Close();
                     writer.Close();
                     fs.Close();
@@ -969,10 +1033,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            IdSeller.IsEnabled = true;
-            CreationDate.IsEnabled = true;
-            SaleDate.IsEnabled = true;
+        {          
             PaymentType.IsEnabled = true;
             PaymentDeadline.IsEnabled = true;
             ToPay.IsEnabled = true;
@@ -982,7 +1043,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             NameOfService.IsEnabled = true;
             AccountNumber.IsEnabled = true;
             CreateEditedPdf.Visibility = Visibility.Visible;
-            SellerCB.Visibility = Visibility.Visible;
             PaymentTypeCB.Visibility = Visibility.Visible;
             PaymentTypeCB.SelectedIndex = 1;
             Corection.Visibility=Visibility.Visible;
@@ -1006,7 +1066,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             NameOfService.IsEnabled = false;
             AccountNumber.IsEnabled = false;
             CreateEditedPdf.Visibility = Visibility.Hidden;
-            SellerCB.Visibility = Visibility.Hidden;
             PaymentTypeCB.Visibility = Visibility.Hidden;
             Corection.Visibility = Visibility.Hidden;
             CorectionLabel.Visibility = Visibility.Hidden;

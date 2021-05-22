@@ -89,7 +89,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 };
 
 
-                var mainParagraph = new iTextSharp.text.Paragraph("Przyjęcie zewnętrzne (WZ)" , numberFont);
+                var mainParagraph = new iTextSharp.text.Paragraph("Przyjęcie zewnętrzne (PZ)" , numberFont);
                 var storage = new iTextSharp.text.Paragraph("Magazyn: Główny magazyn", dateFont);
                 var creationDate = new iTextSharp.text.Paragraph("Data przyjęcia: " + DateTime.Now.ToString("d"), smallFont);
                 mainParagraph.Alignment = Element.ALIGN_CENTER;
