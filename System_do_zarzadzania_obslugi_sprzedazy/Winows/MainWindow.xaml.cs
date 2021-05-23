@@ -339,8 +339,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.Visibility = Visibility.Hidden;
             AddUser.Visibility = Visibility.Hidden;
             RemoveUser.Visibility = Visibility.Hidden;
-            Print.Visibility = Visibility.Hidden;
-            Search.Visibility = Visibility.Hidden;           
+         
             DateTo.Visibility = Visibility.Visible;
             DateFrom.Visibility = Visibility.Visible;
             StorageDG.Visibility = Visibility.Visible;
@@ -360,8 +359,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.Visibility = Visibility.Visible;
             AddUser.Visibility = Visibility.Visible;
             RemoveUser.Visibility = Visibility.Visible;
-            Print.Visibility = Visibility.Visible;
-            Search.Visibility = Visibility.Visible;
             DateTo.Visibility = Visibility.Hidden;
             DateFrom.Visibility = Visibility.Hidden;
             StorageDG.Visibility = Visibility.Hidden;
@@ -383,8 +380,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.Visibility = Visibility.Hidden;
             AddUser.Visibility = Visibility.Hidden;
             RemoveUser.Visibility = Visibility.Hidden;
-            Print.Visibility = Visibility.Hidden;
-            Search.Visibility = Visibility.Hidden;
             DateTo.Visibility = Visibility.Hidden;
             DateFrom.Visibility = Visibility.Hidden;
             StorageDG.Visibility = Visibility.Hidden;
