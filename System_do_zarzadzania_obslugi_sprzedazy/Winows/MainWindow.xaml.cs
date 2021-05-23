@@ -39,6 +39,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<StorageOperations> storage = new List<StorageOperations>();
         List<string> operations = new List<string>();
         List<Debter> debters = new List<Debter>();
+        List<InvoiceCorrection> invoiceCorrections = new List<InvoiceCorrection>();
         
 
         private bool invoiceOpen=true;
@@ -58,6 +59,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             FillOperations();
             LoadInvoicesList();
             OperationCB.ItemsSource = operations;
+            InvoiceCorrections.Visibility = Visibility.Visible;
         }
 
         private void LoadCompaniesList()
@@ -112,6 +114,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             StorageDG.ItemsSource = storage;
         }
 
+        private void WiredUpCorrectionList()
+        {
+            CompanyDataGrid.ItemsSource = null;
+            CompanyDataGrid.ItemsSource = invoiceCorrections;
+
+        }
+
+        private void LoadCorrectionList()
+        {
+            invoiceCorrections = SQLiteDataAccess.LoadCorrection();
+            WiredUpCorrectionList();
+        }
         private void LoadStorageList()
         {
             storage = SQLiteDataAccess.LoadOperations();
@@ -250,17 +264,20 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Invoice_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             invoiceOpen = true;
             AddUser.Content = "Dodaj fakture";
             RemoveUser.Content = "Usuń fakture";
             LoadInvoicesList();
             ShowControls();
+            InvoiceCorrections.Visibility = Visibility.Visible;
 
         }
 
         private void Storage_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             StorageOpen = true;
             AddUser.Content = "Dodaj przedmiot";
@@ -268,10 +285,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.ItemsSource = null;
             LoadProductsList();
             ShowControls();
+            InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
         private void Settlements_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             SettlementsOpen = true;
             AddUser.Content = "Dodaj rozliczenie";
@@ -287,13 +306,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             GridSettelmentDebt.ItemsSource = debters;
             GridSettelmentDebt.Columns[1].Visibility = Visibility.Collapsed;
             GridSettelmentDebt.Columns[3].Visibility = Visibility.Collapsed;
-
-
         }
 
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             ContractorsOpen = true;
             AddUser.Content = "Dodaj Kontrahenta";
@@ -304,6 +322,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Statments_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             StatmentsOpen = true;      
             HideControls();
@@ -333,6 +352,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             DateSettelmentFrom.Visibility = Visibility.Hidden;
             DateSettelmentTo.Visibility = Visibility.Hidden;
             CreateStatement.Visibility = Visibility.Hidden;
+            InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
         private void ShowControls()
@@ -355,6 +375,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             DateSettelmentFrom.Visibility = Visibility.Hidden;
             DateSettelmentTo.Visibility = Visibility.Hidden;
             CreateStatement.Visibility = Visibility.Hidden;
+            InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
         private void ShowControlsSettelments() 
@@ -377,8 +398,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             DateSettelmentFrom.Visibility = Visibility.Visible;
             DateSettelmentTo.Visibility = Visibility.Visible;
             CreateStatement.Visibility = Visibility.Visible;
-
-
+            InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
         private void ShowControlsStorage()
@@ -397,6 +417,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
         private void VATRegister_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             VATRegisterOpen = true;
             AddUser.Content = "Dodaj rejestr vat";
@@ -782,6 +803,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             CreatestatementsPDF();
             MessageBox.Show("Utworzono plik pdf");
+        }
+
+        private void InvoiceCorrections_Checked(object sender, RoutedEventArgs e)
+        {
+            LoadCorrectionList();
+            CompanyDataGrid.Columns[4].Visibility = Visibility.Collapsed;
+            CompanyDataGrid.Columns[5].Visibility = Visibility.Collapsed;
+
+        }
+
+        private void InvoiceCorrections_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CompanyDataGrid.Columns[4].Visibility = Visibility.Visible;
+            CompanyDataGrid.Columns[5].Visibility = Visibility.Visible;
+            LoadInvoicesList();
         }
     }
 }

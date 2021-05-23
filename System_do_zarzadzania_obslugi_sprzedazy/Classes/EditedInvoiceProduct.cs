@@ -76,8 +76,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
 
         public void ConvertInvoiceProduct(InvoiceProduct invoiceProduct)
         {
-            IdEditedInvoice = invoiceProduct.IdInvoice;
-            IdEditedProduct = invoiceProduct.IdProduct;
+            if(invoiceProduct.IdInvoice == 0 || invoiceProduct.IdProduct == 0)
+            {
+                IdEditedInvoice = 1;
+                IdEditedProduct = 1;
+            }
+            else
+            {
+                IdEditedInvoice = invoiceProduct.IdInvoice;
+                IdEditedProduct = invoiceProduct.IdProduct;
+            }           
             EditedProductName = invoiceProduct.ProductName;
             EditedQuantity = invoiceProduct.Quantity;
             EditedQuantityUnit = invoiceProduct.QuantityUnitName;

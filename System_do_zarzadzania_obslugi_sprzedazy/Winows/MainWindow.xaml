@@ -87,5 +87,6 @@
         <DatePicker x:Name="DateSettelmentFrom" HorizontalAlignment="Left" Height="28" Margin="47,35,0,0" Grid.Row="3" VerticalAlignment="Top" Width="187" SelectedDateChanged="DateSettelmentFrom_SelectedDateChanged"/>
         <DatePicker x:Name="DateSettelmentTo" HorizontalAlignment="Left" Height="27" Margin="47,106,0,0" Grid.Row="3" VerticalAlignment="Top" Width="187" SelectedDateChanged="DateSettelmentTo_SelectedDateChanged"/>
         <Button x:Name="CreateStatement" Visibility="Hidden" Content="Generuj zestawienie" HorizontalAlignment="Left" Margin="84,200,0,0" Grid.Row="3" VerticalAlignment="Top" Width="129" Height="32" Click="CreateStatement_Click"/>
+        <CheckBox x:Name="InvoiceCorrections" Content="Korekty faktur" HorizontalAlignment="Left" Margin="264,21,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="InvoiceCorrections_Checked" Unchecked="InvoiceCorrections_Unchecked"/>
     </Grid>
 </Window>

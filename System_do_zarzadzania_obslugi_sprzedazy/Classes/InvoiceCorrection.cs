@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,24 +16,28 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         private int invoiceConnection;
         private int correctionConnection;
 
+        [DisplayName("ID korekty")]
         public int CorrectionID
         {
             get { return correctionID; }
             set { correctionID = value; }
         }
 
+        [DisplayName("Numer korekty")]
         public string CorrectionNumber
         {
             get { return correctionNumber; }
             set { correctionNumber = value; }
         }
 
+        [DisplayName("Data korekty")]
         public string CorrectionDate
         {
             get { return correctionDate; }
             set { correctionDate = value; }
         }
 
+        [DisplayName("Powód korekty")]
         public string CorrectionReason
         {
             get { return correctionReason; }
@@ -45,7 +50,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             set { invoiceConnection = value; }
         }
 
-
         public int CorrectionConnection
         {
             get { return correctionConnection; }
@@ -57,6 +61,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
 
         }
 
+        public InvoiceCorrection(int correctionID, string correctionNumber, string correctionDate, string correctionReason, int invoiceConnection)
+        {
+            CorrectionID = correctionID;
+            CorrectionNumber = correctionNumber;
+            CorrectionDate = correctionDate;
+            CorrectionReason = correctionReason;
+            InvoiceConnection = invoiceConnection;
+        }
+
         public InvoiceCorrection(int correctionID, string correctionNumber, string correctionDate, string correctionReason, int invoiceConnection, int correctionConnection)
         {
             CorrectionID = correctionID;
@@ -66,6 +79,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             InvoiceConnection = invoiceConnection;
             CorrectionConnection = correctionConnection;
         }
+
+
 
     }
 }

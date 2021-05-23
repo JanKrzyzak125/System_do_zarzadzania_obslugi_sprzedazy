@@ -150,6 +150,23 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             return keyValuePairs;
         }
 
+        private Dictionary<int, int> vatValuesMethod(int a)
+        {
+            Dictionary<int, int> keyValuePairs = new Dictionary<int, int>();
+            foreach(EditedInvoiceProduct product in editedInvoiceProducts)
+            {
+                if (keyValuePairs.ContainsKey(product.EditedVat))
+                {
+                    keyValuePairs[product.EditedVat] += product.EditedNettoPrice;
+                }
+                else
+                {
+                    keyValuePairs.Add(product.EditedVat, product.EditedNettoPrice);
+                }
+            }
+            return keyValuePairs;
+        }
+
         private Dictionary<int, int> vatValuesBruttoMethod()
         {
             Dictionary<int, int> keyValuePairs = new Dictionary<int, int>();
@@ -162,6 +179,23 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 else
                 {
                     keyValuePairs.Add(product.Vat, product.BruttoPrice);
+                }
+            }
+            return keyValuePairs;
+        }
+
+        private Dictionary<int, int> vatValuesBruttoMethod(int y)
+        {
+            Dictionary<int, int> keyValuePairs = new Dictionary<int, int>();
+            foreach (EditedInvoiceProduct product in editedInvoiceProducts)
+            {
+                if (keyValuePairs.ContainsKey(product.EditedVat))
+                {
+                    keyValuePairs[product.EditedVat] += product.EditedBruttoPrice;
+                }
+                else
+                {
+                    keyValuePairs.Add(product.EditedVat, product.EditedBruttoPrice);
                 }
             }
             return keyValuePairs;
@@ -718,6 +752,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         SpacingAfter = 30f,
                     };
 
+                    int correctionID = SQLiteDataAccess.LoadAiCompanyId("CorrectedPdf")[0]+1;
+
+                    StringBuilder stringBuilder = new StringBuilder("");
+                    stringBuilder.Append(correctionID.ToString());
+                    stringBuilder.Append("." + showInvoice.Number);
+
                     var titleFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 28);
                     var numberFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 22);
                     var serviceFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 16);
@@ -725,7 +765,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
                     var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
                     var docTitle = new iTextSharp.text.Paragraph("KOREKTA FAKTURY VAT", titleFont);
-                    var docNumber = new iTextSharp.text.Paragraph("NR " + showInvoice.Number, numberFont);
+                    var docNumber = new iTextSharp.text.Paragraph("NR " + stringBuilder.ToString(), numberFont);
                     docTitle.Alignment = Element.ALIGN_CENTER;
                     docNumber.Alignment = Element.ALIGN_CENTER;
                     var nameOfService = new iTextSharp.text.Paragraph("Na wykonanie: " + NameOfService.Text, serviceFont);
@@ -962,8 +1002,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     vatTable.AddCell(cell14);
                     vatTable.AddCell(cell15);
 
-                    Dictionary<int, int> vatValue = vatValuesMethod();
-                    Dictionary<int, int> vatValueBrutto = vatValuesBruttoMethod();
+                    Dictionary<int, int> vatValue = vatValuesMethod(1);
+                    Dictionary<int, int> vatValueBrutto = vatValuesBruttoMethod(1);
 
 
                     foreach (KeyValuePair<int, int> entry in vatValue)
@@ -991,12 +1031,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sumNetto.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase("-")) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sum.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-
+                    
 
                     pdfDoc.Add(table);
                     pdfDoc.Add(spacer);
                     pdfDoc.Add(spacer);
                     pdfDoc.Add(table2);
+                    pdfDoc.Add(spacer);
                     pdfDoc.Add(vatTable);
                     pdfDoc.Add(spacer);
                     pdfDoc.Add(sumTable);
@@ -1008,6 +1049,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     pdfDoc.Close();
                     writer.Close();
                     fs.Close();
+                    InvoiceCorrection invoiceCorrection = new InvoiceCorrection(correctionID, stringBuilder.ToString(), DateOfCoretion.Text, Corection.Text, invoiceID);
+                    SQLiteDataAccess.SaveCorrectedInvoice(invoiceCorrection);
+
+                    foreach(EditedInvoiceProduct editedInvoiceProduct in editedInvoiceProducts)
+                    {
+                        SQLiteDataAccess.SaveCorrectedInvoiceProduct(editedInvoiceProduct);
+                    }
                 }
             }
             catch (Exception ex)
@@ -1049,7 +1097,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CorectionLabel.Visibility = Visibility.Visible;
             DateOfCoretion.Visibility = Visibility.Visible;
             DateOfCorectionLabel.Visibility = Visibility.Visible;
-
+            AddProduct.IsEnabled = false;
+            DelProduct.IsEnabled = false;
+            InvoiceProductListDataGrid.CanUserAddRows = true;
+            InvoiceProductListDataGrid.IsReadOnly = false;
+            InvoiceProductListDataGrid.Columns[0].Visibility = Visibility.Collapsed;
+            InvoiceProductListDataGrid.Columns[1].Visibility = Visibility.Collapsed;
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -1071,11 +1124,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CorectionLabel.Visibility = Visibility.Hidden;
             DateOfCoretion.Visibility = Visibility.Hidden;
             DateOfCorectionLabel.Visibility = Visibility.Hidden;
-
+            AddProduct.IsEnabled = true;
+            DelProduct.IsEnabled = true;
+            InvoiceProductListDataGrid.CanUserAddRows = false;
+            InvoiceProductListDataGrid.IsReadOnly = true;
+            InvoiceProductListDataGrid.Columns[0].Visibility = Visibility.Visible;
+            InvoiceProductListDataGrid.Columns[1].Visibility = Visibility.Visible;
+            LoadInvoiceList();
         }
 
         private void CreateEditedPdf_Click(object sender, RoutedEventArgs e)
         {
+            invoiceProducts = SQLiteDataAccess.LoadInvoicesProduct(invoiceID);
             ExportEditedPDF();
         }
 

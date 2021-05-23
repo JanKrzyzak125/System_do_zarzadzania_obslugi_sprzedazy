@@ -289,6 +289,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static void SaveCorrectedInvoiceProduct(EditedInvoiceProduct editedInvoiceProduct)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "IdEditedInvoice, IdEditedProduct, EditedProductName, EditedQuantity, EditedQuantityUnit, EditedNettoPrice, EditedBruttoPrice, EditedVat";
+                cnn.Execute("insert into EditedInvoiceProduct(" + s1 + ")values(@idEditedInvoice,@idEditedProduct,@editedProductName,@editedQuantity,@editedQuantityUnit,@editedNettoPrice,@editedBruttoPrice,@editedVat)", editedInvoiceProduct);
+            }
+        }
+
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
