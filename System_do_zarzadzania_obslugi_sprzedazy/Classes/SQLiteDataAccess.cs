@@ -97,6 +97,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static List<Invoice> LoadInvoice(int ID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<Invoice>("select * from Database_for_invoices WHERE Database_for_invoices.Id=" +  ID.ToString(), new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
         public static void SaveInvoice(Invoice invoice)
         {
             using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -295,6 +304,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 string s1 = "IdEditedInvoice, IdEditedProduct, EditedProductName, EditedQuantity, EditedQuantityUnit, EditedNettoPrice, EditedBruttoPrice, EditedVat";
                 cnn.Execute("insert into EditedInvoiceProduct(" + s1 + ")values(@idEditedInvoice,@idEditedProduct,@editedProductName,@editedQuantity,@editedQuantityUnit,@editedNettoPrice,@editedBruttoPrice,@editedVat)", editedInvoiceProduct);
+            }
+        }
+
+        public static List<EditedInvoiceProduct> LoadEditedInvoicesProduct(int ID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                //var DynamicParameter = new DynamicParameters();
+                //DynamicParameter.Add("QuantityUnit")
+                string str = "SELECT *  FROM EditedInvoiceProduct WHERE IdEditedInvoice=";
+                var output = cnn.Query<EditedInvoiceProduct>(str + ID.ToString(), new DynamicParameters());
+                return output.ToList();
             }
         }
 

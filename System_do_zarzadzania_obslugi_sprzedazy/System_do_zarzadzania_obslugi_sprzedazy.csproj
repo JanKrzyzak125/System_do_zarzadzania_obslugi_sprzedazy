@@ -92,6 +92,9 @@
     <Compile Include="Winows\DebtorWindow.xaml.cs">
       <DependentUpon>DebtorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Winows\EditedInvoiceDetails.xaml.cs">
+      <DependentUpon>EditedInvoiceDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Winows\InvoiceDetails.xaml.cs">
       <DependentUpon>InvoiceDetails.xaml</DependentUpon>
     </Compile>
@@ -126,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Winows\DebtorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winows\EditedInvoiceDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

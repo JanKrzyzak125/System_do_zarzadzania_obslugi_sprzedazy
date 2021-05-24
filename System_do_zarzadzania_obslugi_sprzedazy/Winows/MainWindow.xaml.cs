@@ -214,8 +214,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 if (CompanyDataGrid.SelectedItem != null)
                 {
-
-
                     SQLiteDataAccess.DeleteInvoice((Invoice)CompanyDataGrid.SelectedItem);
                     invoices.Remove((Invoice)CompanyDataGrid.SelectedItem);
                     LoadInvoicesList();
@@ -441,11 +439,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void DoubleClick_Open(object sender, MouseButtonEventArgs e)
         {
+
             if (CompanyDataGrid.SelectedItem != null && invoiceOpen)
             {
-                Invoice inv = CompanyDataGrid.SelectedItem as Invoice;
-                InvoiceDetails invoiceDetails = new InvoiceDetails(inv,inv.Id, inv.IdCompany);
-                invoiceDetails.Show();
+                if (InvoiceCorrections.IsChecked != true)
+                {
+                    Invoice inv = CompanyDataGrid.SelectedItem as Invoice;
+                    InvoiceDetails invoiceDetails = new InvoiceDetails(inv, inv.Id, inv.IdCompany);
+                    invoiceDetails.Show();
+                }
+                else
+                {
+                    InvoiceCorrection invoiceCorrection = CompanyDataGrid.SelectedItem as InvoiceCorrection;
+                    EditedInvoiceDetails edited = new EditedInvoiceDetails(invoiceCorrection);
+                    edited.Show();
+                }
             }
             else if(CompanyDataGrid.SelectedItem != null && StorageOpen)
             {
