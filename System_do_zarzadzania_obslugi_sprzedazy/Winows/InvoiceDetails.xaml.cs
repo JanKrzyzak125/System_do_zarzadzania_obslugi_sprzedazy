@@ -1054,6 +1054,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                     foreach(EditedInvoiceProduct editedInvoiceProduct in editedInvoiceProducts)
                     {
+                        editedInvoiceProduct.IdEditedInvoice = correctionID;
                         SQLiteDataAccess.SaveCorrectedInvoiceProduct(editedInvoiceProduct);
                     }
                 }
