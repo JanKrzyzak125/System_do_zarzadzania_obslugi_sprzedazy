@@ -14,8 +14,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         private string editedProductName;
         private int editedQuantity;
         private string editedQuantityUnit;
-        private int editedNettoPrice;
-        private int editedBruttoPrice;
+        private double editedNettoPrice;
+        private double editedBruttoPrice;
         private int editedVat;
 
         [DisplayName("ID Faktury")]
@@ -54,14 +54,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         [DisplayName("Cena Netto")]
-        public int EditedNettoPrice
+        public double EditedNettoPrice
         {
             get { return editedNettoPrice; }
             set { editedNettoPrice = value; }
         }
 
         [DisplayName("Cena Brutto")]
-        public int EditedBruttoPrice
+        public double EditedBruttoPrice
         {
             get { return editedBruttoPrice; }
             set { editedBruttoPrice = value; }
@@ -101,7 +101,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
 
-        public EditedInvoiceProduct(int idInvoice, int idProduct, string productName, int quantity, string quantityUnits, int nettoPrice, int bruttoPrice, int vat)
+        public EditedInvoiceProduct(int idInvoice, int idProduct, string productName, int quantity, string quantityUnits, double nettoPrice, double bruttoPrice, int vat)
         {
             IdEditedInvoice = idInvoice;
             IdEditedProduct = idProduct;

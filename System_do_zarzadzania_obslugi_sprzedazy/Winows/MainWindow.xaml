@@ -22,12 +22,11 @@
         <DockPanel>
             <StackPanel></StackPanel>
         </DockPanel>
-        <Button x:Name="Storage" Content="Magazyn" HorizontalAlignment="Left" Margin="213,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Storage_Open"/>
-        <Button x:Name="Settlements" Content="Rozliczenia" HorizontalAlignment="Left" Margin="425,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Settlements_Open"/>
-        <Button x:Name="Contractors" Content="Kontrahenci" HorizontalAlignment="Left" Margin="637,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Contractors_Open"/>
-        <Button x:Name="Statments" Content="Zestawienia" HorizontalAlignment="Left" Margin="849,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="212" Height="81" Click="Statments_Open"/>
-        <Button x:Name="VATRegister" Content="Rejestry VAT" HorizontalAlignment="Left" Margin="1061,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="191" Height="81" Click="VATRegister_Open"/>
-        <Button x:Name="Invoice" Content="Faktury" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="208" Height="81" Margin="5,0,0,0" Click="Invoice_Open"/>
+        <Button x:Name="Storage" Content="Magazyn" HorizontalAlignment="Left" Margin="276,0,0,0" VerticalAlignment="Top" Width="240" Height="81" Click="Storage_Open" Grid.Row="1"/>
+        <Button x:Name="Settlements" Content="Rozliczenia" HorizontalAlignment="Left" Margin="516,0,0,0" VerticalAlignment="Top" Width="240" Height="81" Click="Settlements_Open" Grid.Row="1"/>
+        <Button x:Name="Contractors" Content="Kontrahenci" HorizontalAlignment="Left" Margin="756,0,0,0" VerticalAlignment="Top" Width="240" Height="81" Click="Contractors_Open" Grid.Row="1"/>
+        <Button x:Name="Statments" Content="Zestawienia" HorizontalAlignment="Left" Margin="996,0,0,0" VerticalAlignment="Top" Width="240" Height="81" Click="Statments_Open" Grid.Row="1"/>
+        <Button x:Name="Invoice" Content="Faktury" HorizontalAlignment="Left" VerticalAlignment="Top" Width="240" Height="81" Margin="36,0,0,0" Click="Invoice_Open" Grid.Row="1"/>
         <Grid HorizontalAlignment="Left" Height="475" Margin="330,6,0,0" Grid.Row="3" VerticalAlignment="Top" Width="922">
             <DataGrid Name="CompanyDataGrid" AutoGenerateColumns="True" Background="White" AutoGeneratingColumn="CompanyDataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False" MouseDoubleClick="DoubleClick_Open" Margin="-302,0,10,-18"/>
         </Grid>

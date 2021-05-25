@@ -47,7 +47,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private bool SettlementsOpen = false;
         private bool ContractorsOpen = false;
         private bool StatmentsOpen = false;
-        private bool VATRegisterOpen = false;
 
         private int companyID = 1;
 
@@ -201,10 +200,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
 
             }
-            if(VATRegisterOpen)
-            {
-
-            }
           
         }
 
@@ -248,10 +243,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 }
             }
             if (StatmentsOpen)
-            {
-
-            }
-            if (VATRegisterOpen)
             {
 
             }
@@ -408,26 +399,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             
 
         }
-        private void VATRegister_Open(object sender, RoutedEventArgs e)
-        {
-            InvoiceCorrections.IsChecked = false;
-            SettingToFalse();
-            VATRegisterOpen = true;
-            AddUser.Content = "Dodaj rejestr vat";
-            RemoveUser.Content = "Usuń rejestr vat";
-            CompanyDataGrid.ItemsSource = null;
-            ShowControls();
-        }
 
-        private void Print_Open(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Search_Open(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void CompanyDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -478,7 +450,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
               SettlementsOpen = false;
               ContractorsOpen = false;
               StatmentsOpen = false;
-              VATRegisterOpen = false;
         }
 
         private void OperationCB_SelectionChanged(object sender, SelectionChangedEventArgs e)

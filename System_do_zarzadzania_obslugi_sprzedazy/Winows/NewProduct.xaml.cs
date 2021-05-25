@@ -76,8 +76,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             string productName = ProductNameComboBox.Text;
             int quantity = Int32.Parse(ProductQuantity.Text);
             string quantityUnits = ProductQuantityUnitComboBox.Text;
-            int nettoPrice = Int32.Parse(ProductNettoPrice.Text);
-            int bruttoPrice = Int32.Parse(ProductBruttoPrice.Text);
+            double nettoPrice = Double.Parse(ProductNettoPrice.Text);
+            double bruttoPrice = Double.Parse(ProductBruttoPrice.Text);
             int vat = Int32.Parse(ProductVat.Text);
 
             //Bedzie trzeba sprawdzac wszystkie kontrolki czy sa puste

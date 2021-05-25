@@ -133,9 +133,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
-        private Dictionary<int, int> vatValuesMethod()
+        private Dictionary<int, double> vatValuesMethod()
         {
-            Dictionary<int, int> keyValuePairs = new Dictionary<int, int>();
+            Dictionary<int, double> keyValuePairs = new Dictionary<int, double>();
             foreach (InvoiceProduct product in invoiceProducts)
             {
                 if(keyValuePairs.ContainsKey(product.Vat))
@@ -150,9 +150,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             return keyValuePairs;
         }
 
-        private Dictionary<int, int> vatValuesMethod(int a)
+        private Dictionary<int, double> vatValuesMethod(int a)
         {
-            Dictionary<int, int> keyValuePairs = new Dictionary<int, int>();
+            Dictionary<int, double> keyValuePairs = new Dictionary<int, double>();
             foreach(EditedInvoiceProduct product in editedInvoiceProducts)
             {
                 if (keyValuePairs.ContainsKey(product.EditedVat))
@@ -167,9 +167,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             return keyValuePairs;
         }
 
-        private Dictionary<int, int> vatValuesBruttoMethod()
+        private Dictionary<int, double> vatValuesBruttoMethod()
         {
-            Dictionary<int, int> keyValuePairs = new Dictionary<int, int>();
+            Dictionary<int, double> keyValuePairs = new Dictionary<int, double>();
             foreach (InvoiceProduct product in invoiceProducts)
             {
                 if (keyValuePairs.ContainsKey(product.Vat))
@@ -184,9 +184,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             return keyValuePairs;
         }
 
-        private Dictionary<int, int> vatValuesBruttoMethod(int y)
+        private Dictionary<int, double> vatValuesBruttoMethod(int y)
         {
-            Dictionary<int, int> keyValuePairs = new Dictionary<int, int>();
+            Dictionary<int, double> keyValuePairs = new Dictionary<int, double>();
             foreach (EditedInvoiceProduct product in editedInvoiceProducts)
             {
                 if (keyValuePairs.ContainsKey(product.EditedVat))
@@ -202,10 +202,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
 
-        private int wholeBruttoPrice(Dictionary<int, int> sumBrutto)
+        private double wholeBruttoPrice(Dictionary<int, double> sumBrutto)
         {
-            int sum = 0;
-            foreach(KeyValuePair<int, int> entry in sumBrutto)
+            double sum = 0;
+            foreach(KeyValuePair<int, double> entry in sumBrutto)
             {
                 sum += entry.Value;
             }
@@ -441,19 +441,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     vatTable.AddCell(cell8);
                     vatTable.AddCell(cell9);
 
-                    Dictionary<int, int> vatValue = vatValuesMethod();
-                    Dictionary<int, int> vatValueBrutto = vatValuesBruttoMethod();
+                    Dictionary<int, double> vatValue = vatValuesMethod();
+                    Dictionary<int, double> vatValueBrutto = vatValuesBruttoMethod();
 
 
-                    foreach (KeyValuePair<int, int> entry in vatValue)
+                    foreach (KeyValuePair<int, double> entry in vatValue)
                     {
                         vatTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Value.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         vatTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Key.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         vatTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(vatValueBrutto[entry.Key].ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     }
 
-                    int sum = wholeBruttoPrice(vatValueBrutto);
-                    int sumNetto = wholeBruttoPrice(vatValue);
+                    double sum = wholeBruttoPrice(vatValueBrutto);
+                    double sumNetto = wholeBruttoPrice(vatValue);
 
                     var amountPaid = new iTextSharp.text.Paragraph("Zapłacono: " + sum.ToString() + " zł", dateFont);
                     amountPaid.Alignment = Element.ALIGN_LEFT;
@@ -669,7 +669,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     table.AddCell(cell6);
                     table.AddCell(cell7);
 
-                    int sum = 0;
+                    double sum = 0;
 
                     invoiceProducts.ForEach(a =>
                     {
@@ -1002,19 +1002,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     vatTable.AddCell(cell14);
                     vatTable.AddCell(cell15);
 
-                    Dictionary<int, int> vatValue = vatValuesMethod(1);
-                    Dictionary<int, int> vatValueBrutto = vatValuesBruttoMethod(1);
+                    Dictionary<int, double> vatValue = vatValuesMethod(1);
+                    Dictionary<int, double> vatValueBrutto = vatValuesBruttoMethod(1);
 
 
-                    foreach (KeyValuePair<int, int> entry in vatValue)
+                    foreach (KeyValuePair<int, double> entry in vatValue)
                     {
                         vatTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Value.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         vatTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Key.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         vatTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(vatValueBrutto[entry.Key].ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     }
 
-                    int sum = wholeBruttoPrice(vatValueBrutto);
-                    int sumNetto = wholeBruttoPrice(vatValue);
+                    double sum = wholeBruttoPrice(vatValueBrutto);
+                    double sumNetto = wholeBruttoPrice(vatValue);
 
                     var amountPaid = new iTextSharp.text.Paragraph("Zapłacono: " + sum.ToString() + " zł", dateFont);
                     amountPaid.Alignment = Element.ALIGN_LEFT;

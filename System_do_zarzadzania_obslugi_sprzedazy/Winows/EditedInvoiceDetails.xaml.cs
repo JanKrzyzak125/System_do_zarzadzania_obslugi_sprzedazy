@@ -66,6 +66,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 AccountNumber.Text = showInvoice.AccountNumber;
             }
             EditPdfCB.IsChecked = false;
+            Corection.Text = invoiceCorrection.CorrectionReason;
+            DateOfCoretion.Text = invoiceCorrection.CorrectionDate;
         }
         private void LoadInvoiceList()
         {
