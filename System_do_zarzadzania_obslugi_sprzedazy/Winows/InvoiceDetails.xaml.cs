@@ -1052,9 +1052,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     InvoiceCorrection invoiceCorrection = new InvoiceCorrection(correctionID, stringBuilder.ToString(), DateOfCoretion.Text, Corection.Text, invoiceID);
                     SQLiteDataAccess.SaveCorrectedInvoice(invoiceCorrection);
 
+
                     foreach(EditedInvoiceProduct editedInvoiceProduct in editedInvoiceProducts)
                     {
+                        editedInvoiceProduct.IdEditedInvoice = correctionID;
                         SQLiteDataAccess.SaveCorrectedInvoiceProduct(editedInvoiceProduct);
+
                     }
                 }
             }
