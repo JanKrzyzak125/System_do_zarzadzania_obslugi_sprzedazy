@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
-    class Product : IEquatable<Product>
+   public class Product : IEquatable<Product>
     {
         private int id;
         

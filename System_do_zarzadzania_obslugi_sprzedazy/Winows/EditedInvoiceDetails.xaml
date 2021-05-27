@@ -1,11 +1,11 @@
-﻿<Window x:Class="System_do_zarzadzania_obslugi_sprzedazy.InvoiceDetails"
+﻿<Window x:Class="System_do_zarzadzania_obslugi_sprzedazy.Winows.EditedInvoiceDetails"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
+        xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy.Winows"
         mc:Ignorable="d"
-        Title="InvoiceDetails" Height="695" Width="1280" ResizeMode="NoResize">
+        Title="EditedInvoiceDetails" Height="695" Width="1280">
     <Grid Margin="0,-11,-80,-59" Height="761" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1354">
 
         <Label Content="ID" HorizontalAlignment="Left" Height="37" Margin="15,81,0,0"  VerticalAlignment="Top" Width="54" />
@@ -40,11 +40,11 @@
         <TextBox x:Name="AccountNumber" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Margin="176,501,0,0" IsEnabled="False"/>
 
         <DataGrid x:Name="InvoiceProductListDataGrid" Margin="566,39,100,108" Background="White" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" SelectionMode="Single" GridLinesVisibility="None" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False"/>
-        <Button x:Name="AddProduct" Content="Dodawanie" HorizontalAlignment="Left" Margin="419,103,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="AddProduct_Click"/>
-        <Button x:Name="DelProduct" Content="Usuwanie" HorizontalAlignment="Left" Margin="419,168,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="DelProduct_Click"/>
-        <Button x:Name="CreatePDF" Content="Utwórz PDF" HorizontalAlignment="Left" Margin="419,235,0,0" VerticalAlignment="Top" Width="133" Height="50" Click="CreatePDF_Click"/>
-        <CheckBox x:Name="EditPdfCB" Content="Wprowadź korektę" HorizontalAlignment="Left" Margin="419,303,0,0" VerticalAlignment="Top" Height="25" Width="147" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
-        <Button x:Name="CreateEditedPdf" Content="Generuj PDF po korekcie" Visibility="Hidden" HorizontalAlignment="Left" Margin="419,235,0,0" VerticalAlignment="Top" Width="133" Height="51" Click="CreateEditedPdf_Click"/>
+        <Button x:Name="AddProduct" Content="Dodawanie" HorizontalAlignment="Left" Margin="419,103,0,0" VerticalAlignment="Top" Width="133" Height="50"  Visibility="Hidden"/>
+        <Button x:Name="DelProduct" Content="Usuwanie" HorizontalAlignment="Left" Margin="419,168,0,0" VerticalAlignment="Top" Width="133" Height="50" Visibility="Hidden" />
+        <Button x:Name="CreatePDF" Content="Utwórz PDF" HorizontalAlignment="Left" Margin="419,235,0,0" VerticalAlignment="Top" Width="133" Height="50" Visibility="Hidden"/>
+        <CheckBox x:Name="EditPdfCB" Content="Wprowadź korektę" HorizontalAlignment="Left" Margin="419,303,0,0" VerticalAlignment="Top" Height="25" Width="147" Checked="CheckBox_Checked" Visibility="Hidden" Unchecked="CheckBox_Unchecked" />
+        <Button x:Name="CreateEditedPdf" Content="Generuj PDF po korekcie" Visibility="Hidden" HorizontalAlignment="Left" Margin="419,235,0,0" VerticalAlignment="Top" Width="133" Height="51"/>
         <ComboBox x:Name="PaymentTypeCB" Visibility="Hidden" HorizontalAlignment="Left" Margin="176,290,0,0" VerticalAlignment="Top" Width="209" Height="37" SelectionChanged="PaymentTypeCB_SelectionChanged">
             <ComboBoxItem>
                 <TextBlock Text="Gotówka">
@@ -55,9 +55,9 @@
                 </TextBlock>
             </ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="Corection" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Margin="176,543,0,0" IsEnabled="true" Visibility="Hidden"/>
-        <TextBox x:Name="DateOfCoretion" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Margin="176,585,0,0" IsEnabled="true" Visibility="Hidden"/>
-        <Label x:Name="CorectionLabel" Content="Przyczyna Korekty" HorizontalAlignment="Left" Height="28" Margin="15,552,0,0" VerticalAlignment="Top" Width="133" Visibility="Hidden"/>
-        <Label x:Name="DateOfCorectionLabel" Content="Data Korekty" HorizontalAlignment="Left" Height="27" Margin="15,595,0,0" VerticalAlignment="Top" Width="126" Visibility="Hidden"/>
+        <TextBox x:Name="Corection" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Margin="176,543,0,0" IsEnabled="False" Visibility="Visible"/>
+        <TextBox x:Name="DateOfCoretion" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Margin="176,585,0,0" IsEnabled="False" Visibility="Visible"/>
+        <Label x:Name="CorectionLabel" Content="Przyczyna Korekty" HorizontalAlignment="Left" Height="28" Margin="15,552,0,0" VerticalAlignment="Top" Width="133" Visibility="Visible"/>
+        <Label x:Name="DateOfCorectionLabel" Content="Data Korekty" HorizontalAlignment="Left" Height="27" Margin="15,595,0,0" VerticalAlignment="Top" Width="126" Visibility="Visible"/>
     </Grid>
 </Window>

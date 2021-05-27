@@ -97,12 +97,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        public static List<Invoice> LoadInvoice(int ID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<Invoice>("select * from Database_for_invoices WHERE Database_for_invoices.Id=" +  ID.ToString(), new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
         public static void SaveInvoice(Invoice invoice)
         {
             using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                string s1 = "IdSeller,  IdCompany,  Number,  CreationDate,  SaleDate,  PaymentType,  PaymentDeadline,  ToPay, ToPayInWords,  Paid,  DateOfIssue, NameOfService, AccountNumber";
-                cnn.Execute("insert into Database_for_invoices(" + s1 + ")values(@idSeller, @idCompany, @number, @creationDate, @saleDate, @paymentType, @paymentDeadline, @toPay, @toPayInWords, @paid, @dateOfIssue, @nameOfService, @accountNumber)", invoice);
+                string s1 = "IdSeller,  IdCompany,  Number,  CreationDate,  SaleDate,  PaymentType,  PaymentDeadline,  ToPay, ToPayInWords,  Paid,  DateOfIssue, NameOfService, AccountNumber, IsPrinted";
+                cnn.Execute("insert into Database_for_invoices(" + s1 + ")values(@idSeller, @idCompany, @number, @creationDate, @saleDate, @paymentType, @paymentDeadline, @toPay, @toPayInWords, @paid, @dateOfIssue, @nameOfService, @accountNumber, @isPrinted)", invoice);
             }
         }
 
@@ -213,12 +222,102 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<StorageOperations>("SELECT StorageInformation.InformationID,StorageOperations.OperationName,StorageInformation.Quantity,StorageInformation.Date,StorageInformation.Receiver,StorageInformation.Sender,Product.Name FROM((StorageInformation INNER JOIN StorageOperations ON StorageInformation.OperationID=StorageOperations.OperationID)INNER JOIN Product ON StorageInformation.ProductID=Product.Id)", new DynamicParameters());
+                var output = cnn.Query<StorageOperations>("SELECT StorageInformation.InformationID,StorageOperations.OperationName,StorageInformation.Quantity,StorageInformation.Date,StorageInformation.Receiver,StorageInformation.Sender,StorageInformation.InvoiceID,StorageInformation.StorageProductID FROM((StorageInformation INNER JOIN StorageOperations ON StorageInformation.OperationID=StorageOperations.OperationID))", new DynamicParameters());
                 return output.ToList();
             }
         }
 
+        public static List<StorageProduct> LoadStorageProduct(int ID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<StorageProduct>("SELECT * FROM StorageProduct WHERE StorageProduct.StorageProductID="+ID.ToString()+"", new DynamicParameters());
+                return output.ToList();
+            }
+        }
 
+        public static void SaveOperation(StorageOperations storageOperation, int operationID, int invoiceID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "OperationID, Date, Receiver, Sender, InvoiceID";
+                cnn.Execute("insert into StorageInformation(" + s1 + ")values(" + operationID.ToString() + "," + "\'" + storageOperation.Date + "\'" + "," + "\'" + storageOperation.Receiver + "\'" + "," + "\'" + storageOperation.Sender + "\'" + "," + invoiceID.ToString() + ")");
+            }
+        }
+
+        public static void SaveOperation(Product product, int operationID, int StorageProductID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+            	//Moze byc blad trzeba date zrobic
+                string s1 = "OperationID, Date, Receiver, Sender, StorageProductID";
+                cnn.Execute("insert into StorageInformation(" + s1 + ")values(" + operationID.ToString() + "," + "\'" + DateTime.Now.ToString("d") + "\'" + "," + "\'" + "Operacja wewnetrzna" + "\'" + "," + "\'"+ "Operacja wewnetrzna" + "\'" + "," + StorageProductID.ToString() + ")");
+            }
+        }
+
+        public static void SaveProductInformation(Product product, int quantity)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "StorageProductName, StorageProductQuantity, StorageProductNettoPrice, StorageProductBruttoPrice";
+                cnn.Execute("insert into StorageProduct(" + s1 + ")values(" + "\'" + product.Name + "\'" + ","  + quantity.ToString() + "," +  Int32.Parse(product.NetPrice) + "," + Int32.Parse(product.GrossValue)+ ")");
+            }
+        }
+
+        public static void UpdateProductQuantity(Product product)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("UPDATE Product SET Quantity = "+product.Quantity+" WHERE ID = "+product.Id+"");
+            }
+        }
+
+        public static void UpdateProductQuantity(int quantity, int id)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("UPDATE Product SET Quantity = " + quantity.ToString() + " WHERE ID = " + id.ToString() + "");
+            }
+        }
+
+        public static List<InvoiceCorrection> LoadCorrection()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<InvoiceCorrection>("SELECT * FROM CorrectedPdf", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+        public static void SaveCorrectedInvoice(InvoiceCorrection invoiceCorrection)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "CorrectionID, CorrectionNumber, CorrectionDate, CorrectionReason, InvoiceConnection, CorrectionConnection";
+                cnn.Execute("insert into CorrectedPdf(" + s1 + ")values(@correctionID,@correctionNumber,@correctionDate,@correctionReason,@invoiceConnection,@correctionConnection)", invoiceCorrection);
+            }
+        }
+
+        public static void SaveCorrectedInvoiceProduct(EditedInvoiceProduct editedInvoiceProduct)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string s1 = "IdEditedInvoice, IdEditedProduct, EditedProductName, EditedQuantity, EditedQuantityUnit, EditedNettoPrice, EditedBruttoPrice, EditedVat";
+                cnn.Execute("insert into EditedInvoiceProduct(" + s1 + ")values(@idEditedInvoice,@idEditedProduct,@editedProductName,@editedQuantity,@editedQuantityUnit,@editedNettoPrice,@editedBruttoPrice,@editedVat)", editedInvoiceProduct);
+            }
+        }
+
+        public static List<EditedInvoiceProduct> LoadEditedInvoicesProduct(int ID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                //var DynamicParameter = new DynamicParameters();
+                //DynamicParameter.Add("QuantityUnit")
+                string str = "SELECT *  FROM EditedInvoiceProduct WHERE IdEditedInvoice=";
+                var output = cnn.Query<EditedInvoiceProduct>(str + ID.ToString(), new DynamicParameters());
+                return output.ToList();
+            }
+        }
 
         private static string LoadConnectionString(string id = "Default")
         {

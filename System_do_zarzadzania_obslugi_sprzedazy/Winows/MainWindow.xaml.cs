@@ -17,7 +17,10 @@ using System.Drawing;
 using System.ComponentModel;
 using System_do_zarzadzania_obslugi_sprzedazy.Winows;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
-
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.IO;
+using Microsoft.Win32;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
@@ -35,6 +38,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<Product> products = new List<Product>();
         List<StorageOperations> storage = new List<StorageOperations>();
         List<string> operations = new List<string>();
+        List<Debter> debters = new List<Debter>();
+        List<InvoiceCorrection> invoiceCorrections = new List<InvoiceCorrection>();
         
 
         private bool invoiceOpen=true;
@@ -42,7 +47,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private bool SettlementsOpen = false;
         private bool ContractorsOpen = false;
         private bool StatmentsOpen = false;
-        private bool VATRegisterOpen = false;
 
         private int companyID = 1;
 
@@ -54,6 +58,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             FillOperations();
             LoadInvoicesList();
             OperationCB.ItemsSource = operations;
+            InvoiceCorrections.Visibility = Visibility.Visible;
         }
 
         private void LoadCompaniesList()
@@ -108,6 +113,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             StorageDG.ItemsSource = storage;
         }
 
+        private void WiredUpCorrectionList()
+        {
+            CompanyDataGrid.ItemsSource = null;
+            CompanyDataGrid.ItemsSource = invoiceCorrections;
+
+        }
+
+        private void LoadCorrectionList()
+        {
+            invoiceCorrections = SQLiteDataAccess.LoadCorrection();
+            WiredUpCorrectionList();
+        }
         private void LoadStorageList()
         {
             storage = SQLiteDataAccess.LoadOperations();
@@ -132,6 +149,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             products = SQLiteDataAccess.LoadProducts(companyID);
             WiredUpProductList();
 
+        }
+
+        private void LoadHistoryList() 
+        {
+
+            
         }
 
         private void Add_User(object sender, RoutedEventArgs e)
@@ -177,10 +200,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
 
             }
-            if(VATRegisterOpen)
-            {
-
-            }
           
         }
 
@@ -190,8 +209,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 if (CompanyDataGrid.SelectedItem != null)
                 {
-
-
                     SQLiteDataAccess.DeleteInvoice((Invoice)CompanyDataGrid.SelectedItem);
                     invoices.Remove((Invoice)CompanyDataGrid.SelectedItem);
                     LoadInvoicesList();
@@ -212,6 +229,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             if (SettlementsOpen)
             {
 
+
             }
             if (ContractorsOpen)
             {
@@ -228,10 +246,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
 
             }
-            if (VATRegisterOpen)
-            {
-
-            }
 
 
             
@@ -239,17 +253,20 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Invoice_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             invoiceOpen = true;
             AddUser.Content = "Dodaj fakture";
             RemoveUser.Content = "Usuń fakture";
             LoadInvoicesList();
             ShowControls();
+            InvoiceCorrections.Visibility = Visibility.Visible;
 
         }
 
         private void Storage_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             StorageOpen = true;
             AddUser.Content = "Dodaj przedmiot";
@@ -257,20 +274,33 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.ItemsSource = null;
             LoadProductsList();
             ShowControls();
+            InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
         private void Settlements_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             SettlementsOpen = true;
             AddUser.Content = "Dodaj rozliczenie";
             RemoveUser.Content = "Usuń rozliczenie";
-            CompanyDataGrid.ItemsSource = null;
-            ShowControls();
+
+            LoadSellersList();
+            ShowControlsSettelments();
+            GridSettelmentIncome.ItemsSource = null;
+            GridSettelmentIncome.ItemsSource = invoices;
+           
+            WiredUpDebtorList(invoices);
+            GridSettelmentDebt.ItemsSource = null;
+            GridSettelmentDebt.ItemsSource = debters;
+            GridSettelmentDebt.Columns[1].Visibility = Visibility.Collapsed;
+            GridSettelmentDebt.Columns[3].Visibility = Visibility.Collapsed;
         }
+
 
         private void Contractors_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             ContractorsOpen = true;
             AddUser.Content = "Dodaj Kontrahenta";
@@ -281,12 +311,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void Statments_Open(object sender, RoutedEventArgs e)
         {
+            InvoiceCorrections.IsChecked = false;
             SettingToFalse();
             StatmentsOpen = true;      
             HideControls();
             StorageRB.IsChecked = true;
             LoadStorageList();
+            StorageDG.Columns[5].Visibility = Visibility.Collapsed;
+            StorageDG.Columns[6].Visibility = Visibility.Collapsed;
             StorageDG.Columns[7].Visibility = Visibility.Collapsed;
+            StorageDG.Columns[8].Visibility = Visibility.Collapsed;
         }
 
         private void HideControls()
@@ -294,14 +328,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.Visibility = Visibility.Hidden;
             AddUser.Visibility = Visibility.Hidden;
             RemoveUser.Visibility = Visibility.Hidden;
-            Print.Visibility = Visibility.Hidden;
-            Search.Visibility = Visibility.Hidden;
+         
             DateTo.Visibility = Visibility.Visible;
             DateFrom.Visibility = Visibility.Visible;
             StorageDG.Visibility = Visibility.Visible;
             StorageRB.Visibility = Visibility.Visible;
             InvoiceRB.Visibility = Visibility.Visible;
             OperationCB.Visibility = Visibility.Visible;
+            GridSettelmentIncome.Visibility = Visibility.Hidden;
+            GridSettelmentDebt.Visibility = Visibility.Hidden;
+            DateSettelmentFrom.Visibility = Visibility.Hidden;
+            DateSettelmentTo.Visibility = Visibility.Hidden;
+            CreateStatement.Visibility = Visibility.Hidden;
+            InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
         private void ShowControls()
@@ -309,8 +348,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.Visibility = Visibility.Visible;
             AddUser.Visibility = Visibility.Visible;
             RemoveUser.Visibility = Visibility.Visible;
-            Print.Visibility = Visibility.Visible;
-            Search.Visibility = Visibility.Visible;
             DateTo.Visibility = Visibility.Hidden;
             DateFrom.Visibility = Visibility.Hidden;
             StorageDG.Visibility = Visibility.Hidden;
@@ -319,28 +356,50 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             OperationCB.Visibility = Visibility.Hidden;
             Filter.Visibility = Visibility.Hidden;
             InvoiceDG.Visibility = Visibility.Hidden;
+            GridSettelmentIncome.Visibility = Visibility.Hidden;
+            GridSettelmentDebt.Visibility = Visibility.Hidden;
+            DateSettelmentFrom.Visibility = Visibility.Hidden;
+            DateSettelmentTo.Visibility = Visibility.Hidden;
+            CreateStatement.Visibility = Visibility.Hidden;
+            InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
-
-        private void VATRegister_Open(object sender, RoutedEventArgs e)
+        private void ShowControlsSettelments() 
         {
-            SettingToFalse();
-            VATRegisterOpen = true;
-            AddUser.Content = "Dodaj rejestr vat";
-            RemoveUser.Content = "Usuń rejestr vat";
-            CompanyDataGrid.ItemsSource = null;
-            ShowControls();
+            CompanyDataGrid.Visibility = Visibility.Hidden;
+            AddUser.Visibility = Visibility.Hidden;
+            RemoveUser.Visibility = Visibility.Hidden;
+            DateTo.Visibility = Visibility.Hidden;
+            DateFrom.Visibility = Visibility.Hidden;
+            StorageDG.Visibility = Visibility.Hidden;
+            StorageRB.Visibility = Visibility.Hidden;
+            InvoiceRB.Visibility = Visibility.Hidden;
+            OperationCB.Visibility = Visibility.Hidden;
+            Filter.Visibility = Visibility.Hidden;
+            InvoiceDG.Visibility = Visibility.Hidden;
+            GridSettelmentIncome.Visibility = Visibility.Visible;
+            GridSettelmentDebt.Visibility = Visibility.Visible;
+            DateSettelmentFrom.Visibility = Visibility.Visible;
+            DateSettelmentTo.Visibility = Visibility.Visible;
+            CreateStatement.Visibility = Visibility.Visible;
+            InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
-        private void Print_Open(object sender, RoutedEventArgs e)
+        private void ShowControlsStorage()
+        { 
+        }
+
+        private void DoubleClickDebt_Open(object sender,RoutedEventArgs e) 
         {
+            if (GridSettelmentDebt.SelectedItem != null) 
+            {
+                DebtorWindow debtorWindow = new DebtorWindow((Debter)GridSettelmentDebt.SelectedItem);
+                debtorWindow.Show();
+            }
+            
 
         }
 
-        private void Search_Open(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void CompanyDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -352,16 +411,36 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void DoubleClick_Open(object sender, MouseButtonEventArgs e)
         {
+
             if (CompanyDataGrid.SelectedItem != null && invoiceOpen)
             {
-                Invoice inv = CompanyDataGrid.SelectedItem as Invoice;
-                InvoiceDetails invoiceDetails = new InvoiceDetails(inv,inv.Id, inv.IdCompany);
-                invoiceDetails.Show();
+                if (InvoiceCorrections.IsChecked != true)
+                {
+                    Invoice inv = CompanyDataGrid.SelectedItem as Invoice;
+                    InvoiceDetails invoiceDetails = new InvoiceDetails(inv, inv.Id, inv.IdCompany);
+                    invoiceDetails.Show();
+                }
+                else
+                {
+                    InvoiceCorrection invoiceCorrection = CompanyDataGrid.SelectedItem as InvoiceCorrection;
+                    EditedInvoiceDetails edited = new EditedInvoiceDetails(invoiceCorrection);
+                    edited.Show();
+                }
+            }
+            else if(CompanyDataGrid.SelectedItem != null && StorageOpen)
+            {
+                Product prd = CompanyDataGrid.SelectedItem as Product;
+                StorageAdditionalOperations storageAdditionalOperations = new StorageAdditionalOperations(prd);
+                storageAdditionalOperations.Show();
+                storageAdditionalOperations.Closed += (s, eventarg) =>
+                {
+                    LoadProductsList();
+                };
             }
             else
             {
                 MessageBox.Show("Wybierz pozycję z listy!");
-            }
+            }          
         }
 
         private void SettingToFalse()
@@ -371,7 +450,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
               SettlementsOpen = false;
               ContractorsOpen = false;
               StatmentsOpen = false;
-              VATRegisterOpen = false;
         }
 
         private void OperationCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -401,7 +479,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     InvoiceDG.Visibility = Visibility.Hidden;
                 }
                 StorageDG.ItemsSource = storage;
+                StorageDG.Columns[5].Visibility = Visibility.Collapsed;
+                StorageDG.Columns[6].Visibility = Visibility.Collapsed;
                 StorageDG.Columns[7].Visibility = Visibility.Collapsed;
+                StorageDG.Columns[8].Visibility = Visibility.Collapsed;
             }           
         }
 
@@ -429,9 +510,37 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 StorageDG.ItemsSource = storageOperations;
                 if (StorageDG.Columns.Count > 0)
                 {
+                    StorageDG.Columns[5].Visibility = Visibility.Collapsed;
+                    StorageDG.Columns[6].Visibility = Visibility.Collapsed;
                     StorageDG.Columns[7].Visibility = Visibility.Collapsed;
+                    StorageDG.Columns[8].Visibility = Visibility.Collapsed;
                 }
             }
+        }
+
+        private void DateFilterDebtor()
+        {
+            List<Invoice> debtorInvoice = invoices;
+            if (DateFrom != null || DateTo != null)
+            {
+                if (DateSettelmentFrom.SelectedDate != null || DateSettelmentTo.SelectedDate != null)
+                {
+                    if (DateSettelmentFrom.SelectedDate != null)
+                    {
+                        debtorInvoice = debtorInvoice.FindAll(delegate (Invoice x) { return DateSettelmentFrom.SelectedDate <= Convert.ToDateTime(x.CreationDate); });
+                    }
+
+                    if (DateSettelmentTo.SelectedDate != null)
+                    {
+                        debtorInvoice = debtorInvoice.FindAll(delegate (Invoice x) { return DateSettelmentTo.SelectedDate >= Convert.ToDateTime(x.CreationDate); });
+                    }
+                }
+            }
+            GridSettelmentIncome.ItemsSource = null;
+            GridSettelmentIncome.ItemsSource = debtorInvoice;
+            WiredUpDebtorList(debtorInvoice);
+            GridSettelmentDebt.ItemsSource = null;
+            GridSettelmentDebt.ItemsSource = debters;
         }
 
         private void Filter_Click(object sender, RoutedEventArgs e)
@@ -455,6 +564,195 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        private void WiredUpDebtorList(List<Invoice> debtorInvoice)
+        {
+            debters.Clear();
+            string fullName = "";
+            int iD;
+            int debt;
+            int paid;
+            int toPay;
+            string invoiceNumber;
+            foreach (Invoice invoice in debtorInvoice)
+            {
+                paid = Int32.Parse(invoice.Paid);
+                toPay = Int32.Parse(invoice.ToPay);
+                if(paid < toPay)
+                {
+                    debt = toPay - paid;
+                    iD = invoice.IdSeller;
+                    invoiceNumber = invoice.Number;
+                    foreach(Seller seller in sellers)
+                    {
+                        if(invoice.IdSeller == seller.IdSeller)
+                        {
+                            fullName = seller.Name + " " + seller.Surname;
+                        }
+                    }
+                     Debter debter = new Debter(fullName, iD, debt, invoiceNumber);
+                    bool isInList = false;
+                    foreach (Debter debter1 in debters)
+                    {
+                        if (debter1.FullName.Equals(debter.FullName))
+                        {
+                            isInList = true;
+                            debter = debter1;
+                        }
+
+                    }
+                    if (isInList)
+                    {                       
+                        debter.AddDebts(debt);
+                        debters.Remove(debter);
+                    }
+                    debter.AddToInvoiceDictionary(invoiceNumber, debt);
+                    debters.Add(debter);
+                    
+
+                }
+            }
+        }
+
+        private void CreatestatementsPDF()
+        {
+            try {
+
+                StringBuilder date = new StringBuilder("");
+                
+                if(!String.IsNullOrEmpty(DateSettelmentFrom.Text))
+                {
+                    date.Append(" od " + DateSettelmentFrom.Text);
+                }
+                if (!String.IsNullOrEmpty(DateSettelmentTo.Text))
+                {
+                    date.Append(" do " + DateSettelmentTo.Text);
+                }
+
+                date = date.Replace("/", ".");
+
+                DateTime date2 = DateTime.Now;
+                String save = date2.ToString("G");
+                save = save.Replace(":", ";");
+
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "PDF(*.pdf)|*.pdf";
+                saveFileDialog1.FileName = "Zestawienie okresowe" + save;
+                saveFileDialog1.InitialDirectory = @"c:\";
+                if (saveFileDialog1.ShowDialog() == true)
+                {
+
+                    System.IO.FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create);
+                    var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
+                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
+                    pdfDoc.Open();
+
+                    var spacer = new iTextSharp.text.Paragraph("")
+                    {
+                        SpacingBefore = 10f,
+                        SpacingAfter = 10f,
+                    };
+
+                    var spacer2 = new iTextSharp.text.Paragraph("")
+                    {
+                        SpacingBefore = 100f,
+                        SpacingAfter = 70f,
+                    };
+
+                    var spacer3 = new iTextSharp.text.Paragraph("")
+                    {
+                        SpacingBefore = 50f,
+                        SpacingAfter = 30f,
+                    };
+
+                    List<Debter> debters = GridSettelmentDebt.ItemsSource as List<Debter>;
+                    List<Invoice> invoiceList = GridSettelmentIncome.ItemsSource as List<Invoice>;
+
+                    var titleFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 28);
+                    var numberFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 22);
+                    var serviceFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 16);
+                    var dateFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 14);
+                    var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
+                    var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
+                    DateTime date1 = DateTime.Today;
+
+                    var docDate = new iTextSharp.text.Paragraph("Data wygenerowania: " + date1.ToString("d"), dateFont);
+                    docDate.Alignment = Element.ALIGN_RIGHT;
+                    var docTitle = new iTextSharp.text.Paragraph("Zestawienie okresowe" + date.ToString(), numberFont);
+                    docTitle.Alignment = Element.ALIGN_CENTER;
+
+                    pdfDoc.Add(docDate);
+                    pdfDoc.Add(spacer3);
+                    pdfDoc.Add(docTitle);
+
+                    var invoiceTable = new PdfPTable(new[] { 2f, 2f, 2f, 2f })
+                    {
+                        HorizontalAlignment = 1,
+                        WidthPercentage = 100,
+                        DefaultCell = { MinimumHeight = 22f }
+                    };
+
+                    var debtTable = new PdfPTable(new[] { 2f, 2f })
+                    {
+                        HorizontalAlignment = 1,
+                        WidthPercentage = 100,
+                        DefaultCell = { MinimumHeight = 22f }
+                    };
+
+                    PdfPCell cell1 = new PdfPCell(new iTextSharp.text.Paragraph("Numer Faktury", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    PdfPCell cell2 = new PdfPCell(new iTextSharp.text.Paragraph("Data wystawienia", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    PdfPCell cell3 = new PdfPCell(new iTextSharp.text.Paragraph("Do zapłaty", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    PdfPCell cell4 = new PdfPCell(new iTextSharp.text.Paragraph("Zapłacono", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    cell1.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell2.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell3.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell4.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+
+                    invoiceTable.AddCell(cell1);
+                    invoiceTable.AddCell(cell2);
+                    invoiceTable.AddCell(cell3);
+                    invoiceTable.AddCell(cell4);
+
+                    PdfPCell cell5 = new PdfPCell(new iTextSharp.text.Paragraph("Imie i nazwisko", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+                    PdfPCell cell6 = new PdfPCell(new iTextSharp.text.Paragraph("Dług", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
+
+                    cell5.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+                    cell6.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
+
+                    debtTable.AddCell(cell5);
+                    debtTable.AddCell(cell6);
+
+
+                    invoiceList.ForEach(a =>
+                    {
+                        invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Number, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.CreationDate, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.ToPay.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        invoiceTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Paid.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    });
+
+                    debters.ForEach(a =>
+                    {
+                        debtTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.FullName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                        debtTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Debt.ToString(), tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
+                    });
+
+                    pdfDoc.Add(spacer);
+                    pdfDoc.Add(spacer);
+                    pdfDoc.Add(invoiceTable);
+                    pdfDoc.Add(spacer3);
+                    pdfDoc.Add(debtTable);
+                    pdfDoc.Close();
+                    writer.Close();
+                    fs.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Nie udało utworzyć się pliku pdf", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
         private void DateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateFilter();
@@ -463,6 +761,37 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         private void DateFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateFilter();
+        }
+
+        private void DateSettelmentFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateFilterDebtor();
+        }
+
+        private void DateSettelmentTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateFilterDebtor();
+        }
+
+        private void CreateStatement_Click(object sender, RoutedEventArgs e)
+        {
+            CreatestatementsPDF();
+            MessageBox.Show("Utworzono plik pdf");
+        }
+
+        private void InvoiceCorrections_Checked(object sender, RoutedEventArgs e)
+        {
+            LoadCorrectionList();
+            CompanyDataGrid.Columns[4].Visibility = Visibility.Collapsed;
+            CompanyDataGrid.Columns[5].Visibility = Visibility.Collapsed;
+
+        }
+
+        private void InvoiceCorrections_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CompanyDataGrid.Columns[4].Visibility = Visibility.Visible;
+            CompanyDataGrid.Columns[5].Visibility = Visibility.Visible;
+            LoadInvoicesList();
         }
     }
 }

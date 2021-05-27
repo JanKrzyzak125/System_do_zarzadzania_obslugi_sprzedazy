@@ -71,8 +71,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Debter.cs" />
+    <Compile Include="Classes\EditedInvoiceProduct.cs" />
+    <Compile Include="Classes\InvoiceCorrection.cs" />
     <Compile Include="Classes\InvoiceProduct.cs" />
     <Compile Include="Classes\StorageOperations.cs" />
+    <Compile Include="Classes\StorageProduct.cs" />
     <Compile Include="Winows\AddNewProductMagazine.xaml.cs">
       <DependentUpon>AddNewProductMagazine.xaml</DependentUpon>
     </Compile>
@@ -85,6 +89,12 @@
     <Compile Include="Classes\BaseInvoice.cs" />
     <Compile Include="Classes\Company.cs" />
     <Compile Include="Classes\Invoice.cs" />
+    <Compile Include="Winows\DebtorWindow.xaml.cs">
+      <DependentUpon>DebtorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winows\EditedInvoiceDetails.xaml.cs">
+      <DependentUpon>EditedInvoiceDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Winows\InvoiceDetails.xaml.cs">
       <DependentUpon>InvoiceDetails.xaml</DependentUpon>
     </Compile>
@@ -103,6 +113,9 @@
     </Compile>
     <Compile Include="Classes\Seller.cs" />
     <Compile Include="Classes\SQLiteDataAccess.cs" />
+    <Compile Include="Winows\StorageAdditionalOperations.xaml.cs">
+      <DependentUpon>StorageAdditionalOperations.xaml</DependentUpon>
+    </Compile>
     <Page Include="Winows\AddNewProductMagazine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -112,6 +125,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Winows\addUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winows\DebtorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winows\EditedInvoiceDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Winows\Search.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winows\StorageAdditionalOperations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
