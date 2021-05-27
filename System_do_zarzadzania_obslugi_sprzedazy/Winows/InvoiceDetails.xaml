@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
-        Title="InvoiceDetails" Height="695" Width="1280" ResizeMode="NoResize">
+        Title="Szczegóły Faktury" Height="695" Width="1280" ResizeMode="NoResize">
     <Grid Margin="0,-11,-80,-59" Height="761" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1354">
 
         <Label Content="ID" HorizontalAlignment="Left" Height="37" Margin="15,81,0,0"  VerticalAlignment="Top" Width="54" />

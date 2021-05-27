@@ -98,9 +98,6 @@
     <Compile Include="Winows\InvoiceDetails.xaml.cs">
       <DependentUpon>InvoiceDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Winows\ListOfInvoices.xaml.cs">
-      <DependentUpon>ListOfInvoices.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Winows\NewProduct.xaml.cs">
       <DependentUpon>NewProduct.xaml</DependentUpon>
     </Compile>
@@ -108,9 +105,6 @@
       <DependentUpon>NewInvoice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Product.cs" />
-    <Compile Include="Winows\Search.xaml.cs">
-      <DependentUpon>Search.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Classes\Seller.cs" />
     <Compile Include="Classes\SQLiteDataAccess.cs" />
     <Compile Include="Winows\StorageAdditionalOperations.xaml.cs">
@@ -140,10 +134,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winows\ListOfInvoices.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Winows\NewProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,10 +151,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Winows\NewInvoice.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Winows\Search.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

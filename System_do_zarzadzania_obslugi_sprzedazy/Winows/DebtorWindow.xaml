@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy.Winows"
         mc:Ignorable="d"
-        Title="DebtorWindow" Height="600" Width="1000">
+        Title="Szczegóły Dłużnika" Height="600" Width="1000">
     <Grid>
         <DataGrid x:Name="DebtorInvoice" AutoGenerateColumns="False" ItemsSource="{Binding debterDictionary}" HorizontalAlignment="Left" Height="534" Margin="239,25,0,0" VerticalAlignment="Top" Width="743" Background="White" SelectionMode="Single" GridLinesVisibility="None" Grid.Row="2"  Grid.RowSpan="2" VerticalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True" CanUserResizeRows="False" RowDetailsVisibilityMode="Visible">
             <DataGrid.Columns>

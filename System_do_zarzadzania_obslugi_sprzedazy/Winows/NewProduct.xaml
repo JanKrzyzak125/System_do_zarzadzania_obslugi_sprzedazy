@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy.Winows"
         mc:Ignorable="d"
-        Title="NewProduct" Height="600" Width="950">
+        Title="Dodaj Produkt" Height="600" Width="950">
     <Grid Margin="-62,-45,-55,-21">
         <TextBox x:Name="ProductNettoPrice" HorizontalAlignment="Left" Height="24" Margin="734,201,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="ProductNettoPrice_TextChanged"/>
         <TextBox x:Name="InvoiceID" HorizontalAlignment="Left" Height="24" Margin="231,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" IsEnabled="False"/>

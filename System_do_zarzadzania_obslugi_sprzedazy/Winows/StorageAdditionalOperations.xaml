@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy.Winows"
         mc:Ignorable="d"
-        Title="StorageAdditionalOperations" Height="485.63" Width="578.299">
+        Title="Operacje Magazynowe" Height="485.63" Width="578.299">
     <Grid Margin="0,0,2,-5">
         <RadioButton x:Name="adoptionRB" Content="Przyjęcie" HorizontalAlignment="Left" Margin="77,77,0,0" VerticalAlignment="Top" Checked="adoptionRB_Checked"/>
         <RadioButton x:Name="issueRB" Content="Wydanie" HorizontalAlignment="Left" Margin="77,110,0,0" VerticalAlignment="Top" Checked="issueRB_Checked"/>

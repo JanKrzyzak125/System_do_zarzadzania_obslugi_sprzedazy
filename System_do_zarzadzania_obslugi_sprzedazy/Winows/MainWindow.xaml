@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1277" ResizeMode="CanMinimize">
+        Title="System fakturowania" Height="720" Width="1277" ResizeMode="CanMinimize">
 
 
     <Grid Margin="0,0,-6,0">

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy.Winows"
         mc:Ignorable="d"
-          Title="NewProduct" Height="524.827" Width="709.921">
+          Title="Nowy Produkt" Height="524.827" Width="709.921">
     <Grid Margin="-31,0,-38,-21" HorizontalAlignment="Left" Width="834" Height="525" VerticalAlignment="Top">
 
 

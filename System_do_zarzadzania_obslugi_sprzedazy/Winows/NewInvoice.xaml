@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
-        Title="NewInvoice" Height="571.5" Width="1006">
+        Title="Nowa Faktura" Height="571.5" Width="1006">
     <Grid Margin="-24,-42,-432,-31" HorizontalAlignment="Left" Width="1454">
 
         <Label Content="ID Sprzedawcy" HorizontalAlignment="Left" Height="25" Margin="78,74,0,0"  VerticalAlignment="Top" Width="100" />
