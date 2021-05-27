@@ -1,30 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
     /// <summary>
-    /// Interaction logic for NewInvoice.xaml
+    /// Okienko, które pozwala stworzyć nowa fakturę i dodaje do bazy danych
     /// </summary>
     public partial class NewInvoice : Window
     {
+        /// <summary>
+        /// Konstruktor okienka Nowa faktura, która inicjalizuje komponenty okienka
+        /// </summary>
         public NewInvoice()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Metoda, która obsługuje wcisnięcie przyciska Dodaj, która pozwala stworzyć nowa 
+        /// fakturę i dodaje do bazy danych oraz zamyka okienko 
+        /// </summary>
         private void AddInvoice_Click(object sender, RoutedEventArgs e)
         {
             int num = SQLiteDataAccess.LoadAiCompanyId("Database_for_invoices")[0]+1;
@@ -48,6 +45,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             this.Close();
         }
 
+        /// <summary>
+        /// Metoda, która zmienia sposób płatności od wyboru użytkownika
+        /// </summary>
         private void PaymentTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(PaymentTypeComboBox.SelectedItem!=null)
@@ -62,11 +62,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 {
                     AccountNumber.Visibility = Visibility.Visible;
                     AccountNumberLabel.Visibility = Visibility.Visible;
-
                 }
             }
-
-
         }
     }
 }

@@ -1,40 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
-
 
 namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 {
-
+    /// <summary>
+    /// Okienko, które pozwala ujrzeć zadłużenia kontrahenta
+    /// </summary>
     public partial class EditedInvoiceDetails : Window
     {
-
         private Invoice showInvoice;
         private Company showCompanyName;
         private Seller showCompanySeller;
-        private StorageOperations storageOperation;
 
         private int invoiceID;
         private int companyID;
-        List<InvoiceProduct> invoiceProducts;
         List<Company> companyName;
         List<Seller> companySellerName;
         List<EditedInvoiceProduct> editedInvoiceProducts = new List<EditedInvoiceProduct>();
+
+        /// <summary>
+        /// Konstrukt, który inicjalizuje komponenty okienka oraz wczytuje konkretna fakturę 
+        /// i wpisuje dane w odpowiednie pola.
+        /// </summary>
         public EditedInvoiceDetails(InvoiceCorrection invoiceCorrection)
         {
-
             InitializeComponent();
             showInvoice = SQLiteDataAccess.LoadInvoice(invoiceCorrection.InvoiceConnection)[0];
             this.companyID = 1;
@@ -43,7 +36,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             ID.Text = invoiceCorrection.CorrectionID.ToString();
             LoadCompanyList();
             IdCompany.Text = showCompanyName.CompanyName;
-
             LoadSellerList();
             IdSeller.Text = showCompanySeller.Name + " " + showCompanySeller.Surname;
             Number.Text = invoiceCorrection.CorrectionNumber.ToString();
@@ -69,25 +61,37 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             Corection.Text = invoiceCorrection.CorrectionReason;
             DateOfCoretion.Text = invoiceCorrection.CorrectionDate;
         }
+
+        /// <summary>
+        /// Metoda, która przekazuje dane z odpowiedniej faktury.
+        /// </summary>
         private void LoadInvoiceList()
         {
             editedInvoiceProducts = SQLiteDataAccess.LoadEditedInvoicesProduct(invoiceID);
             InvoiceProductListDataGrid.ItemsSource = editedInvoiceProducts;
         }
 
+        /// <summary>
+        /// Metoda, która przekazuje firmę, której dotyczy faktura
+        /// </summary>
         private void LoadCompanyList()
         {
             companyName = SQLiteDataAccess.LoadNameCompany(companyID);
             showCompanyName = companyName[0];
-
         }
 
+        /// <summary>
+        /// Metoda, która przekazuje dane kontrahenta 
+        /// </summary>
         private void LoadSellerList()
         {
             companySellerName = SQLiteDataAccess.LoadNameSeller(companyID);
             showCompanySeller = companySellerName[0];
         }
 
+        /// <summary>
+        /// Metoda, która automatycznie generuje nazwy kolumn
+        /// </summary>
         private void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.PropertyDescriptor is PropertyDescriptor descriptor)
@@ -96,6 +100,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             }
         }
 
+        /// <summary>
+        /// Metoda, która ukrywa, pokazuje numer konta w zależności od wyboru sposobu płatności.
+        /// </summary>
         private void PaymentTypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (PaymentTypeCB.Text.Equals("Przelew"))
@@ -107,10 +114,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             {
                 AccountNumber.Visibility = Visibility.Visible;
                 AccountNumberLabel.Visibility = Visibility.Visible;
-                //Dlaczego to tak działa, Jakby to powiedział święty jp2 NIE WIEM
             }
         }
 
+        /// <summary>
+        /// Metoda, która zostanie uruchomiona podczas zaznaczenia CheckBoxa, przez co pozwoli
+        /// na koretkę faktury.
+        /// </summary>
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             PaymentType.IsEnabled = true;
@@ -136,6 +146,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             InvoiceProductListDataGrid.Columns[1].Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Metoda, która wyłączą możliwośc korekty pdf po odznaczeniu CheckBoxa
+        /// </summary>
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             IdSeller.IsEnabled = false;
@@ -162,6 +175,5 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             InvoiceProductListDataGrid.Columns[0].Visibility = Visibility.Visible;
             InvoiceProductListDataGrid.Columns[1].Visibility = Visibility.Visible;
         }
-
     }
 }

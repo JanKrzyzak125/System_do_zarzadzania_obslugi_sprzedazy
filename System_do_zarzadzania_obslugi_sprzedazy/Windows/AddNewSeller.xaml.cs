@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 {
     /// <summary>
-    /// Logika interakcji dla klasy AddNewSeller.xaml
+    /// Okno które pozwala na dodawanie nowego kontrahenta.
     /// </summary>
     public partial class AddNewSeller : Window
     {
+        /// <summary>
+        /// Konstruktor, który inicjalizuje komponenty okienka dodawanie nowego kontrahenta
+        /// </summary>
         public AddNewSeller()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Metoda z przycisku Dodaj, która przekazuje dane z textboxów i tworzy nowy obiekt Seller
+        /// oraz dodaje do bazy danych nowego kontrahenta.
+        /// </summary>
         private void addSeller_Click(object sender, RoutedEventArgs e)
         {
             string name = Name.Text;
@@ -36,9 +31,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             Seller seller = new Seller(name, surname, city, street, phonenumber, nip, regon) ;
             SQLiteDataAccess.SaveSeller(seller);
             this.Close();
-
         }
 
+        /// <summary>
+        /// Metoda co odsłaia potrzebne rzeczy dla kontrahenta, który jest osoba fizyczna
+        /// </summary>
         private void RadioButton_person(object sender, RoutedEventArgs e)
         {
             Name_Label.Content = "Imie";
@@ -50,6 +47,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             Regon.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Metoda co odsłaia potrzebne rzeczy dla kontrahenta, który jest firma
+        /// </summary>
         private void RadioButton_Company(object sender, RoutedEventArgs e)
         {
             Name_Label.Content = "Nazwa Firmy";
@@ -59,7 +59,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             Nip.Visibility = Visibility.Visible;
             Regon.Visibility = Visibility.Visible;
             Surname.Visibility = Visibility.Hidden;
-
         }
     }
 }

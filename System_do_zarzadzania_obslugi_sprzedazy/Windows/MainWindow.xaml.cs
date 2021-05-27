@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Drawing;
 using System.ComponentModel;
 using System_do_zarzadzania_obslugi_sprzedazy.Winows;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
@@ -25,12 +15,13 @@ using Microsoft.Win32;
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Startowe okienko aplikacji Systemu fakturowania. Z tego okienka można się przedostać
+    /// do faktur, magazynu, rozliczeń, kontrahentów, zestawień. Można dodawać, zmieniać 
+    /// i drukować do pdf.
     /// </summary>
     public partial class MainWindow : Window
     {
 
-        List<Company> companies = new List<Company>();
         List<Seller> sellers = new List<Seller>();
         List<BaseInvoice> baseInvoices = new List<BaseInvoice>();
         List<BaseInvoice> invoiceStatements = new List<BaseInvoice>();
@@ -41,7 +32,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<Debter> debters = new List<Debter>();
         List<InvoiceCorrection> invoiceCorrections = new List<InvoiceCorrection>();
         
-
         private bool invoiceOpen=true;
         private bool StorageOpen = false;
         private bool SettlementsOpen = false;
@@ -50,7 +40,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private int companyID = 1;
 
-
+        /// <summary>
+        /// Konstruktor, który inicjalizuje komponenty okienka oraz odsłania domyślne kontrolki
+        /// i przeładowywuje pola odpowiednymi danymi
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -61,23 +54,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceCorrections.Visibility = Visibility.Visible;
         }
 
-        private void LoadCompaniesList()
-        {
-            companies = SQLiteDataAccess.LoadUsers();
-            WiredUpCompaniesList();
-        }
-
-        private void Test_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("dziala");
-        }
-
-        private void WiredUpCompaniesList()
-        {
-            CompanyDataGrid.ItemsSource = null;
-            CompanyDataGrid.ItemsSource = companies;
-
-        }
         private void FillOperations()
         {
             operations.Add("Przyjęcie wewnętrzne");
@@ -117,7 +93,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         {
             CompanyDataGrid.ItemsSource = null;
             CompanyDataGrid.ItemsSource = invoiceCorrections;
-
         }
 
         private void LoadCorrectionList()
@@ -151,20 +126,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
-        private void LoadHistoryList() 
-        {
-
-            
-        }
-
         private void Add_User(object sender, RoutedEventArgs e)
         {
-            //addUser addUser = new addUser();
-            //addUser.Show();
-            //addUser.Closed += (s, eventarg) =>
-            //{
-            //    LoadCompaniesList();
-            //}
             if (invoiceOpen)
             {
                 NewInvoice newInvoice = new NewInvoice();
@@ -183,10 +146,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     LoadProductsList();
                 };
             }
-            if(SettlementsOpen)
-            {
-                
-            }
             if(ContractorsOpen)
             {
                 AddNewSeller addNewSeller = new AddNewSeller();
@@ -196,11 +155,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     LoadSellersList();
                 };
             }
-            if(StatmentsOpen)
-            {
-
-            }
-          
         }
 
         private void Remove_User(object sender, RoutedEventArgs e)
@@ -218,37 +172,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 if (CompanyDataGrid.SelectedItem != null)
                 {
-
-
                     SQLiteDataAccess.DeleteProduct((Product)CompanyDataGrid.SelectedItem);
                     products.Remove((Product)CompanyDataGrid.SelectedItem);
                     LoadProductsList();
                 }
 
             }
-            if (SettlementsOpen)
-            {
-
-
-            }
             if (ContractorsOpen)
             {
                 if (CompanyDataGrid.SelectedItem != null)
                 {
-
-
                     SQLiteDataAccess.DeleteContractors((Seller)CompanyDataGrid.SelectedItem);
                     sellers.Remove((Seller)CompanyDataGrid.SelectedItem);
                     LoadSellersList();
                 }
-            }
-            if (StatmentsOpen)
-            {
-
-            }
-
-
-            
+            }       
         }
 
         private void Invoice_Open(object sender, RoutedEventArgs e)
@@ -261,7 +199,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             LoadInvoicesList();
             ShowControls();
             InvoiceCorrections.Visibility = Visibility.Visible;
-
         }
 
         private void Storage_Open(object sender, RoutedEventArgs e)
@@ -297,7 +234,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             GridSettelmentDebt.Columns[3].Visibility = Visibility.Collapsed;
         }
 
-
         private void Contractors_Open(object sender, RoutedEventArgs e)
         {
             InvoiceCorrections.IsChecked = false;
@@ -328,7 +264,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.Visibility = Visibility.Hidden;
             AddUser.Visibility = Visibility.Hidden;
             RemoveUser.Visibility = Visibility.Hidden;
-         
             DateTo.Visibility = Visibility.Visible;
             DateFrom.Visibility = Visibility.Visible;
             StorageDG.Visibility = Visibility.Visible;
@@ -385,10 +320,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
-        private void ShowControlsStorage()
-        { 
-        }
-
         private void DoubleClickDebt_Open(object sender,RoutedEventArgs e) 
         {
             if (GridSettelmentDebt.SelectedItem != null) 
@@ -396,8 +327,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 DebtorWindow debtorWindow = new DebtorWindow((Debter)GridSettelmentDebt.SelectedItem);
                 debtorWindow.Show();
             }
-            
-
         }
 
 
@@ -411,7 +340,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         private void DoubleClick_Open(object sender, MouseButtonEventArgs e)
         {
-
             if (CompanyDataGrid.SelectedItem != null && invoiceOpen)
             {
                 if (InvoiceCorrections.IsChecked != true)

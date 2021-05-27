@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy.Winows"
+        xmlns:local="clr-namespace:System_do_zarzadzania_obslugi_sprzedazy"
         mc:Ignorable="d"
           Title="Nowy Produkt" Height="524.827" Width="709.921">
     <Grid Margin="-31,0,-38,-21" HorizontalAlignment="Left" Width="834" Height="525" VerticalAlignment="Top">
@@ -13,8 +13,8 @@
         <TextBox x:Name="ProductName" HorizontalAlignment="Left" Height="24" Margin="323,51,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"  />
         <TextBox x:Name="NetPrice1art" HorizontalAlignment="Left" Height="24" Margin="323,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="NetPrice1art_TextChanged" />
         <TextBox x:Name="ProductQuantity" HorizontalAlignment="Left" Height="24" Margin="323,144,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
-        <TextBox x:Name="ProductNettoPrice" HorizontalAlignment="Left" Height="24" Margin="323,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="ProductNettoPrice_TextChanged"/>
-        <TextBox x:Name="ProductBruttoPrice" HorizontalAlignment="Left" Height="24" Margin="323,236,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" TextChanged="ProductBruttoPrice_TextChanged"/>
+        <TextBox x:Name="ProductNettoPrice" HorizontalAlignment="Left" Height="24" Margin="323,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" />
+        <TextBox x:Name="ProductBruttoPrice" HorizontalAlignment="Left" Height="24" Margin="323,236,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256" />
         <TextBox x:Name="ProductVat" HorizontalAlignment="Left" Height="24" Margin="323,286,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
         <Button x:Name="AddProductToMagazine" Content="Dodaj" HorizontalAlignment="Left" Margin="370,409,0,0" VerticalAlignment="Top" Width="83" Height="42" Click="AddProductToMagazine_Click"  />
         <Label Content="Cena Netto za 1 szt" HorizontalAlignment="Left" Margin="171,101,0,0" VerticalAlignment="Top" Width="136"/>
