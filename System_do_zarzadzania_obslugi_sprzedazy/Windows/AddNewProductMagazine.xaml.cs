@@ -3,28 +3,23 @@ using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 {
     /// <summary>
-    /// Logika interakcji dla klasy AddNewProductMagazine.xaml
+    /// Okienko, które pozwala dodawać nowy/e produkt/y do magazynu
     /// </summary>
     public partial class AddNewProductMagazine : Window
     {
-
         List<Seller> sellers = new List<Seller>();
         Company company = SQLiteDataAccess.LoadNameCompany(1)[0];
+
+        /// <summary>
+        /// Konstruktor okienka który inicjalizuje kontrolki ładujemy listę kontrahentów, która
+        /// wczytujemy do comboboxa.
+        /// </summary>
         public AddNewProductMagazine()
         {
             InitializeComponent();
@@ -32,14 +27,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             SellerCB.ItemsSource = sellers;
         }
 
+        /// <summary>
+        /// Metoda do przycisku dodaj produkt, który przekazuje dane z textboxów z, którego 
+        /// tworzymy nowy obiekt Product i dodaje go do bazy danych. Na koniec tworzymy pdf 
+        /// z przyjęcia zewnętrznego
+        /// </summary>
         private void AddProductToMagazine_Click(object sender, RoutedEventArgs e)
         {
             string Name = ProductName.Text;
-            string Quantity = (ProductQuantity.Text);
-            string NetPrice = (NetPrice1art.Text);
-            string Vat = (ProductVat.Text);
-            string VatValue = (ProductNettoPrice.Text);
-            string GrossValue = (ProductBruttoPrice.Text);
+            string Quantity = ProductQuantity.Text;
+            string NetPrice = NetPrice1art.Text;
+            string Vat = ProductVat.Text;
+            string VatValue = ProductNettoPrice.Text;
+            string GrossValue = ProductBruttoPrice.Text;
             Product Product = new Product(Name, Quantity, NetPrice, Vat, VatValue, GrossValue);
             int IdProduct = SQLiteDataAccess.LoadAiCompanyId("Product")[0]+1;
             SQLiteDataAccess.SaveProductToCustomer(IdProduct, 1);
@@ -48,6 +48,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             this.Close();
         }
 
+        /// <summary>
+        /// Metoda, która generuje pdf z przyjęcia zewnętrznego. Używamy biblioteki iTextSharp.
+        /// </summary>
         private void CreatePDF()
         {
             string date = DateTime.Now.ToString();
@@ -69,7 +72,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
                 var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
 
-
                 var spacer = new iTextSharp.text.Paragraph("")
                 {
                     SpacingBefore = 10f,
@@ -88,7 +90,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     SpacingAfter = 30f,
                 };
 
-
                 var mainParagraph = new iTextSharp.text.Paragraph("Przyjęcie zewnętrzne (PZ)" , numberFont);
                 var storage = new iTextSharp.text.Paragraph("Magazyn: Główny magazyn", dateFont);
                 var creationDate = new iTextSharp.text.Paragraph("Data przyjęcia: " + DateTime.Now.ToString("d"), smallFont);
@@ -103,13 +104,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 pdfDoc.Add(mainParagraph);
                 pdfDoc.Add(spacer);
 
-
                 var headerTable = new PdfPTable(new[] { .5f, .5f })
                 {
                     HorizontalAlignment = 0,
                     WidthPercentage = 40,
                     DefaultCell = { MinimumHeight = 22f },
-
                 };
 
                 var cellSeller = new PdfPCell(new Phrase("Dostawca"))
@@ -128,7 +127,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 };
                 cellBuyer.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
 
-
                 headerTable.AddCell(cellSeller);
                 headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Imię i nazwisko", tableFont)));
                 headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(sellerCB.Name + " " + sellerCB.Surname, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
@@ -139,7 +137,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 headerTable.TotalWidth = 240f;
                 headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top - 180, writer.DirectContent);
 
-
                 var headerTable2 = new PdfPTable(new[] { .5f, .5f })
                 {
                     HorizontalAlignment = 2,
@@ -148,7 +145,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 };
 
                 headerTable2.AddCell(cellBuyer);
-                
                 headerTable2.AddCell("Nazwa Firmy");
                 headerTable2.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(company.CompanyName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 headerTable2.AddCell("NIP");
@@ -163,11 +159,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 headerTable2.TotalWidth = 240f;
                 headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 180, writer.DirectContent);
 
-
                 pdfDoc.Add(spacer2);
                 pdfDoc.Add(spacer3);
                 pdfDoc.Add(storage);
-
 
                 var columnCount = 6;
                 var columnWidths = new[] { 2.2f, 1f, 1f, 1.5f, 1.5f, 1.5f};
@@ -206,9 +200,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 table.AddCell(cell4);
                 table.AddCell(cell5);
                 table.AddCell(cell6);
-
-
-
                 table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(ProductName.Text, tableFont)));
                 table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(ProductQuantity.Text, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(NetPrice1art.Text, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
@@ -216,11 +207,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(ProductBruttoPrice.Text, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                 table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(ProductVat.Text)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
 
-
-
                 pdfDoc.Add(spacer);
                 pdfDoc.Add(table);
-
 
                 pdfDoc.Close();
                 writer.Close();
@@ -233,14 +221,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             }
         }
 
-        private void ProductNettoPrice_TextChanged(object sender, TextChangedEventArgs e)
-        {
-        }
-
-        private void ProductBruttoPrice_TextChanged(object sender, TextChangedEventArgs e)
-        {
-        }
-
+        /// <summary>
+        /// Metoda, która generuje ceny Netto, Brutto na podstawie Vatu.
+        /// </summary>
         private void NetPrice1art_TextChanged(object sender, TextChangedEventArgs e)
         {
             if(!string.IsNullOrEmpty(ProductQuantity.Text) && !string.IsNullOrEmpty(ProductVat.Text))

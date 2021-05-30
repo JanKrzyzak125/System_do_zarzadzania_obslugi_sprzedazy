@@ -16,6 +16,21 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publikuj\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -77,68 +92,61 @@
     <Compile Include="Classes\InvoiceProduct.cs" />
     <Compile Include="Classes\StorageOperations.cs" />
     <Compile Include="Classes\StorageProduct.cs" />
-    <Compile Include="Winows\AddNewProductMagazine.xaml.cs">
+    <Compile Include="Windows\AddNewProductMagazine.xaml.cs">
       <DependentUpon>AddNewProductMagazine.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Winows\AddNewSeller.xaml.cs">
+    <Compile Include="Windows\AddNewSeller.xaml.cs">
       <DependentUpon>AddNewSeller.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Winows\addUser.xaml.cs">
-      <DependentUpon>addUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\BaseInvoice.cs" />
     <Compile Include="Classes\Company.cs" />
     <Compile Include="Classes\Invoice.cs" />
-    <Compile Include="Winows\DebtorWindow.xaml.cs">
+    <Compile Include="Windows\DebtorWindow.xaml.cs">
       <DependentUpon>DebtorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Winows\EditedInvoiceDetails.xaml.cs">
+    <Compile Include="Windows\EditedInvoiceDetails.xaml.cs">
       <DependentUpon>EditedInvoiceDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Winows\InvoiceDetails.xaml.cs">
+    <Compile Include="Windows\InvoiceDetails.xaml.cs">
       <DependentUpon>InvoiceDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Winows\NewProduct.xaml.cs">
+    <Compile Include="Windows\NewProduct.xaml.cs">
       <DependentUpon>NewProduct.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Winows\NewInvoice.xaml.cs">
+    <Compile Include="Windows\NewInvoice.xaml.cs">
       <DependentUpon>NewInvoice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Product.cs" />
     <Compile Include="Classes\Seller.cs" />
     <Compile Include="Classes\SQLiteDataAccess.cs" />
-    <Compile Include="Winows\StorageAdditionalOperations.xaml.cs">
+    <Compile Include="Windows\StorageAdditionalOperations.xaml.cs">
       <DependentUpon>StorageAdditionalOperations.xaml</DependentUpon>
     </Compile>
-    <Page Include="Winows\AddNewProductMagazine.xaml">
+    <Page Include="Windows\AddNewProductMagazine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winows\AddNewSeller.xaml">
+    <Page Include="Windows\AddNewSeller.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winows\addUser.xaml">
+    <Page Include="Windows\DebtorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winows\DebtorWindow.xaml">
+    <Page Include="Windows\EditedInvoiceDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winows\EditedInvoiceDetails.xaml">
+    <Page Include="Windows\InvoiceDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winows\InvoiceDetails.xaml">
+    <Page Include="Windows\NewProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winows\NewProduct.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Winows\MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -146,15 +154,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Winows\MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Winows\NewInvoice.xaml">
+    <Page Include="Windows\NewInvoice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winows\StorageAdditionalOperations.xaml">
+    <Page Include="Windows\StorageAdditionalOperations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -190,7 +198,18 @@
   <ItemGroup>
     <None Include="ConfigFiles\App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 i x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

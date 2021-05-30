@@ -1,36 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
-using System_do_zarzadzania_obslugi_sprzedazy.Winows;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 using Microsoft.Win32;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 {
     /// <summary>
-    /// Logika interakcji dla klasy DebtorWindow.xaml
+    /// Okienko, które pozwala ujrzeć zadłużenia kontrahenta
     /// </summary>
     public partial class DebtorWindow : Window
     {
         private Debter debter;
         private Dictionary<string, int> debterDictionary = new Dictionary<string, int>();
-        List<Debter> debters;
 
-
+        /// <summary>
+        /// Okienko, które pozwala ujrzeć zadłużenia kontrahenta
+        /// </summary>
         public DebtorWindow(Debter Debter)
         {
             InitializeComponent();
@@ -39,16 +28,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             DebtorInvoice.ItemsSource = debterDictionary;
         }
 
-
-
-        private void ExportToPDF()
-        {
-
-        }
-
+        /// <summary>
+        /// Metoda, która tworzy i zapisuje do pliku pdf dłużnika
+        /// </summary>
         private void CreateDebtPDF()
         {
-        
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "PDF(*.pdf)|*.pdf";
             saveFileDialog1.FileName = "Raport dłużnika"+debter.FullName;
@@ -58,8 +42,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                 using (FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create))
                 {
                     try
-                    {
-                        //System.IO.FileStream fs = new FileStream("D:/projekcik" + "\\" + "Raport dłużnika " + debter.FullName + ".pdf", FileMode.Create);
+                    {       
                         Document pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                         PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
                         pdfDoc.Open();
@@ -93,7 +76,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                         var docDate = new iTextSharp.text.Paragraph("Data wygenerowania: " + date1.ToString("d"));
                         docDate.Alignment = Element.ALIGN_RIGHT;
 
-
                         var docTitle = new iTextSharp.text.Paragraph("Podsumowanie niezapłaconych należności ", numberFont);
                         docTitle.Alignment = Element.ALIGN_CENTER;
                         var docName = new iTextSharp.text.Paragraph(debter.FullName, numberFont);
@@ -121,9 +103,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                             DefaultCell = { MinimumHeight = 22f }
                         };
 
-
-
-
                         PdfPCell cell1 = new PdfPCell(new iTextSharp.text.Paragraph("Numer Faktury", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
                         PdfPCell cell2 = new PdfPCell(new iTextSharp.text.Paragraph("Kwota [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER };
                         cell1.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
@@ -138,7 +117,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                             table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Key)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                             table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Value.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         }
-
 
                         sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sum.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                         var toPayValue = new iTextSharp.text.Paragraph("Do zapłaty pozostało: " + debter.Debt.ToString() + " zł", dateFont);
@@ -156,21 +134,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     {
                         MessageBox.Show("Nie udało utworzyć się pliku pdf", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-
                 }
             }
-
-
-
-
         }
+
+        /// <summary>
+        /// Metoda przycisku Stwórz pdf, która tworzy pdf oraz wyświetla informacje o utworzeniu pdf 
+        /// </summary>
         private void ClientPDF_Click(object sender, RoutedEventArgs e)
         {
-
             CreateDebtPDF();
             MessageBox.Show("Plik pdf został utworzony");
         }
-
-
     }
 }

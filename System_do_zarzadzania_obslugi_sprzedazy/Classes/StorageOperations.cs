@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
 {
@@ -15,15 +12,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
 
         private int informationID;
         private string operationName;
-        private int quantity;
         private string date;
         private string receiver;
         private string sender;
-        private string productName;
         private string color;
         private int invoiceID;
         private int operationID;
-
 
 
         [DisplayName("ID")]

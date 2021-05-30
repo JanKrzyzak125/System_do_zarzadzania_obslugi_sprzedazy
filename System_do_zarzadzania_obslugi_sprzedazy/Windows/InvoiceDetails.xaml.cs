@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System_do_zarzadzania_obslugi_sprzedazy.Winows;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
-using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
@@ -23,11 +14,10 @@ using Microsoft.Win32;
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
     /// <summary>
-    /// Interaction logic for InvoiceDetails.xaml
+    /// Okienko które pozwala zobaczyć szczegóły konkretnej faktury wraz z przedmiotami i danymi
     /// </summary>
     public partial class InvoiceDetails : Window
     {
-
         private Invoice showInvoice;
         private Company showCompanyName;
         private Seller showCompanySeller;
@@ -40,27 +30,22 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<Seller> companySellerName;
         List<EditedInvoiceProduct> editedInvoiceProducts = new List<EditedInvoiceProduct>();
 
+        /// <summary>
+        /// Konstruktor, który inicjalizuje komponenty okienka Szczegóły faktur oraz wypisuje 
+        /// dane w odpowiednie pola wraz z listą produktów.
+        /// </summary>
         public InvoiceDetails(Invoice invoice, int iID, int companyID)
         {
-
             showInvoice = invoice;
             InitializeComponent();
             invoiceID = iID;
-            //this.companyID = companyID;
             this.companyID = 1;
             LoadInvoiceList();
             ID.Text = showInvoice.Id.ToString();
-            
-
             LoadCompanyList();
             IdCompany.Text = showCompanyName.CompanyName;
-
             LoadSellerList();
             IdSeller.Text = showCompanySeller.Name + " " + showCompanySeller.Surname;
-
-            
-            //IdSeller.Text = showInvoice.IdSeller.ToString();
-            //IdCompany.Text = showInvoice.IdCompany.ToString();
             Number.Text = showInvoice.Number.ToString();
             CreationDate.Text = showInvoice.CreationDate;
             SaleDate.Text = showInvoice.SaleDate;
@@ -71,6 +56,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             Paid.Text = showInvoice.Paid;
             DateOfIssue.Text = showInvoice.DateOfIssue;
             NameOfService.Text = showInvoice.NameOfService;
+
             if (String.IsNullOrEmpty(showInvoice.AccountNumber))
             {
                 AccountNumber.Visibility = Visibility.Hidden;
@@ -81,15 +67,20 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 AccountNumber.Text = showInvoice.AccountNumber;
             }
             EditPdfCB.IsChecked = false;
-
         }
 
+        /// <summary>
+        /// Metoda, która ładuje dane dotyczące konkretnej faktury
+        /// </summary>
         private void LoadInvoiceList()
         {
             invoiceProducts = SQLiteDataAccess.LoadInvoicesProduct(invoiceID);
             InvoiceProductListDataGrid.ItemsSource = invoiceProducts;
         }
 
+        /// <summary>
+        /// Metoda, która ładuje dane dotyczące firmy
+        /// </summary>
         private void LoadCompanyList() 
         {
             companyName = SQLiteDataAccess.LoadNameCompany(companyID);
@@ -97,16 +88,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
+        /// <summary>
+        /// Metoda, która ładuje dane dotyczące kontrahenta
+        /// </summary>
         private void LoadSellerList()
         {
             companySellerName = SQLiteDataAccess.LoadNameSeller(companyID);
-            showCompanySeller = companySellerName[0]; //potrzeba danych w tabelce 
+            showCompanySeller = companySellerName[0]; 
         }
 
-
+        /// <summary>
+        /// Metoda, która włącza się po wcisnięciu przycisku dodawanie i stworzy obiekt produkt oraz 
+        /// ładuje go na listę produktów
+        /// </summary>
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
-
             NewProduct newProduct = new NewProduct(invoiceID, companyID);
             newProduct.Show();
             newProduct.Closed += (s, eventarg) =>
@@ -115,6 +111,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             };
         }
 
+        /// <summary>
+        /// Metoda, która po wcisnięciu przycisku Usuwanie, usuwa produkt z faktury oraz
+        /// aktualizuje listę produktów.
+        /// </summary>
         private void DelProduct_Click(object sender, RoutedEventArgs e)
         {
             if (InvoiceProductListDataGrid.SelectedItem != null)
@@ -125,6 +125,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która generuje automatycznie nazwy kolumn
+        /// </summary>
         private void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.PropertyDescriptor is PropertyDescriptor descriptor)
@@ -133,6 +136,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która oblicza netto, na podstawie vatu produktu.
+        /// </summary>
         private Dictionary<int, double> vatValuesMethod()
         {
             Dictionary<int, double> keyValuePairs = new Dictionary<int, double>();
@@ -150,6 +156,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             return keyValuePairs;
         }
 
+        /// <summary>
+        /// Metoda, która zlicza ceny brutto, na podstawie vatu produktu z faktury korekty.
+        /// </summary>
         private Dictionary<int, double> vatValuesMethod(int a)
         {
             Dictionary<int, double> keyValuePairs = new Dictionary<int, double>();
@@ -167,6 +176,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             return keyValuePairs;
         }
 
+        /// <summary>
+        /// Metoda, która oblicza brutto na podstawie vatu produktu z faktury
+        /// </summary>
         private Dictionary<int, double> vatValuesBruttoMethod()
         {
             Dictionary<int, double> keyValuePairs = new Dictionary<int, double>();
@@ -184,6 +196,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             return keyValuePairs;
         }
 
+        /// <summary>
+        /// Metoda, która oblicza brutto na podstawie vatu produktu z faktury korekty
+        /// </summary>
         private Dictionary<int, double> vatValuesBruttoMethod(int y)
         {
             Dictionary<int, double> keyValuePairs = new Dictionary<int, double>();
@@ -201,7 +216,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             return keyValuePairs;
         }
 
-
+        /// <summary>
+        /// Metoda, która oblicza sumę brutto na podstawie vatu produktów z faktury
+        /// </summary>
         private double wholeBruttoPrice(Dictionary<int, double> sumBrutto)
         {
             double sum = 0;
@@ -209,18 +226,16 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 sum += entry.Value;
             }
-
             return sum;
         }
 
-
-
-
+        /// <summary>
+        /// Metoda, która tworzy i zapisuje pdf faktury 
+        /// </summary>
         private void ExportToPDF()
         {
             try
             {
-
                 DateTime date2 = DateTime.Now;
                 String savedate = date2.ToString("G");
                 savedate = savedate.Replace(":", ";");
@@ -228,7 +243,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "PDF(*.pdf)|*.pdf";
                 saveFileDialog1.FileName = showInvoice.Number + " " + savedate;
-                
                 saveFileDialog1.InitialDirectory= @"c:\";
                 if (saveFileDialog1.ShowDialog() == true)
                 {
@@ -236,7 +250,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                     PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
                     pdfDoc.Open();
-
 
                     var spacer = new iTextSharp.text.Paragraph("")
                     {
@@ -281,9 +294,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     buyerParagraph.Alignment = Element.ALIGN_RIGHT;
                     nameOfService.Alignment = Element.ALIGN_CENTER;
 
-
-
-
                     pdfDoc.Add(docTitle);
                     pdfDoc.Add(docNumber);
                     pdfDoc.Add(nameOfService);
@@ -292,14 +302,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     pdfDoc.Add(secondDateVariable);
                     pdfDoc.Add(paymentTypeVariable);
 
-
                     if (showInvoice.PaymentType == "Przelew")
                     {
                         pdfDoc.Add(accountNumberVariable);
                     }
                     pdfDoc.Add(spacer);
-
-
 
                     var headerTable = new PdfPTable(new[] { .5f, .5f })
                     {
@@ -325,7 +332,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     };
                     cellBuyer.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
 
-
                     headerTable.AddCell(cellSeller);
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Firmy", tableFont)));
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.CompanyName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
@@ -339,7 +345,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Email, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable.TotalWidth = 240f;
                     headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top - 220, writer.DirectContent);
-
 
                     var headerTable2 = new PdfPTable(new[] { .5f, .5f })
                     {
@@ -429,8 +434,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         DefaultCell = { MinimumHeight = 22f }
                     };
 
-
-
                     PdfPCell cell7 = new PdfPCell(new iTextSharp.text.Paragraph("Wartość netto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
                     PdfPCell cell8 = new PdfPCell(new iTextSharp.text.Paragraph("VAT [%]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
                     PdfPCell cell9 = new PdfPCell(new iTextSharp.text.Paragraph("Wartość brutto [zł]", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
@@ -443,7 +446,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                     Dictionary<int, double> vatValue = vatValuesMethod();
                     Dictionary<int, double> vatValueBrutto = vatValuesBruttoMethod();
-
 
                     foreach (KeyValuePair<int, double> entry in vatValue)
                     {
@@ -458,14 +460,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     var amountPaid = new iTextSharp.text.Paragraph("Zapłacono: " + sum.ToString() + " zł", dateFont);
                     amountPaid.Alignment = Element.ALIGN_LEFT;
 
-
                     var sumTable = new PdfPTable(new[] { .75f, .75f, .75f })
                     {
                         HorizontalAlignment = 2,
                         WidthPercentage = 40,
                         DefaultCell = { MinimumHeight = 22f }
                     };
-
 
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sumNetto.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase("-")) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
@@ -490,12 +490,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
-
+        /// <summary>
+        /// Metoda, która generuje pdf Operacji magazynowych i zapisuje do pdf
+        /// </summary>
         private void GenerateStorageOperations()
         {
             try
             {
-                
                 DateTime date2 = DateTime.Now;
                 String savedate = date2.ToString("G");
                 savedate = savedate.Replace(":", ";");
@@ -518,7 +519,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
                     var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
 
-
                     var spacer = new iTextSharp.text.Paragraph("")
                     {
                         SpacingBefore = 10f,
@@ -537,7 +537,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         SpacingAfter = 30f,
                     };
 
-
                     var mainParagraph = new iTextSharp.text.Paragraph("Wydanie zewnętrzne (WZ) nr " + showInvoice.Number, numberFont);
                     var storage = new iTextSharp.text.Paragraph("Magazyn: Główny magazyn", dateFont);
                     var creationDate = new iTextSharp.text.Paragraph("Data wydania: " + showInvoice.CreationDate, smallFont);
@@ -551,7 +550,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     pdfDoc.Add(spacer);
                     pdfDoc.Add(mainParagraph);
                     pdfDoc.Add(spacer);
-
 
                     var headerTable = new PdfPTable(new[] { .5f, .5f })
                     {
@@ -577,7 +575,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     };
                     cellBuyer.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
 
-
                     headerTable.AddCell(cellSeller);
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Firmy", tableFont)));
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.CompanyName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
@@ -591,7 +588,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Email, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable.TotalWidth = 240f;
                     headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top - 180, writer.DirectContent);
-
 
                     var headerTable2 = new PdfPTable(new[] { .5f, .5f })
                     {
@@ -624,11 +620,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     headerTable2.TotalWidth = 240f;
                     headerTable2.WriteSelectedRows(0, -1, pdfDoc.Left + 305, pdfDoc.Top - 180, writer.DirectContent);
 
-
                     pdfDoc.Add(spacer2);
                     pdfDoc.Add(spacer3);
                     pdfDoc.Add(storage);
-
 
                     var columnCount = 7;
                     var columnWidths = new[] { 2.2f, 1f, 1f, 1.5f, 1.5f, 1.5f, 1.5f };
@@ -693,7 +687,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         DefaultCell = { MinimumHeight = 22f }
                     };
 
-
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sum.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
 
                     pdfDoc.Add(sumTable);
@@ -712,11 +705,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która generuje do pdf korektę faktury i zapisuje do pliku
+        /// </summary>
         private void ExportEditedPDF()
         {
             try
             {
-
                 DateTime date2 = DateTime.Now;
                 String savedate = date2.ToString("G");
                 savedate = savedate.Replace(":", ";");
@@ -724,7 +719,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "PDF(*.pdf)|*.pdf";
                 saveFileDialog1.FileName = "Korekta faktury nr. " + showInvoice.Number + " " + savedate;
-
                 saveFileDialog1.InitialDirectory = @"c:\";
                 if (saveFileDialog1.ShowDialog() == true)
                 {
@@ -732,7 +726,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     var pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
                     PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
                     pdfDoc.Open();
-
 
                     var spacer = new iTextSharp.text.Paragraph("")
                     {
@@ -787,9 +780,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     buyerParagraph.Alignment = Element.ALIGN_RIGHT;
                     nameOfService.Alignment = Element.ALIGN_CENTER;
 
-
-
-
                     pdfDoc.Add(docTitle);
                     pdfDoc.Add(docNumber);
                     pdfDoc.Add(nameOfService);
@@ -799,14 +789,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     pdfDoc.Add(dateOfEdit);
                     pdfDoc.Add(paymentTypeVariable);
 
-
                     if (PaymentTypeCB.Text.Equals("Przelew"))
                     {
                         pdfDoc.Add(accountNumberVariable);
                     }
                     pdfDoc.Add(spacer);
-
-
 
                     var headerTable = new PdfPTable(new[] { .5f, .5f })
                     {
@@ -832,7 +819,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     };
                     cellBuyer.BackgroundColor = new iTextSharp.text.BaseColor(192, 192, 192);
 
-
                     headerTable.AddCell(cellSeller);
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Firmy", tableFont)));
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.CompanyName, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
@@ -846,7 +832,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     headerTable.AddCell(new PdfPCell(new iTextSharp.text.Paragraph(showCompanyName.Email, tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     headerTable.TotalWidth = 240f;
                     headerTable.WriteSelectedRows(0, -1, pdfDoc.Left, pdfDoc.Top - 235, writer.DirectContent);
-
 
                     var headerTable2 = new PdfPTable(new[] { .5f, .5f })
                     {
@@ -927,17 +912,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         table.AddCell(new PdfPCell(new iTextSharp.text.Phrase(a.Vat.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     });
 
-
                     var vatTable = new PdfPTable(new[] { .75f, .75f, .75f })
                     {
                         HorizontalAlignment = 2,
                         WidthPercentage = 38.1f,
                         DefaultCell = { MinimumHeight = 22f }
                     };
-
-
-
-
 
                     List<InvoiceProduct> localProducts = new List<InvoiceProduct>();
 
@@ -946,7 +926,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         localProducts.Add(invoiceProduct);
                     }    
 
-
                     foreach(InvoiceProduct invoiceProduct1 in localProducts)
                     {
                         EditedInvoiceProduct invoiceProduct = new EditedInvoiceProduct();
@@ -954,14 +933,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         editedInvoiceProducts.Add(invoiceProduct);
                     }
 
-
                     var table2 = new PdfPTable(columnWidths)
                     {
                         HorizontalAlignment = 0,
                         WidthPercentage = 100,
                         DefaultCell = { MinimumHeight = 22f }
                     };
-
 
                     PdfPCell cell7 = new PdfPCell(new iTextSharp.text.Paragraph("Nazwa Produktu", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
                     PdfPCell cell8 = new PdfPCell(new iTextSharp.text.Paragraph("JM", tableFont)) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT };
@@ -1005,7 +982,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     Dictionary<int, double> vatValue = vatValuesMethod(1);
                     Dictionary<int, double> vatValueBrutto = vatValuesBruttoMethod(1);
 
-
                     foreach (KeyValuePair<int, double> entry in vatValue)
                     {
                         vatTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(entry.Value.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
@@ -1019,7 +995,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     var amountPaid = new iTextSharp.text.Paragraph("Zapłacono: " + sum.ToString() + " zł", dateFont);
                     amountPaid.Alignment = Element.ALIGN_LEFT;
 
-
                     var sumTable = new PdfPTable(new[] { .75f, .75f, .75f })
                     {
                         HorizontalAlignment = 2,
@@ -1027,11 +1002,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                         DefaultCell = { MinimumHeight = 22f }
                     };
 
-
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sumNetto.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase("-")) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
                     sumTable.AddCell(new PdfPCell(new iTextSharp.text.Phrase(sum.ToString())) { HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER });
-                    
 
                     pdfDoc.Add(table);
                     pdfDoc.Add(spacer);
@@ -1065,8 +1038,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
-
-
+        /// <summary>
+        /// Metoda, która po wcisnięciu przycisku Utwórz PDF generuje fakturę oraz wyświetla 
+        /// komentarz że został utworzony pdf.
+        /// </summary>
         private void CreatePDF_Click(object sender, RoutedEventArgs e)
         {
             if(invoiceProducts.Count != 0)
@@ -1081,6 +1056,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która gdy Checkbox zostanie wcisnięty to umożliwa edycję faktury(koretka)
+        /// </summary>
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {          
             PaymentType.IsEnabled = true;
@@ -1106,6 +1084,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceProductListDataGrid.Columns[1].Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Metoda, która blokuje możliwość edycji faktury(czyli wyłączenie korekty faktury)
+        /// </summary>
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             IdSeller.IsEnabled = false;
@@ -1134,12 +1115,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             LoadInvoiceList();
         }
 
+        /// <summary>
+        /// Metoda, która po wcisnięciu przycisku Generuj PDF po korekcie, która utworzy 
+        /// fakturę
+        /// </summary>
         private void CreateEditedPdf_Click(object sender, RoutedEventArgs e)
         {
             invoiceProducts = SQLiteDataAccess.LoadInvoicesProduct(invoiceID);
             ExportEditedPDF();
         }
 
+        /// <summary>
+        /// Metoda, która zmienia płatności jeśli użytkownik zmieni opcję płatności
+        /// </summary>
         private void PaymentTypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (PaymentTypeCB.Text.Equals("Przelew"))
@@ -1151,7 +1139,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 AccountNumber.Visibility = Visibility.Visible;
                 AccountNumberLabel.Visibility = Visibility.Visible;
-                //Dlaczego to tak działa, Jakby to powiedział święty jp2 NIE WIEM
             }
         }
     }

@@ -1,24 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 
-//W linii 89 mamy na sztywno ustawione id konsumenta
 namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 {
     /// <summary>
-    /// Interaction logic for NewProduct.xaml
+    /// Okienko, które pozwala dodać nowy produkt do bazy danych oraz na magazyn
     /// </summary>
     public partial class NewProduct : Window
     {
@@ -29,6 +18,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
         List<string> unitNames;
         List<Product> productBackup;
 
+        /// <summary>
+        /// Konstruktor, który przekazuje dane firmy oraz faktury i inicjalizuje komponenty 
+        /// okienka Nowy produkt.
+        /// </summary>
         public NewProduct(int invoiceId, int companyId)
         {
             this.invoiceId = invoiceId;
@@ -41,6 +34,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             ProductQuantityUnitComboBox.ItemsSource = unitNames;
         }
 
+        /// <summary>
+        /// Metoda co aktualizuje dane nowego produktu 
+        /// </summary>
         private void ProductNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(ProductNameComboBox.SelectedItem!=null)
@@ -56,19 +52,22 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             }
         }
 
+        /// <summary>
+        /// Metoda co aktualizuje lub dodaje nową jednostkę miary produktu 
+        /// </summary>
         private void ProductQuantityUnitComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) 
         {
             if (ProductQuantityUnitComboBox.SelectedItem != null) 
             {
                 isChanged = true;
                 ProductQuantityUnit.Text = ProductQuantityUnitComboBox.SelectedItem as string;
-                
-
                 isChanged = false;
             }
         }
 
-
+        /// <summary>
+        /// Metoda co dodaje do faktury produkt (wpisanymi danymi)
+        /// </summary>
         private void AddProductToInvoice_Click(object sender, RoutedEventArgs e)
         {
             int idInvoice = Int32.Parse(InvoiceID.Text);
@@ -79,8 +78,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             double nettoPrice = Double.Parse(ProductNettoPrice.Text);
             double bruttoPrice = Double.Parse(ProductBruttoPrice.Text);
             int vat = Int32.Parse(ProductVat.Text);
-
-            //Bedzie trzeba sprawdzac wszystkie kontrolki czy sa puste
             int id=0;
             int productQuantity=0;
 
@@ -95,21 +92,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 
             if(!String.IsNullOrEmpty(ProductQuantityUnitComboBox.Text))
             {
-                //Wykorzystamy metode indexof w celu wyciagniecia numeru indexu danego elementu z listy unitname jesli index = -1 nalezy dodac nowy element do listy
                 if (!isAlreadyExisting(products, productName))
                 {
                     Product product = new Product(productName, "0", nettoPrice.ToString(), vat.ToString(), "0", bruttoPrice.ToString());
                     int IdProduct = SQLiteDataAccess.LoadAiCompanyId("Product")[0] + 1;
                     SQLiteDataAccess.SaveProductToCustomer(IdProduct, 1);
                     SQLiteDataAccess.SaveProduct(product);
-                    //W linii 89 mamy na sztywno ustawione id konsumenta
                     InvoiceProduct invoiceProduct = new InvoiceProduct(idInvoice, idProduct, productName, quantity, quantityUnits, nettoPrice, bruttoPrice, vat);
                     if (unitNames.IndexOf(quantityUnits) == -1)
                     {
-
-                        //Wyciagnac numer indexu ktore nadamy nowododanemu produktowi jednostki
-                        //Zaladowac do tabeli ktora ma nazwy jednostki nowy produkt z tym indeksem
-                        //dodac nowy produkt do faktury gdzie zamiast index of uzyjemy nowy index
                         int idUnitname = SQLiteDataAccess.LoadAiCompanyId("QuantityUnit")[0] + 1;
                         SQLiteDataAccess.SaveUnitName(idUnitname, quantityUnits);
                         SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct, idUnitname);
@@ -127,10 +118,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     InvoiceProduct invoiceProduct = new InvoiceProduct(idInvoice, idProduct, productName, quantity, quantityUnits, nettoPrice, bruttoPrice, vat);
                     if (unitNames.IndexOf(quantityUnits) == -1)
                     {
-
-                        //Wyciagnac numer indexu ktore nadamy nowododanemu produktowi jednostki
-                        //Zaladowac do tabeli ktora ma nazwy jednostki nowy produkt z tym indeksem
-                        //dodac nowy produkt do faktury gdzie zamiast index of uzyjemy nowy index
                         int idUnitname = SQLiteDataAccess.LoadAiCompanyId("QuantityUnit")[0] + 1;
                         SQLiteDataAccess.SaveUnitName(idUnitname, quantityUnits);
                         SQLiteDataAccess.SaveInvoiceProduct(invoiceProduct, idUnitname);
@@ -149,7 +136,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             }
         }
 
-
+        /// <summary>
+        /// Metoda co sprawdza, czy istnieje już ten produkt co został wpisany.
+        /// </summary>
         private bool isAlreadyExisting(List<Product> products, string productName)
         {
             bool exist = false;
@@ -163,6 +152,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             return exist;
         }
 
+        /// <summary>
+        /// Zmiana Brutto i vat na podstawie ceny netto
+        /// </summary>
         private void ProductNettoPrice_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!ProductBruttoPrice.IsFocused&&!isChanged)
@@ -177,6 +169,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             }
         }
 
+        /// <summary>
+        /// Zmiana netto i vat na podstawie ceny brutto
+        /// </summary>
         private void ProductBruttoPrice_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!ProductNettoPrice.IsFocused&&!isChanged)
@@ -192,6 +187,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             }
         }
 
+        /// <summary>
+        /// Zmiana jednostki produktu
+        /// </summary>
         private void ProductQuantity_TextChanged(object sender, TextChangedEventArgs e)
         {
             if(ProductQuantity.IsFocused&&!isChanged)
@@ -208,6 +206,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             }
         }
 
+        /// <summary>
+        /// Zmiana nazwy produktu oraz aktualizacja 
+        /// </summary>
         private void ProductNameComboBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string filter_param = ProductNameComboBox.Text;
@@ -220,8 +221,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             {
                 List<Product> productBackup = products.FindAll(x => x.StartsWith(filter_param));
                 ProductNameComboBox.ItemsSource = productBackup;
-
-
                 ProductNameComboBox.SelectedIndex = -1;
                 ProductNameComboBox.Text = filter_param;
                 ProductNameComboBox.ItemsSource = productBackup;
@@ -229,6 +228,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             }
         }
 
+        /// <summary>
+        /// Metoda, która gdy otwieramy ona jest do autouzupełniania nazw produktów
+        /// </summary>
         private void ProductNameComboBox_DropDownOpened_1(object sender, EventArgs e)
         {
             TextBox textBox = (TextBox)((ComboBox)sender).Template.FindName("PART_EditableTextBox", (ComboBox)sender);

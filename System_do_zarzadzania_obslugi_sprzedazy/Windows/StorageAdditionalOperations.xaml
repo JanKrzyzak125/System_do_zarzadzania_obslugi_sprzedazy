@@ -11,7 +11,7 @@
         <RadioButton x:Name="issueRB" Content="Wydanie" HorizontalAlignment="Left" Margin="77,110,0,0" VerticalAlignment="Top" Checked="issueRB_Checked"/>
         <TextBox x:Name="ProductName" HorizontalAlignment="Left" Height="36" Margin="311,180,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="168" IsEnabled="False"/>
         <TextBox x:Name="UserQuantity" HorizontalAlignment="Left" Height="36" Margin="311,237,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="168"/>
-        <Label x:Name="productNameL" Content="Nazwa Prduktu" HorizontalAlignment="Left" Margin="77,180,0,0" VerticalAlignment="Top" Width="118" Height="36"/>
+        <Label x:Name="productNameL" Content="Nazwa Produktu" HorizontalAlignment="Left" Margin="77,180,0,0" VerticalAlignment="Top" Width="118" Height="36"/>
         <Label x:Name="QuantityL" Content="Ilość" HorizontalAlignment="Left" Margin="77,237,0,0" VerticalAlignment="Top" Height="36" Width="89"/>
         <Button x:Name="CreatePDFbutton" Content="Wygeneruj" HorizontalAlignment="Left" Margin="226,374,0,0" VerticalAlignment="Top" Width="125" Height="49" Click="CreatePDFbutton_Click"/>
         <Label x:Name="StorageQuantityL" Content="Ilość produktów na magazynie" HorizontalAlignment="Left" Margin="77,295,0,0" VerticalAlignment="Top" Width="181" Height="36"/>

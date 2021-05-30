@@ -2,29 +2,22 @@
 using iTextSharp.text.pdf;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
 {
-
+    /// <summary>
+    /// Okienko, które pozwala dodać operacje wewnętrznę i zewnętrzne
+    /// </summary>
     public partial class StorageAdditionalOperations : Window
     {
-
         Product products;
 
+        /// <summary>
+        /// Konstruktor, który inicjalizuje komponenty okienka oraz przekazuje dane o produkcie
+        /// </summary>
         public StorageAdditionalOperations(Product product)
         {
             InitializeComponent();
@@ -32,16 +25,20 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             products = product;
             ProductName.Text = product.Name;
             StorageQuantityTB.Text = product.Quantity.ToString();
-
         }
 
+        /// <summary>
+        /// Metoda, która ukrywa ilości ze względu na przyjęcie
+        /// </summary>
         private void adoptionRB_Checked(object sender, RoutedEventArgs e)
         {
             StorageQuantityL.Visibility = Visibility.Hidden;
             StorageQuantityTB.Visibility = Visibility.Hidden;
-
         }
 
+        /// <summary>
+        /// Metoda, która odsłania ilości ze względu na wydanie 
+        /// </summary>
         private void issueRB_Checked(object sender, RoutedEventArgs e)
         {
             adoptionRB.IsChecked = false;
@@ -49,6 +46,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             StorageQuantityTB.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Metoda, która tworzy i zapisuje do pliku pdf z operacji na magazynie
+        /// </summary>
         private void createStoragePDF()
         {
             StringBuilder stringBuilder1 = new StringBuilder("");
@@ -87,7 +87,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     var smallFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 11);
                     var tableFont = FontFactory.GetFont(BaseFont.HELVETICA, BaseFont.CP1257, 12);
 
-
                     var spacer = new iTextSharp.text.Paragraph("")
                     {
                         SpacingBefore = 10f,
@@ -122,7 +121,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     pdfDoc.Add(mainParagraph);
                     pdfDoc.Add(spacer);
 
-
                     var headerTable = new PdfPTable(new[] { .5f, .5f })
                     {
                         HorizontalAlignment = 0,
@@ -143,7 +141,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
                     pdfDoc.Add(spacer);
                     pdfDoc.Add(headerTable);
 
-
                     pdfDoc.Close();
                     writer.Close();
                     fs.Close();
@@ -156,7 +153,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             }
         }
 
-
+        /// <summary>
+        /// Metoda, która po wcisnięciu przycisku i wypełnieniu odpowiednich danych tworzy 
+        /// pdf przyjęć i wydań wewnętrznych/zewnętrznych 
+        /// </summary>
         private void CreatePDFbutton_Click(object sender, RoutedEventArgs e)
         {
             if (!String.IsNullOrEmpty(UserQuantity.Text.ToString()))
