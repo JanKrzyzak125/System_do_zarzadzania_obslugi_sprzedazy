@@ -560,11 +560,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                 DateTime date2 = DateTime.Now;
                 String save = date2.ToString("G");
-                save = save.Replace(":", ";");
+                save = save.Replace("/", ".");
 
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "PDF(*.pdf)|*.pdf";
-                saveFileDialog1.FileName = "Zestawienie okresowe" + save;
+                saveFileDialog1.FileName = "Zestawienie okresowe" + " " + save;
                 saveFileDialog1.InitialDirectory = @"c:\";
                 if (saveFileDialog1.ShowDialog() == true)
                 {

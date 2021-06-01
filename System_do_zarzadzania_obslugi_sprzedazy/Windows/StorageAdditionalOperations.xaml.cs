@@ -68,7 +68,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Winows
             {
                 DateTime date2 = DateTime.Now;
                 String savedate = date2.ToString("G");
-                savedate = savedate.Replace("/", ";");
+                savedate = savedate.Replace("/", ".");
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "PDF(*.pdf)|*.pdf";
                 saveFileDialog1.FileName = stringBuilder1.ToString() + " " + products.Name + savedate;
