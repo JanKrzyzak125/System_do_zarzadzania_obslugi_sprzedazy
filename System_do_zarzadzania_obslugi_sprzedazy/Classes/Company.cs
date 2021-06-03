@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace System_do_zarzadzania_obslugi_sprzedazy
+﻿namespace System_do_zarzadzania_obslugi_sprzedazy
 {
- public class Company
+    /// <summary>
+    /// Klasa Company zawiera informacje na temat firmy
+    /// </summary>
+    public class Company
     {
         private int companyID;
 
         private string companyName;
-
         private string nip;
-
         private string city;
-
         private string street;
-
         private string phoneNumber;
-
         private string email;
 
+        /// <summary>
+        /// Id Firmy
+        /// </summary>
         public int CompanyID
         {
             get
@@ -34,6 +29,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Nazwa Firmy
+        /// </summary>
         public string CompanyName
         {
             get
@@ -46,6 +44,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Nip firmy
+        /// </summary>
         public string Nip
         {
             get
@@ -58,6 +59,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Nazwa miasta w, którym jest zajestrowana firma
+        /// </summary>
         public string City
         {
             get
@@ -70,6 +74,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Nazwa ulicy, na której się znajduje firma
+        /// </summary>
         public string Street
         {
             get
@@ -82,6 +89,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Numer telefonu do firmy
+        /// </summary>
         public string PhoneNumber
         {
             get
@@ -94,6 +104,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Poczta interetowa do firmy
+        /// </summary>
         public string Email
         {
             get
@@ -105,11 +118,25 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 email = value;
             }
         }
+
+        /// <summary>
+        /// Konstruktor domyślny
+        /// </summary>
         public Company()
         {
 
         }
 
+        /// <summary>
+        /// Konstruktor klasy przeładowany informacjami o firmie(używany jest do zapisania)
+        /// </summary>
+        /// <param name="companyID">Numer Id firmy</param>
+        /// <param name="companyName">Nazwa firmy</param>
+        /// <param name="nip">NIP firmy</param>
+        /// <param name="city">Nazwa Miasta</param>
+        /// <param name="street">Nazwa ulicy</param>
+        /// <param name="phoneNumber">Numer telefonu do firmy</param>
+        /// <param name="email">Numer Email do firmy</param>
         public Company(int companyID, string companyName, string nip, string city, string street, string phoneNumber, string email)
         {
             CompanyID = companyID;
@@ -121,6 +148,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             Email = email;
         }
 
+        /// <summary>
+        /// Konstruktor klasy przeładowany informacjami o firmie(bez numeru Firmy)
+        /// </summary>
+        /// <param name="companyName">Nazwa firmy</param>
+        /// <param name="nip">NIP firmy</param>
+        /// <param name="city">Nazwa Miasta</param>
+        /// <param name="street">Nazwa ulicy</param>
+        /// <param name="phoneNumber">Numer telefonu do firmy</param>
+        /// <param name="email">Numer Email do firmy</param>
         public Company(string companyName, string nip, string city, string street, string phoneNumber, string email)
         {
             CompanyName = companyName;
@@ -130,6 +166,5 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             PhoneNumber = phoneNumber;
             Email = email;
         }
-
     }
 }

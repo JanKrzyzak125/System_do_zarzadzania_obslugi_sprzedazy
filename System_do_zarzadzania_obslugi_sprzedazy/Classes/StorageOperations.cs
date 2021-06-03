@@ -4,9 +4,11 @@ using System.Text;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
 {
+    /// <summary>
+    /// Klasa StorageOperations, która zawiera informacje dotyczące operacji na magazynach
+    /// </summary>
     class StorageOperations
     {
-
         private List<InvoiceProduct> invoiceProducts = new List<InvoiceProduct>();
         private StorageProduct storageProduct;
 
@@ -20,6 +22,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         private int operationID;
 
 
+        /// <summary>
+        /// ID Informacji
+        /// </summary>
         [DisplayName("ID")]
         public int InformationID
         {
@@ -27,6 +32,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             set { informationID = value; }
         }
 
+        /// <summary>
+        /// Nazwa Operacji
+        /// </summary>
         [DisplayName("Nazwa operacji")]
         public string  OperationName
         {
@@ -43,8 +51,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             }
         }
 
-        
-
+        /// <summary>
+        /// Data Operacji 
+        /// </summary>
         [DisplayName("Data")]
         public string Date
         {
@@ -52,7 +61,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             set { date = value; }
         }
 
-
+        /// <summary>
+        /// Odbiorca operacji 
+        /// </summary>
         [DisplayName("Odbiorca")]
         public string Receiver
         {
@@ -60,6 +71,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             set { receiver = value; }
         }
 
+        /// <summary>
+        /// Nadawca operacji
+        /// </summary>
         [DisplayName("Nadawca")]
         public string Sender
         {
@@ -67,13 +81,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             set { sender = value; }
         }
 
-
+        /// <summary>
+        /// Kolor operacji
+        /// </summary>
         public string Color
         {
             get { return color; }
             set { color = value;}
         }
 
+        /// <summary>
+        /// ID Faktury
+        /// </summary>
         public int InvoiceID
         {
             get { return invoiceID; }
@@ -87,7 +106,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             }
         }
 
-
+        /// <summary>
+        /// ID produktu na magazynie
+        /// </summary>
         public int StorageProductID
         {
             get { return operationID; }
@@ -99,7 +120,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             }
         }
 
-
+        /// <summary>
+        /// Lista produktów na fakturze
+        /// </summary>
         public string InvoiceProducts
         {
             get {
@@ -120,16 +143,31 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             }            
         }
 
+        /// <summary>
+        /// Aktualizacja listy faktury
+        /// </summary>
+        /// <param name="updatedList">Lista produktów faktury</param>
         private void UpdateList(List<InvoiceProduct> updatedList)
         {
             invoiceProducts = updatedList;
         }
         
+        /// <summary>
+        /// Konstruktor domyślny
+        /// </summary>
         public StorageOperations()
         {
 
         }
 
+        /// <summary>
+        /// Konstruktor przeładowany danymi
+        /// </summary>
+        /// <param name="informationID">ID informacji</param>
+        /// <param name="operationName">Nazwa Operacji</param>
+        /// <param name="date">Data Operacji</param>
+        /// <param name="receiver">Odbiorca</param>
+        /// <param name="sender">Nadawca</param>
         public StorageOperations(int informationID, string operationName, string date, string receiver, string sender)
         {
             InformationID = informationID;
@@ -137,8 +175,6 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
             Date = date;
             Receiver = receiver;
             Sender = sender;
-            
         }
     }
-
 }

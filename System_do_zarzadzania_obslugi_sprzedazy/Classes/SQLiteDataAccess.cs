@@ -4,15 +4,20 @@ using System.Data;
 using System.Data.SQLite;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Dapper;
 using System_do_zarzadzania_obslugi_sprzedazy.Classes;
 
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
+    /// <summary>
+    /// Klasa SQLiteDataAccess zawiera metody do łączenia sie z bazą danych
+    /// </summary>
     class SQLiteDataAccess
     {
+        /// <summary>
+        /// Metoda, która wczytuje użytkowników z bazy danych
+        /// </summary>
+        /// <returns>Listę użytkowników</returns>
         public static List<Company>LoadUsers()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -21,6 +26,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
+
+        /// <summary>
+        /// Metoda, która zapisuje użytkówników do bazy danych
+        /// </summary>
+        /// <param name="company">Obiekt klasy Company</param>
         public static void SaveUser(Company company)
         {
             using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -29,6 +39,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która usuwa użytkownika z bazy danych 
+        /// </summary>
+        /// <param name="company">Obiekt klasy Company</param>
         public static void DeleteUsers(Company company)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -38,6 +52,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która usuwa fakturę z bazy danych 
+        /// </summary>
+        /// <param name="invoice">Obiekt klasy Invoice</param>
         public static void DeleteInvoice(Invoice invoice)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -46,6 +64,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var output = cnn.Query<Company>(str);
             }
         }
+
+        /// <summary>
+        /// Metoda, która usuwa produkt z bazy danych 
+        /// </summary>
+        /// <param name="product">Obiekt klasy Product</param>
         public static void DeleteProduct(Product product)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -55,6 +78,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która usuwa produkt z danej faktury z bazy danych 
+        /// </summary>
+        /// <param name="invoiceProduct">Obiekt klasy InvoiceProduct</param>
         public static void DeleteProductFromInvoice(InvoiceProduct invoiceProduct)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -63,6 +90,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var output = cnn.Query<Company>(str);
             }
         }
+
+        /// <summary>
+        /// Metoda, która wczytuje Kontrahentów z bazy danych
+        /// </summary>
+        /// <returns>listę z obiektami Seller</returns>
         public static List<Seller> LoadSellers()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -71,6 +103,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
+
+        /// <summary>
+        /// Metoda, która usuwa Kontrahenta z bazy danych
+        /// </summary>
+        /// <param name="seller">Obiekt klasy Seller</param>
         public static void DeleteContractors(Seller seller)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -79,6 +116,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 var output = cnn.Query<Seller>(str);
             }
         }
+
+        /// <summary>
+        /// Metoda, która zapisuje kontrahenta do bazy danych
+        /// </summary>
+        /// <param name="seller">Obiekt klasy Seller</param>
         public static void SaveSeller(Seller seller)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -88,6 +130,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która wczytuje faktury z bazy danych
+        /// </summary>
+        /// <returns>Lista obiektów klasy Invoice</returns>
         public static List<Invoice> LoadInvoices()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -97,6 +143,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która wczytuje fakturę z bazy danych
+        /// </summary>
+        /// <param name="ID">ID faktury</param>
+        /// <returns>Zwraca listę obiektów klasy Invoice</returns>
         public static List<Invoice> LoadInvoice(int ID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -106,6 +157,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która zapisuje fakturę do bazy danych
+        /// </summary>
+        /// <param name="invoice">Id faktury</param>
         public static void SaveInvoice(Invoice invoice)
         {
             using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -115,6 +170,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która wczytuje produkty z faktur z bazy danych 
+        /// </summary>
+        /// <param name="ID">ID faktury</param>
+        /// <returns>Listę obiektów InvoiceProduct</returns>
         public static List<InvoiceProduct> LoadInvoicesProduct(int ID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -126,7 +186,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
-        
+
+        /// <summary>
+        /// Metoda, która wczytuje produkty z faktury z bazy danych 
+        /// </summary>
+        /// <param name="CompanyID">ID Kontrahenta</param>
+        /// <returns>Listę obiektów InvoiceProduct</returns>
         public static List<Product> LoadInvoiceProduct(int CompanyID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -136,6 +201,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która zapisuje produkty do faktury do bazy danych 
+        /// </summary>
+        /// <param name="invoiceProduct"> Obiekt klasy InvoiceProduct</param>
+        /// <param name="unitId">ID jednostki</param>
         public static void SaveInvoiceProduct(InvoiceProduct invoiceProduct, int unitId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -144,8 +214,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 cnn.Execute("insert into InvoicesProduct("+s1+ ")values(@idInvoice, @idProduct, @productName, @quantity,"+unitId.ToString() +", @nettoPrice, @bruttoPrice, @vat)", invoiceProduct);
             }
         }
-        
-        //Wczytuje id z autoincrementa
+
+        /// <summary>
+        /// Wczytuje id z autoincrementa
+        /// </summary>
+        /// <param name="name">Nazwa</param>
+        /// <returns>Zwraca ID</returns>
         public static List<int> LoadAiCompanyId(string name)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -154,6 +228,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 return output.ToList();
             }
         }
+
+        /// <summary>
+        /// Metoda, która wczytuje z bazy danych produkty
+        /// </summary>
+        /// <param name="CompanyID">ID Kontrahenta</param>
+        /// <returns>Zwraca listę Produktów</returns>
         public static List<Product> LoadProducts(int CompanyID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -163,6 +243,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 
             }
         }
+
+        /// <summary>
+        /// Metoda, która zapisuje produkty do bazy danych 
+        /// </summary>
+        /// <param name="product">Obiekt klasy Produkt</param>
         public static void SaveProduct(Product product)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -172,6 +257,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która ładuje Nazwy kontrahentów z bazy danych
+        /// </summary>
+        /// <param name="idCompany">Id kontrahenta</param>
+        /// <returns>Lista z obiektami klasy Seller</returns>
         public static List<Seller> LoadNameSeller(int idCompany) 
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) 
@@ -181,6 +271,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która ładuje Nazwy firm z bazy danych
+        /// </summary>
+        /// <param name="idCompany">ID firmy</param>
+        /// <returns>Listę obiektów klasy Company</returns>
         public static List<Company> LoadNameCompany(int idCompany) 
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -190,6 +285,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która ładuje Nazwy jednostek z bazy danych
+        /// </summary>
+        /// <returns>List stringów</returns>
         public static List<string> LoadQuantityUnitName() 
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) 
@@ -200,6 +299,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
+        /// <summary>
+        /// Metoda, która zapisuje Produkt do Firmy do bazy danych
+        /// </summary>
+        /// <param name="productId">ID Produkt</param>
+        /// <param name="companyId">Id Firmy</param>
         public static void SaveProductToCustomer(int productId, int companyId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -209,6 +313,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która zapisuje nazwy jednostek do bazy danych
+        /// </summary>
+        /// <param name="unitId">ID Jednostki</param>
+        /// <param name="unitName">Nazwa jednostki</param>
         public static void SaveUnitName(int unitId, string unitName)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -218,6 +327,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która wczytuje magazynowe operacje z bazy danych
+        /// </summary>
+        /// <returns>lista obiektów klasy StorageOperations</returns>
         public static List<StorageOperations> LoadOperations()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -227,6 +340,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która wczytuje magazynowe produkty z bazy danych
+        /// </summary>
+        /// <param name="ID">ID </param>
+        /// <returns>Listę obiektów klasy StorageProduct</returns>
         public static List<StorageProduct> LoadStorageProduct(int ID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -236,6 +354,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która zapisuje operacje do bazy danych
+        /// </summary>
+        /// <param name="storageOperation">Obiekt klasy StorageOperation</param>
+        /// <param name="operationID">ID operacji</param>
+        /// <param name="invoiceID">ID faktury</param>
         public static void SaveOperation(StorageOperations storageOperation, int operationID, int invoiceID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -245,16 +369,26 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która zapisuje operacje do bazy danych
+        /// </summary>
+        /// <param name="product">obiekt klasy Product</param>
+        /// <param name="operationID">ID operacji</param>
+        /// <param name="StorageProductID">ID magazynowego produktu</param>
         public static void SaveOperation(Product product, int operationID, int StorageProductID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-            	//Moze byc blad trzeba date zrobic
                 string s1 = "OperationID, Date, Receiver, Sender, StorageProductID";
                 cnn.Execute("insert into StorageInformation(" + s1 + ")values(" + operationID.ToString() + "," + "\'" + DateTime.Now.ToString("d") + "\'" + "," + "\'" + "Operacja wewnetrzna" + "\'" + "," + "\'"+ "Operacja wewnetrzna" + "\'" + "," + StorageProductID.ToString() + ")");
             }
         }
 
+        /// <summary>
+        /// metoda, która zapisuje informacje o produkcie do bazy danych
+        /// </summary>
+        /// <param name="product">Obiekt klasy Product</param>
+        /// <param name="quantity">Ilość</param>
         public static void SaveProductInformation(Product product, int quantity)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -264,6 +398,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która aktualizuje ilość produktu
+        /// </summary>
+        /// <param name="product">Obiekt klasy Product</param>
         public static void UpdateProductQuantity(Product product)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -271,7 +409,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 cnn.Execute("UPDATE Product SET Quantity = "+product.Quantity+" WHERE ID = "+product.Id+"");
             }
         }
-
+        /// <summary>
+        /// Metoda, która aktualizuje ilość produktu
+        /// </summary>
+        /// <param name="quantity">ilość</param>
+        /// <param name="id">ID</param>
         public static void UpdateProductQuantity(int quantity, int id)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -280,6 +422,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która wczytuje korektę faktur z bazy danych
+        /// </summary>
+        /// <returns>lista obiektów klasy InoviceCorrection</returns>
         public static List<InvoiceCorrection> LoadCorrection()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -289,6 +435,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która zapisuje korektę korekty faktur z bazy danych
+        /// </summary>
+        /// <param name="invoiceCorrection">Obiekt klasy InvoiceCorrection</param>
         public static void SaveCorrectedInvoice(InvoiceCorrection invoiceCorrection)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -298,6 +448,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która zapisuje korektę faktur do bazy danych 
+        /// </summary>
+        /// <param name="editedInvoiceProduct">obiekt klasy EditedInvoiceProduct</param>
         public static void SaveCorrectedInvoiceProduct(EditedInvoiceProduct editedInvoiceProduct)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -307,6 +461,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która wczytuje korekty faktur z bazy danych
+        /// </summary>
+        /// <param name="ID">ID</param>
+        /// <returns>Lista obiektów klasy EditedInvoiceProduct</returns>
         public static List<EditedInvoiceProduct> LoadEditedInvoicesProduct(int ID)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -319,6 +478,11 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda do połączenia programu z baza danych
+        /// </summary>
+        /// <param name="id">ID</param>
+        /// <returns>ConfigurationManager.ConnectionStrings[id].ConnectionString</returns>
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
