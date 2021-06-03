@@ -31,8 +31,8 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         List<string> operations = new List<string>();
         List<Debter> debters = new List<Debter>();
         List<InvoiceCorrection> invoiceCorrections = new List<InvoiceCorrection>();
-        
-        private bool invoiceOpen=true;
+
+        private bool invoiceOpen = true;
         private bool StorageOpen = false;
         private bool SettlementsOpen = false;
         private bool ContractorsOpen = false;
@@ -54,6 +54,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceCorrections.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Metoda co dodaje na listę nazwy operacji przyjęcia i wydań
+        /// </summary>
         private void FillOperations()
         {
             operations.Add("Przyjęcie wewnętrzne");
@@ -63,13 +66,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             operations.Add("Wybór wszystkich");
         }
 
-        
+        /// <summary>
+        /// Metoda, która aktualizuje datagrida kontrahentami 
+        /// </summary>
         private void WiredUpSellersList()
         {
             CompanyDataGrid.ItemsSource = null;
             CompanyDataGrid.ItemsSource = sellers;
         }
 
+        /// <summary>
+        /// Metoda, która aktualizuje listę faktur
+        /// </summary>
         private void WiredUpInvoicesList()
         {
             CompanyDataGrid.ItemsSource = null;
@@ -77,34 +85,56 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             CompanyDataGrid.ItemsSource = baseInvoices;
             InvoiceDG.ItemsSource = invoiceStatements;
         }
+
+        /// <summary>
+        /// Metoda, która aktualizuje listę produktów
+        /// </summary>
         private void WiredUpProductList()
         {
             CompanyDataGrid.ItemsSource = null;
             CompanyDataGrid.ItemsSource = products;
         }
 
+        /// <summary>
+        /// Metoda, która aktualizuje listę magazynu
+        /// </summary>
         private void WiredUpStorageList()
         {
             StorageDG.ItemsSource = null;
             StorageDG.ItemsSource = storage;
         }
 
+        /// <summary>
+        /// Metoda, która aktualizuje listę korekt faktur
+        /// </summary>
         private void WiredUpCorrectionList()
         {
             CompanyDataGrid.ItemsSource = null;
             CompanyDataGrid.ItemsSource = invoiceCorrections;
         }
 
+        /// <summary>
+        /// Metoda, która wczytuje z bazy danych korekty faktur
+        /// </summary>
         private void LoadCorrectionList()
         {
             invoiceCorrections = SQLiteDataAccess.LoadCorrection();
             WiredUpCorrectionList();
         }
+
+        /// <summary>
+        /// Metoda, która wczytuje z bazy danych pozycje na magazynie
+        /// </summary>
         private void LoadStorageList()
         {
             storage = SQLiteDataAccess.LoadOperations();
             WiredUpStorageList();
         }
+
+        /// <summary>
+        /// Metoda, która wczytuje z bazy danych fakturę, i konwertujemy na faktury z 
+        /// podstawowymi informacjami
+        /// </summary>
         private void LoadInvoicesList()
         {
             invoices = SQLiteDataAccess.LoadInvoices();
@@ -113,19 +143,28 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             WiredUpInvoicesList();
         }
 
+        /// <summary>
+        /// Metoda, która wczytuje z bazy danych listę kontrahentów
+        /// </summary>
         private void LoadSellersList()
         {
             sellers = SQLiteDataAccess.LoadSellers();
             WiredUpSellersList();
-      
+
         }
+        /// <summary>
+        /// Metoda, która wczytuje z bazy danych listę produktów
+        /// </summary>
         private void LoadProductsList()
         {
             products = SQLiteDataAccess.LoadProducts(companyID);
             WiredUpProductList();
-
         }
 
+        /// <summary>
+        /// Metoda, która obsługuje guzik dodawanie operacji w zależności 
+        /// od wczytanego datagrida(dodawanie faktur,kontrahentów, produktów,)
+        /// </summary>
         private void Add_User(object sender, RoutedEventArgs e)
         {
             if (invoiceOpen)
@@ -137,7 +176,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     LoadInvoicesList();
                 };
             }
-            if(StorageOpen)
+            if (StorageOpen)
             {
                 AddNewProductMagazine addNewProductMagazine = new AddNewProductMagazine();
                 addNewProductMagazine.Show();
@@ -146,7 +185,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     LoadProductsList();
                 };
             }
-            if(ContractorsOpen)
+            if (ContractorsOpen)
             {
                 AddNewSeller addNewSeller = new AddNewSeller();
                 addNewSeller.Show();
@@ -157,6 +196,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która obsługuje guzik usuwanie operacji w zależności 
+        /// od wczytanego datagrida(usuwanie faktur,kontrahentów, produktów,)
+        /// </summary>
         private void Remove_User(object sender, RoutedEventArgs e)
         {
             if (invoiceOpen)
@@ -186,9 +229,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     sellers.Remove((Seller)CompanyDataGrid.SelectedItem);
                     LoadSellersList();
                 }
-            }       
+            }
         }
 
+        /// <summary>
+        /// Metoda, która obsługuje zdarzenie wcisnięcia przycisku faktury, który 
+        /// powoduje ukrywanie wszystkich kontrolek poza fakturami(dodaj fakture,
+        /// usuń fakturę,checkbox korekt, datagrid faktur oraz panelu głównego 
+        /// przycisków ).Wywołuje metodę wczytywania faktur.
+        /// </summary>
         private void Invoice_Open(object sender, RoutedEventArgs e)
         {
             InvoiceCorrections.IsChecked = false;
@@ -201,6 +250,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceCorrections.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Metoda, która obsługuje zdarzenie wcisnięcia przycisku Magazyn, który 
+        /// powoduje ukrywanie wszystkich kontrolek poza Magazynem(dodaj produkt,
+        /// usuń produkt, datagrid magazynu oraz panelu głównego przycisków ).
+        /// Wywołuje metodę wczytywania listy na magazynie.
+        /// </summary>
         private void Storage_Open(object sender, RoutedEventArgs e)
         {
             InvoiceCorrections.IsChecked = false;
@@ -214,6 +269,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Metoda, która obsługuje zdarzenie wcisnięcia przycisku Rozliczenia, który 
+        /// powoduje ukrywanie wszystkich kontrolek poza Rozliczeniami(datepickery wyboru dnia,
+        /// przycisk generuj zestawienie, datagrid rozliczeń,dłużnków oraz panelu głównego 
+        /// przycisków).Wywołuje metodę wczytywania listy rozliczeń, oraz dłużników.
+        /// </summary>
         private void Settlements_Open(object sender, RoutedEventArgs e)
         {
             InvoiceCorrections.IsChecked = false;
@@ -226,7 +287,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ShowControlsSettelments();
             GridSettelmentIncome.ItemsSource = null;
             GridSettelmentIncome.ItemsSource = invoices;
-           
+
             WiredUpDebtorList(invoices);
             GridSettelmentDebt.ItemsSource = null;
             GridSettelmentDebt.ItemsSource = debters;
@@ -234,6 +295,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             GridSettelmentDebt.Columns[3].Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Metoda, która obsługuje zdarzenie wcisnięcia przycisku Kontrahenta, który 
+        /// powoduje ukrywanie wszystkich kontrolek poza Kontrahentami(dodaj kontrahenta,
+        /// usuń kontrahenta, datagrid kontrahenta oraz panelu głównego przycisków).
+        /// Wywołuje metodę wczytywania listy kontrahentów.
+        /// </summary>
         private void Contractors_Open(object sender, RoutedEventArgs e)
         {
             InvoiceCorrections.IsChecked = false;
@@ -245,11 +312,18 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             ShowControls();
         }
 
+        /// <summary>
+        /// Metoda, która obsługuje zdarzenie wcisnięcia przycisku Zestawienia, który 
+        /// powoduje ukrywanie wszystkich kontrolek poza Zestawieniami(dwa datapickery,
+        /// dwa radiobuttony,dwa datagridy faktur oraz zestawień i panelu głównego 
+        /// przycisków). Wywołuje metodę wczytywania listy zestaweń i faktur w 
+        /// zależności od wybranego radiobuttona.
+        /// </summary>
         private void Statments_Open(object sender, RoutedEventArgs e)
         {
             InvoiceCorrections.IsChecked = false;
             SettingToFalse();
-            StatmentsOpen = true;      
+            StatmentsOpen = true;
             HideControls();
             StorageRB.IsChecked = true;
             LoadStorageList();
@@ -259,6 +333,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             StorageDG.Columns[8].Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Metoda, która ukrywa/odsłania odpowiednie kontrolki
+        /// </summary>
         private void HideControls()
         {
             CompanyDataGrid.Visibility = Visibility.Hidden;
@@ -278,6 +355,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Metoda, która ukrywa/odsłania odpowiednie kontrolki
+        /// </summary>
         private void ShowControls()
         {
             CompanyDataGrid.Visibility = Visibility.Visible;
@@ -299,7 +379,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
-        private void ShowControlsSettelments() 
+        /// <summary>
+        /// Metoda, która ukrywa/odsłania odpowiednie kontrolki dla Rozliczeń
+        /// </summary>
+        private void ShowControlsSettelments()
         {
             CompanyDataGrid.Visibility = Visibility.Hidden;
             AddUser.Visibility = Visibility.Hidden;
@@ -320,16 +403,22 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceCorrections.Visibility = Visibility.Hidden;
         }
 
-        private void DoubleClickDebt_Open(object sender,RoutedEventArgs e) 
+        /// <summary>
+        /// Metoda, która otwiera okienko w przypadku podwójnego kliknięcia
+        /// na dłużnika (w rozliczeniach) i pokazuje dla dłużnika jego długi
+        /// </summary>
+        private void DoubleClickDebt_Open(object sender, RoutedEventArgs e)
         {
-            if (GridSettelmentDebt.SelectedItem != null) 
+            if (GridSettelmentDebt.SelectedItem != null)
             {
                 DebtorWindow debtorWindow = new DebtorWindow((Debter)GridSettelmentDebt.SelectedItem);
                 debtorWindow.Show();
             }
         }
 
-
+        /// <summary>
+        /// Metoda, która generuje nazwy kolumn dla Datagridów
+        /// </summary>
         private void CompanyDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.PropertyDescriptor is PropertyDescriptor descriptor)
@@ -338,6 +427,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która po podwójnego kliknięcia na datagrida w zakładce faktury 
+        /// otwiera szczegóły danej faktury(normalna faktura, korekta faktur oraz 
+        /// listę produktów)W przypadku datagrida w zakładce Magazyn otwiera okno 
+        /// z dodatkowymi operacjami. W ostatnim przypadku(nie wybrania pozycji z listy)
+        /// użytkownik dostanie powiadomienie "Wybierz pozycję z listy!".
+        /// </summary>
         private void DoubleClick_Open(object sender, MouseButtonEventArgs e)
         {
             if (CompanyDataGrid.SelectedItem != null && invoiceOpen)
@@ -355,7 +451,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                     edited.Show();
                 }
             }
-            else if(CompanyDataGrid.SelectedItem != null && StorageOpen)
+            else if (CompanyDataGrid.SelectedItem != null && StorageOpen)
             {
                 Product prd = CompanyDataGrid.SelectedItem as Product;
                 StorageAdditionalOperations storageAdditionalOperations = new StorageAdditionalOperations(prd);
@@ -368,26 +464,36 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             else
             {
                 MessageBox.Show("Wybierz pozycję z listy!");
-            }          
+            }
         }
 
+        /// <summary>
+        /// Metoda, ustawia flagi na false
+        /// </summary>
         private void SettingToFalse()
         {
-              invoiceOpen = false;
-              StorageOpen = false;
-              SettlementsOpen = false;
-              ContractorsOpen = false;
-              StatmentsOpen = false;
+            invoiceOpen = false;
+            StorageOpen = false;
+            SettlementsOpen = false;
+            ContractorsOpen = false;
+            StatmentsOpen = false;
         }
 
+        /// <summary>
+        /// Metoda, która wywołuje metodę do filtrowania datagridów po datach
+        /// </summary>
         private void OperationCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DateFilter();
         }
 
+        /// <summary>
+        /// Metoda wywołuje się jeśli będzie wcisnięty radiobutton faktur w zakładce
+        /// rozliczenia to pokazuje odpowiednie kontrolki dla faktur
+        /// </summary>
         private void InvoiceRB_Checked(object sender, RoutedEventArgs e)
         {
-            if((bool)InvoiceRB.IsChecked)
+            if ((bool)InvoiceRB.IsChecked)
             {
                 Filter.Visibility = Visibility.Visible;
                 OperationCB.Visibility = Visibility.Hidden;
@@ -396,9 +502,13 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             InvoiceDG.ItemsSource = invoiceStatements;
         }
 
+        /// <summary>
+        /// Metoda wywołuje się jeśli będzie wcisnięty radiobuton magazyn w zakładce
+        /// rozliczenia i odkrywa odpowiednie kontrolki i chowa niektóre kolumny w datagridzie
+        /// </summary>
         private void StorageRB_Checked(object sender, RoutedEventArgs e)
         {
-            if(Filter != null)
+            if (Filter != null)
             {
                 if ((bool)StorageRB.IsChecked)
                 {
@@ -411,9 +521,12 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 StorageDG.Columns[6].Visibility = Visibility.Collapsed;
                 StorageDG.Columns[7].Visibility = Visibility.Collapsed;
                 StorageDG.Columns[8].Visibility = Visibility.Collapsed;
-            }           
+            }
         }
 
+        /// <summary>
+        /// Metoda filtrowania datagrida po wybraniu dat
+        /// </summary>
         private void DateFilter()
         {
             List<StorageOperations> storageOperations = storage;
@@ -445,7 +558,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 }
             }
         }
-
+        /// <summary>
+        /// Metoda która filtruje daty po datagridzie po wybraniu dat w zakładce Dłużnicy
+        /// </summary>
         private void DateFilterDebtor()
         {
             List<Invoice> debtorInvoice = invoices;
@@ -471,6 +586,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             GridSettelmentDebt.ItemsSource = debters;
         }
 
+        /// <summary>
+        /// Metoda, która się wywołuje po wcisnięciu się guzika filtruj w zakładce zestawienia
+        /// podczas wczytanego datagrida z fakturami
+        /// </summary>
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
             List<BaseInvoice> baseInvoice = baseInvoices;
@@ -492,6 +611,9 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             }
         }
 
+        /// <summary>
+        /// Metoda, która wczytuje listę dłużników
+        /// </summary>
         private void WiredUpDebtorList(List<Invoice> debtorInvoice)
         {
             debters.Clear();
@@ -505,19 +627,19 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
             {
                 paid = Int32.Parse(invoice.Paid);
                 toPay = Int32.Parse(invoice.ToPay);
-                if(paid < toPay)
+                if (paid < toPay)
                 {
                     debt = toPay - paid;
                     iD = invoice.IdSeller;
                     invoiceNumber = invoice.Number;
-                    foreach(Seller seller in sellers)
+                    foreach (Seller seller in sellers)
                     {
-                        if(invoice.IdSeller == seller.IdSeller)
+                        if (invoice.IdSeller == seller.IdSeller)
                         {
                             fullName = seller.Name + " " + seller.Surname;
                         }
                     }
-                     Debter debter = new Debter(fullName, iD, debt, invoiceNumber);
+                    Debter debter = new Debter(fullName, iD, debt, invoiceNumber);
                     bool isInList = false;
                     foreach (Debter debter1 in debters)
                     {
@@ -529,25 +651,28 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
                     }
                     if (isInList)
-                    {                       
+                    {
                         debter.AddDebts(debt);
                         debters.Remove(debter);
                     }
                     debter.AddToInvoiceDictionary(invoiceNumber, debt);
                     debters.Add(debter);
-                    
 
                 }
             }
         }
 
+        /// <summary>
+        /// Metoda, która tworzy pdf do zestawień i zapisuje je do pliku w wybranym folderze
+        /// </summary>
         private void CreatestatementsPDF()
         {
-            try {
+            try
+            {
 
                 StringBuilder date = new StringBuilder("");
-                
-                if(!String.IsNullOrEmpty(DateSettelmentFrom.Text))
+
+                if (!String.IsNullOrEmpty(DateSettelmentFrom.Text))
                 {
                     date.Append(" od " + DateSettelmentFrom.Text);
                 }
@@ -679,34 +804,51 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
                 MessageBox.Show("Nie udało utworzyć się pliku pdf", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
+        /// <summary>
+        /// Metoda, która wywołuje metodę do filtrowania po datach od w zestawieniach
+        /// </summary>
         private void DateTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateFilter();
         }
 
+        /// <summary>
+        /// Metoda, która wywołuje metodę do filtrowania po datach do w zestawieniach
+        /// </summary>
         private void DateFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateFilter();
         }
 
+        /// <summary>
+        /// Metoda, która wywołuje metodę do filtrowania po datach od w rozliczeniach
+        /// </summary>
         private void DateSettelmentFrom_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateFilterDebtor();
         }
 
+        /// <summary>
+        /// Metoda, która wywołuje metodę do filtrowania po datach do w rozliczeniach
+        /// </summary>
         private void DateSettelmentTo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateFilterDebtor();
         }
 
+        /// <summary>
+        /// Metoda, która po wcisnięciu przycisku zapisz do pdf wywołuje metodę tworzenia pdf
+        /// </summary>
         private void CreateStatement_Click(object sender, RoutedEventArgs e)
         {
             CreatestatementsPDF();
             MessageBox.Show("Utworzono plik pdf");
         }
 
+        /// <summary>
+        /// Metoda, która wywołuje się po wcisnięciu się checkboxu korekta faktur w zakładce 
+        /// faktury. Ukrywa odpowiedne kolumny w datagridzie 
+        /// </summary>
         private void InvoiceCorrections_Checked(object sender, RoutedEventArgs e)
         {
             LoadCorrectionList();
@@ -715,6 +857,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
 
         }
 
+        /// <summary>
+        /// Metoda, która wywołuje się po odznaczeniu się checkboxu korekta faktur w zakładce 
+        /// faktury. Odsłania odpowiedne kolumny w datagridzie 
+        /// </summary>
         private void InvoiceCorrections_Unchecked(object sender, RoutedEventArgs e)
         {
             CompanyDataGrid.Columns[4].Visibility = Visibility.Visible;
