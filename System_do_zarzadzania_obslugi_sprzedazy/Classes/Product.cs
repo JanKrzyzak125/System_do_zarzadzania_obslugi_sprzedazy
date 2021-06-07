@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace System_do_zarzadzania_obslugi_sprzedazy
 {
     /// <summary>
-    /// Klasa Product, która zawiera informacje odnoœnie produktu
+    /// Klasa Product, ktora zawiera informacje odnosnie produktu
     /// </summary>
     public class Product : IEquatable<Product>
     {
@@ -38,7 +38,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         /// <summary>
-        /// Iloœæ produktu
+        /// Ilosc produktu
         /// </summary>
         [DisplayName("Ilosc")]
         public string Quantity
@@ -68,7 +68,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         /// <summary>
-        /// Wartoœæ Vat
+        /// Wartosc Vat
         /// </summary>
         [DisplayName("Wartosc Vat")]
         public string VatValue
@@ -78,7 +78,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         /// <summary>
-        /// Wartoœæ Brutto 
+        /// Wartosc Brutto 
         /// </summary>
         [DisplayName("Wartosc Brutto")]
         public string GrossValue
@@ -88,7 +88,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         /// <summary>
-        /// Konstruktor domyœlny
+        /// Konstruktor domyslny
         /// </summary>
         public Product()
         {
@@ -96,7 +96,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         /// <summary>
-        /// Konstruktor prze³adowany danymi
+        /// Konstruktor przeladowany danymi
         /// </summary>
         /// <param name="id">Id Produktu</param>
         /// <param name="name">Nazwa Produktu</param>
@@ -107,15 +107,15 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         /// <summary>
-        /// Konstruktor prze³adowany danymi
+        /// Konstruktor przeladowany danymi
         /// </summary>
         /// <param name="id">Id Produktu</param>
         /// <param name="name">Nazwa Produktu</param>
-        /// <param name="quantity">Iloœæ produktu</param>
+        /// <param name="quantity">Ilosc produktu</param>
         /// <param name="netPrice">Cena Netto</param>
         /// <param name="vat">Vat Produktu</param>
-        /// <param name="vatValue">Wartoœæ Vat</param>
-        /// <param name="grossValue">Wartoœæ Brutto</param>
+        /// <param name="vatValue">Wartosc Vat</param>
+        /// <param name="grossValue">Wartosc Brutto</param>
         public Product(int id, string name, string quantity, string netPrice, string vat, string vatValue, string grossValue )
         {
             Id = id;
@@ -128,14 +128,14 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         /// <summary>
-        /// Konstruktor prze³adowany danymi
+        /// Konstruktor przeladowany danymi
         /// </summary>
         /// <param name="name">Nazwa Produktu</param>
-        /// <param name="quantity">Iloœæ produktu</param>
+        /// <param name="quantity">Ilosc produktu</param>
         /// <param name="netPrice">Cena Netto</param>
         /// <param name="vat">Vat Produktu</param>
-        /// <param name="vatValue">Wartoœæ Vat</param>
-        /// <param name="grossValue">Wartoœæ Brutto</param>
+        /// <param name="vatValue">Wartosc Vat</param>
+        /// <param name="grossValue">Wartosc Brutto</param>
         public Product( string name, string quantity, string netPrice, string vat, string vatValue, string grossValue)
         {
             Name = name;
@@ -147,10 +147,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         /// <summary>
-        /// Porównywanie Nazw
+        /// Porownywanie Nazw
         /// </summary>
         /// <param name="other">Drugi produkt klasy Product</param>
-        /// <returns>true w przypadku równoœci, false w przypadku braku</returns>
+        /// <returns>true w przypadku rownosci, false w przypadku braku</returns>
         public bool Equals(Product other)
         {
             if(other == null)
@@ -161,10 +161,10 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         }
 
         /// <summary>
-        /// Porównywanie tekstu
+        /// Porownywanie tekstu
         /// </summary>
         /// <param name="other">Drugi tekst</param>
-        /// <returns>true w przypadku równoœci, false w przypadku braku</returns>
+        /// <returns>true w przypadku rownosci, false w przypadku braku</returns>
         public bool Equals(string other)
         {
             if (other == null)
@@ -178,7 +178,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         /// Nadpisana metoda Equals
         /// </summary>
         /// <param name="obj">Object produkt</param>
-        /// <returns>Zwraca false jeœli bêdzie pusty obiekt, w przeciwnym wypadku wzraca nazwê produktu</returns>
+        /// <returns>Zwraca false jezli bedzie pusty obiekt, w przeciwnym wypadku wzraca nazwe produktu</returns>
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
@@ -190,17 +190,17 @@ namespace System_do_zarzadzania_obslugi_sprzedazy
         /// <summary>
         /// Nadpisana metoda GetHashCode
         /// </summary>
-        /// <returns>zwraca bazê objektu</returns>
+        /// <returns>zwraca baze objektu</returns>
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
 
         /// <summary>
-        /// Metoda bool, która wzraca czy nazwa siê zaczyna tak samo jak nazwa argumencie metody
+        /// Metoda bool, ktora wzraca czy nazwa sie zaczyna tak samo jak nazwa argumencie metody
         /// </summary>
         /// <param name="filter_param"></param>
-        /// <returns>zwraca false gdy string jest pusty, w przeciwnym wypadku wzraca true jeœli tak samo siê nazywa jak argument metody</returns>
+        /// <returns>zwraca false gdy string jest pusty, w przeciwnym wypadku wzraca true jezeli tak samo sie nazywa jak argument metody</returns>
         internal bool StartsWith(string filter_param)
         {
             if (filter_param == null)

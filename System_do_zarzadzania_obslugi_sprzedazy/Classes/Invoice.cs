@@ -1,7 +1,7 @@
 namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
 {
     /// <summary>
-    /// klasa Invoice z g³ównymi danymi odnoœnie faktur
+    /// klasa Invoice z glownymi danymi odnosnie faktur
     /// </summary>
     public class Invoice : BaseInvoice
     {
@@ -36,7 +36,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         /// <summary>
-        /// Data sprzeda¿y
+        /// Data sprzedazy
         /// </summary>
         public string SaleDate
         {
@@ -45,7 +45,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         /// <summary>
-        /// Typ p³atnoœci
+        /// Typ platnosci
         /// </summary>
         public string PaymentType
         {
@@ -54,7 +54,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         /// <summary>
-        /// Termin p³atnoœci
+        /// Termin platnosci
         /// </summary>
         public string PaymentDeadline
         {
@@ -63,7 +63,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         /// <summary>
-        /// Czy faktura zosta³a zap³acona
+        /// Czy faktura zostala zaplacona
         /// </summary>
         public string ToPay
         {
@@ -72,7 +72,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         /// <summary>
-        /// Iloœæ pieniêdzy do zap³aty s³ownie
+        /// Ilosc pieniedzy do zaplaty slownie
         /// </summary>
         public string ToPayInWords
         {
@@ -81,7 +81,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         /// <summary>
-        /// Nazwa us³ugi
+        /// Nazwa uslugi
         /// </summary>
         public string NameOfService
         {
@@ -117,7 +117,7 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         /// <summary>
-        /// Konstruktor domyœlny
+        /// Konstruktor domyslny
         /// </summary>
         public Invoice()
         {
@@ -125,20 +125,20 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         /// <summary>
-        /// Konstruktor prze³adowany danymi
+        /// Konstruktor przeladowany danymi
         /// </summary>
         /// <param name="idSeller">ID sprzedawcy</param>
         /// <param name="idCompany">ID Firmy</param>
         /// <param name="number">Numer faktury</param>
         /// <param name="creationDate">Data stworzenia faktury</param>
-        /// <param name="saleDate">Data sprzeda¿y</param>
-        /// <param name="paymentType">Typ p³atnoœci</param>
-        /// <param name="paymentDeadline">Termin do zap³aty</param>
-        /// <param name="toPay">ile zap³acono</param>
-        /// <param name="toPayInWords">S³ownie suma do zap³acenia</param>
-        /// <param name="paid">Czy zap³acono</param>
+        /// <param name="saleDate">Data sprzedazy</param>
+        /// <param name="paymentType">Typ platnosci</param>
+        /// <param name="paymentDeadline">Termin do zaplaty</param>
+        /// <param name="toPay">ile zaplacono</param>
+        /// <param name="toPayInWords">Slownie suma do zaplacenia</param>
+        /// <param name="paid">Czy zaplacono</param>
         /// <param name="dateOfIssue">Data wystawienia</param>
-        /// <param name="nameOfService">Nazwa us³ugi</param>
+        /// <param name="nameOfService">Nazwa uslugi</param>
         /// <param name="accountNumber">Numer konta bankowego</param>
         public Invoice(int idSeller, int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
             string toPayInWords, string paid, string dateOfIssue, string nameOfService, string accountNumber)
@@ -161,21 +161,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         /// <summary>
-        /// Konstruktor prze³adowany danymi
+        /// Konstruktor przeladowany danymi
         /// </summary>
         /// <param name="id">ID faktury</param>
         /// <param name="idSeller">ID sprzedawcy</param>
         /// <param name="idCompany">ID Firmy</param>
         /// <param name="number">Numer faktury</param>
         /// <param name="creationDate">Data stworzenia faktury</param>
-        /// <param name="saleDate">Data sprzeda¿y</param>
-        /// <param name="paymentType">Typ p³atnoœci</param>
-        /// <param name="paymentDeadline">Termin do zap³aty</param>
-        /// <param name="toPay">ile zap³acono</param>
-        /// <param name="toPayInWords">S³ownie suma do zap³acenia</param>
-        /// <param name="paid">Czy zap³acono</param>
+        /// <param name="saleDate">Data sprzedazy</param>
+        /// <param name="paymentType">Typ platnosci</param>
+        /// <param name="paymentDeadline">Termin do zaplaty</param>
+        /// <param name="toPay">ile zaplacono</param>
+        /// <param name="toPayInWords">Slownie suma do zaplacenia</param>
+        /// <param name="paid">Czy zaplacono</param>
         /// <param name="dateOfIssue">Data wystawienia</param>
-        /// <param name="nameOfService">Nazwa us³ugi</param>
+        /// <param name="nameOfService">Nazwa uslugi</param>
         /// <param name="accountNumber">Numer konta bankowego</param>
         public Invoice(int id, int idSeller,int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
             string toPayInWords, string paid, string dateOfIssue, string nameOfService, string accountNumber)
@@ -197,21 +197,21 @@ namespace System_do_zarzadzania_obslugi_sprzedazy.Classes
         }
 
         /// <summary>
-        /// Konstruktor prze³adowany danymi
+        /// Konstruktor przeladowany danymi
         /// </summary>
         /// <param name="id">ID faktury</param>
         /// <param name="idSeller">ID sprzedawcy</param>
         /// <param name="idCompany">ID Firmy</param>
         /// <param name="number">Numer faktury</param>
         /// <param name="creationDate">Data stworzenia faktury</param>
-        /// <param name="saleDate">Data sprzeda¿y</param>
-        /// <param name="paymentType">Typ p³atnoœci</param>
-        /// <param name="paymentDeadline">Termin do zap³aty</param>
-        /// <param name="toPay">ile zap³acono</param>
-        /// <param name="toPayInWords">S³ownie suma do zap³acenia</param>
-        /// <param name="paid">Czy zap³acono</param>
+        /// <param name="saleDate">Data sprzedazy</param>
+        /// <param name="paymentType">Typ platnosci</param>
+        /// <param name="paymentDeadline">Termin do zaplaty</param>
+        /// <param name="toPay">ile zaplacono</param>
+        /// <param name="toPayInWords">Slownie suma do zaplacenia</param>
+        /// <param name="paid">Czy zaplacono</param>
         /// <param name="dateOfIssue">Data wystawienia</param>
-        /// <param name="nameOfService">Nazwa us³ugi</param>
+        /// <param name="nameOfService">Nazwa uslugi</param>
         /// <param name="accountNumber">Numer konta bankowego</param>
         /// <param name="isPrinted">Czy jest wydrukowany</param>
         public Invoice(int id, int idSeller, int idCompany, string number, string creationDate, string saleDate, string paymentType, string paymentDeadline, string toPay,
